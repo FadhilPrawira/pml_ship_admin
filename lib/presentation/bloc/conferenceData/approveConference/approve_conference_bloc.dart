@@ -1,0 +1,29 @@
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../data/datasource/conference_remote_datasource.dart';
+import '../../../../data/models/request/approve_user_or_conference_request_model.dart';
+import '../../../../data/models/response/update_user_or_conference_status_response_model.dart';
+
+part 'approve_conference_event.dart';
+part 'approve_conference_state.dart';
+part 'approve_conference_bloc.freezed.dart';
+
+class ApproveConferenceBloc
+    extends Bloc<ApproveConferenceEvent, ApproveConferenceState> {
+  final ConferenceRemoteDatasource conferenceRemoteDatasource;
+  ApproveConferenceBloc(this.conferenceRemoteDatasource)
+      : super(const _Initial()) {
+    on<_ApproveConference>((event, emit) async {
+      emit(const ApproveConferenceState.loading());
+      final response = await conferenceRemoteDatasource.approveConference(
+        event.approveUserOrConferenceRequestModel,
+        event.transactionId,
+      );
+      response.fold(
+        (l) => emit(ApproveConferenceState.error(l)),
+        (r) => emit(ApproveConferenceState.success(r)),
+      );
+    });
+  }
+}

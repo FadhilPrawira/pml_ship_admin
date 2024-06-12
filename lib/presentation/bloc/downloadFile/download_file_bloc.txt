@@ -1,0 +1,14 @@
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'download_file_event.txt';
+part 'download_file_state.txt';
+part '../../customerdata/bloc/bloc/download_file_bloc.freezed.dart';
+
+class DownloadFileBloc extends Bloc<DownloadFileEvent, DownloadFileState> {
+  DownloadFileBloc() : super(_Initial()) {
+    on<DownloadFileEvent>((event, emit) async {
+      // TODO: implement event handler
+    });
+  }
+}

@@ -12,6 +12,22 @@ Github repository of Tugas Akhir Teknik Elektro Universitas Diponegoro
 # About The Project
 As a shipping company, [PT Patria Maritime Lines](https://pml.co.id/) experiences difficulties in managing customer orders. Previously customer orders came via telephone or email. It is hoped that the PML-SHIP application can move customer orders from telephone/email to ordering via the application
 
+<!--# 📷 Screen Shots Feature-->
+
+<!--
+|                    Login Screen                    |                   Home Screen 1                    |                   Home Screen 2                    |                   Confirm Screen                   |
+| :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
+| <img src="/assets/screenshoot/pos1.jpg" alt="POS"> | <img src="/assets/screenshoot/pos9.jpg" alt="POS"> | <img src="/assets/screenshoot/pos8.jpg" alt="POS"> | <img src="/assets/screenshoot/pos2.jpg" alt="POS"> |
+
+|               Success Payment Screen               |           Setting - Sync Data and Order            |                 Report Transaction                 |            Setting - Pajak and Layanan             |
+| :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
+| <img src="/assets/screenshoot/pos6.jpg" alt="POS"> | <img src="/assets/screenshoot/pos3.jpg" alt="POS"> | <img src="/assets/screenshoot/pos4.jpg" alt="POS"> | <img src="/assets/screenshoot/pos5.jpg" alt="POS"> |
+
+|                Discount Management                 |                       Logout                        |                 Printer Management                  |                    Struk (Nota)                     |
+| :------------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
+| <img src="/assets/screenshoot/pos7.jpg" alt="POS"> | <img src="/assets/screenshoot/pos10.jpg" alt="POS"> | <img src="/assets/screenshoot/pos11.jpg" alt="POS"> | <img src="/assets/screenshoot/pos12.jpg" alt="POS"> |
+-->
+
 # Team Member
 ## Team ID / Document Number: 837
 | Name | Student ID | Contact |
