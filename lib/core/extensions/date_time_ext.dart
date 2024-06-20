@@ -52,10 +52,10 @@ const List<String> _monthInternationalNames = [
 extension DateTimeExt on DateTime {
   DateTime toUtcPlus7() {
     // Convert the date to UTC
-    DateTime utc = this.toUtc();
+    DateTime utc = toUtc();
 
     // Add 7 hours to the UTC date
-    DateTime utcPlus7 = utc.add(Duration(hours: 7));
+    DateTime utcPlus7 = utc.add(const Duration(hours: 7));
 
     return utcPlus7;
   }
@@ -107,7 +107,7 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedUTC7Time() {
-    DateTime utcPlus7 = this.toUtcPlus7();
+    DateTime utcPlus7 = toUtcPlus7();
 
     // Get the datetime and add hours to get UTC+7 time (WIB)
     String hour = add(const Duration(hours: 7)).hour.toString().padLeft(2, '0');
@@ -117,7 +117,7 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedUTC8Time() {
-    DateTime utcPlus7 = this.toUtcPlus7();
+    DateTime utcPlus7 = toUtcPlus7();
     // Get the datetime and add hours to get UTC+8 time (WITA)
     String hour = add(const Duration(hours: 8)).hour.toString().padLeft(2, '0');
     String minute = utcPlus7.minute.toString().padLeft(2, '0');
@@ -126,7 +126,7 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedUTC9Time() {
-    DateTime utcPlus7 = this.toUtcPlus7();
+    DateTime utcPlus7 = toUtcPlus7();
     // Get the datetime and add hours to get UTC+9 time (WIT)
     String hour = add(const Duration(hours: 9)).hour.toString().padLeft(2, '0');
     String minute = utcPlus7.minute.toString().padLeft(2, '0');

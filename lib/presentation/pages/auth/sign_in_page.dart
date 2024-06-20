@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
-import '../../../../data/datasource/auth_local_datasource.dart';
+import '../../../data/datasources/auth_local_datasource.dart';
 import '../../bloc/login/login_bloc.dart';
 
 class SignInPage extends StatefulWidget {
@@ -229,7 +229,11 @@ class _SignInPageState extends State<SignInPage> {
                   orElse: () {},
                   success: (authResponseModel) {
                     AuthLocalDataSource().saveAuthData(authResponseModel);
-                    Navigator.pushNamed(context, '/mainpage');
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/mainpage',
+                      (route) => false,
+                    );
                   },
                   error: (message) {
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -7,12 +7,15 @@ import '../../../data/models/request/reject_user_or_conference_request_model.dar
 import '../../bloc/conferenceData/approveConference/approve_conference_bloc.dart';
 import '../../bloc/conferenceData/detailConference/detail_conference_bloc.dart';
 import '../../bloc/conferenceData/rejectConference/reject_conference_bloc.dart';
+import 'package:pml_ship_admin/data/models/response/conference_response_model.dart';
 
 class VerifyConferenceData extends StatefulWidget {
   final String transactionId;
+  final Function refreshData;
   const VerifyConferenceData({
     super.key,
     required this.transactionId,
+    required this.refreshData,
   });
 
   @override
@@ -30,586 +33,234 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor1,
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () {
-            Navigator.pop(context);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: backgroundColor1,
+          leading: IconButton(
+            icon: const Icon(Icons.chevron_left),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text(
+            'Verify Conference Data',
+          ),
+          titleTextStyle:
+              primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+        ),
+        body: BlocBuilder<DetailConferenceBloc, DetailConferenceState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+                orElse: () => const Center(child: Text('Error')),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                success: (conference) => buildConferenceDataTab(conference));
           },
         ),
-        title: Container(
-          padding: EdgeInsets.all(defaultMargin),
-          child: Text(
-            'Verify Conference Data',
-            style:
-                primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+      ),
+    );
+  }
+
+  ListView buildConferenceDataTab(ConferenceResponseModel conference) {
+    bool isPending = conference.data.status == 'pending';
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      children: [
+        buildSectionHeader('Conference Info'),
+        buildInfoItem('Transaction ID', conference.data.transactionId),
+        buildInfoItem('Conference method', conference.data.conferenceType),
+        buildInfoItem('Company Name', conference.data.companyName),
+        buildSectionHeader('Order Info'),
+        buildInfoItem('Shipper', conference.data.shipperName),
+        buildInfoItem('Consignee', conference.data.consigneeName),
+        buildInfoItem('Route',
+            '${conference.data.portOfLoadingName} to ${conference.data.portOfDischargeName}'),
+        buildInfoItem(
+            'Date of Loading', conference.data.dateOfLoading.toIso8601String()),
+        buildInfoItem('Date of Discharge',
+            conference.data.dateOfDischarge.toIso8601String()),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30.0),
+          child: Visibility(
+            visible: isPending,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                buildRejectButton(conference.data.companyName),
+                buildApproveButton(conference.data.companyName),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  BlocListener<ApproveConferenceBloc, ApproveConferenceState>
+      buildApproveButton(String companyName) {
+    return BlocListener<ApproveConferenceBloc, ApproveConferenceState>(
+      listener: (context, state) {
+        state.maybeMap(
+          orElse: () {},
+          error: (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          success: (value) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text('Conference with $companyName approved successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+
+            Navigator.pop(context);
+            widget.refreshData();
+          },
+        );
+      },
+      child: TextButton(
+        onPressed: () {
+          final dataRequest = ApproveUserOrConferenceRequestModel(
+            approvedDate: DateTime.now(),
+          );
+          context.read<ApproveConferenceBloc>().add(
+                ApproveConferenceEvent.approveConference(
+                  dataRequest,
+                  widget.transactionId,
+                ),
+              );
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: verifyCheck,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Text(
+          'Verify',
+          style: primaryTextStyle.copyWith(
+            fontWeight: medium,
+            fontSize: 16.0,
+            color: primaryColor,
           ),
         ),
       ),
-      body: BlocBuilder<DetailConferenceBloc, DetailConferenceState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-            orElse: () {
-              return const Center(child: Text('Error'));
-            },
-            loading: () {
-              return const Center(child: CircularProgressIndicator());
-            },
-            success: (conference) {
-              return ListView(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 20.0,
-                      left: defaultMargin,
-                      right: defaultMargin,
-                    ),
-                    child: Text(
-                      'Conference Info',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold,
-                        fontSize: 22.0,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 10.0),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Transaction ID',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.transactionId,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Conference method',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.conferenceType,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Conference Location',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.location,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Conference Time',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  '${conference.data.conferenceDate.toIso8601String()} ${conference.data.conferenceTime}',
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Company Name',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.companyName,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 20.0,
-                      left: defaultMargin,
-                      right: defaultMargin,
-                    ),
-                    child: Text(
-                      'Order Info',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold,
-                        fontSize: 22.0,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 10.0),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Shipper',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.shipperName,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Consignee',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.consigneeName,
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+    );
+  }
 
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Route',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  '${conference.data.portOfLoadingName} to ${conference.data.portOfDischargeName}',
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        // Company Address
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Date of Loading',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.dateOfLoading
-                                      .toIso8601String(),
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Date of Discharge',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 16.0,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12.0,
-                                ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(),
-                                ),
-                                child: Text(
-                                  conference.data.dateOfDischarge
-                                      .toIso8601String(),
-                                  style: primaryTextStyle.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        BlocListener<RejectConferenceBloc,
-                            RejectConferenceState>(
-                          listener: (context, state) {
-                            state.maybeMap(
-                              orElse: () {},
-                              error: (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(e.message),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              },
-                              success: (value) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Conference with ${conference.data.companyName} rejected successfully'),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
-                          child: TextButton(
-                            onPressed: () {
-                              final dataRequest =
-                                  RejectUserOrConferenceRequestModel(
-                                rejectedDate: DateTime.now(),
-                              );
-                              context.read<RejectConferenceBloc>().add(
-                                    RejectConferenceEvent.rejectConference(
-                                      dataRequest,
-                                      widget.transactionId,
-                                    ),
-                                  );
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                            child: Text(
-                              'Reject',
-                              style: primaryTextStyle.copyWith(
-                                fontWeight: medium,
-                                fontSize: 16.0,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                        BlocListener<ApproveConferenceBloc,
-                            ApproveConferenceState>(
-                          listener: (context, state) {
-                            state.maybeMap(
-                              orElse: () {},
-                              error: (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(e.message),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              },
-                              success: (value) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Conference with ${conference.data.companyName} approved successfully'),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
-                          child: TextButton(
-                            onPressed: () {
-                              final dataRequest =
-                                  ApproveUserOrConferenceRequestModel(
-                                approvedDate: DateTime.now(),
-                              );
-                              context.read<ApproveConferenceBloc>().add(
-                                    ApproveConferenceEvent.approveConference(
-                                      dataRequest,
-                                      widget.transactionId,
-                                    ),
-                                  );
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: verifyCheck,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                            child: Text(
-                              'Verify',
-                              style: primaryTextStyle.copyWith(
-                                  fontWeight: medium,
-                                  fontSize: 16.0,
-                                  color: primaryColor),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
+  BlocListener<RejectConferenceBloc, RejectConferenceState> buildRejectButton(
+      String companyName) {
+    return BlocListener<RejectConferenceBloc, RejectConferenceState>(
+      listener: (context, state) {
+        state.maybeMap(
+          orElse: () {},
+          error: (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          success: (value) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text('Conference with $companyName rejected successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pop(context);
+            widget.refreshData();
+          },
+        );
+      },
+      child: TextButton(
+        onPressed: () {
+          final dataRequest = RejectUserOrConferenceRequestModel(
+            rejectedDate: DateTime.now(),
           );
+          context.read<RejectConferenceBloc>().add(
+                RejectConferenceEvent.rejectConference(
+                  dataRequest,
+                  widget.transactionId,
+                ),
+              );
         },
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Text(
+          'Reject',
+          style: primaryTextStyle.copyWith(
+            fontWeight: medium,
+            fontSize: 16.0,
+            color: primaryColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildInfoItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: primaryTextStyle.copyWith(
+              fontWeight: medium,
+              fontSize: 12,
+            ),
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 12.0,
+            ),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(),
+            ),
+            child: Text(
+              value,
+              style: primaryTextStyle.copyWith(
+                fontWeight: medium,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildSectionHeader(String title) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 20.0,
+      ),
+      child: Text(
+        title,
+        style: primaryTextStyle.copyWith(
+          fontWeight: semiBold,
+          fontSize: 22.0,
+        ),
       ),
     );
   }

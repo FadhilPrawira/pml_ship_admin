@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../data/datasource/user_remote_datasource.dart';
+import '../../../../data/datasources/user_remote_datasource.dart';
 import '../../../../data/models/request/reject_user_or_conference_request_model.dart';
 import '../../../../data/models/response/update_user_or_conference_status_response_model.dart';
 

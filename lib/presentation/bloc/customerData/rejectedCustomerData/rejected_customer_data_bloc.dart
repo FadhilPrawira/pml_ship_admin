@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../data/datasource/user_remote_datasource.dart';
+import '../../../../data/datasources/user_remote_datasource.dart';
 import '../../../../data/models/response/get_all_status_user_response_model.dart';
 
 part 'rejected_customer_data_bloc.freezed.dart';

@@ -2,7 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../data/datasource/auth_remote_datasource.dart';
+import '../../../data/datasources/auth_remote_datasource.dart';
 
 part 'logout_bloc.freezed.dart';
 part 'logout_event.dart';
