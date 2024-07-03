@@ -20,8 +20,8 @@ mixin _$ApproveUserEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)
         approveUser,
   }) =>
@@ -30,8 +30,8 @@ mixin _$ApproveUserEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
   }) =>
@@ -40,8 +40,8 @@ mixin _$ApproveUserEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
     required TResult orElse(),
@@ -126,8 +126,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)
         approveUser,
   }) {
@@ -139,8 +139,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
   }) {
@@ -152,8 +152,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
     required TResult orElse(),
@@ -207,7 +207,8 @@ abstract class _$$ApproveUserImplCopyWith<$Res> {
       __$$ApproveUserImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {ApproveUserOrConferenceRequestModel approveUserOrConferenceRequestModel,
+      {ApproveUserOrOrderOrConferenceRequestModel
+          approveUserOrOrderOrConferenceRequestModel,
       int userId});
 }
 
@@ -222,14 +223,14 @@ class __$$ApproveUserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? approveUserOrConferenceRequestModel = null,
+    Object? approveUserOrOrderOrConferenceRequestModel = null,
     Object? userId = null,
   }) {
     return _then(_$ApproveUserImpl(
-      null == approveUserOrConferenceRequestModel
-          ? _value.approveUserOrConferenceRequestModel
-          : approveUserOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
-              as ApproveUserOrConferenceRequestModel,
+      null == approveUserOrOrderOrConferenceRequestModel
+          ? _value.approveUserOrOrderOrConferenceRequestModel
+          : approveUserOrOrderOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
+              as ApproveUserOrOrderOrConferenceRequestModel,
       null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -242,16 +243,17 @@ class __$$ApproveUserImplCopyWithImpl<$Res>
 
 class _$ApproveUserImpl implements _ApproveUser {
   const _$ApproveUserImpl(
-      this.approveUserOrConferenceRequestModel, this.userId);
+      this.approveUserOrOrderOrConferenceRequestModel, this.userId);
 
   @override
-  final ApproveUserOrConferenceRequestModel approveUserOrConferenceRequestModel;
+  final ApproveUserOrOrderOrConferenceRequestModel
+      approveUserOrOrderOrConferenceRequestModel;
   @override
   final int userId;
 
   @override
   String toString() {
-    return 'ApproveUserEvent.approveUser(approveUserOrConferenceRequestModel: $approveUserOrConferenceRequestModel, userId: $userId)';
+    return 'ApproveUserEvent.approveUser(approveUserOrOrderOrConferenceRequestModel: $approveUserOrOrderOrConferenceRequestModel, userId: $userId)';
   }
 
   @override
@@ -259,16 +261,16 @@ class _$ApproveUserImpl implements _ApproveUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApproveUserImpl &&
-            (identical(other.approveUserOrConferenceRequestModel,
-                    approveUserOrConferenceRequestModel) ||
-                other.approveUserOrConferenceRequestModel ==
-                    approveUserOrConferenceRequestModel) &&
+            (identical(other.approveUserOrOrderOrConferenceRequestModel,
+                    approveUserOrOrderOrConferenceRequestModel) ||
+                other.approveUserOrOrderOrConferenceRequestModel ==
+                    approveUserOrOrderOrConferenceRequestModel) &&
             (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, approveUserOrConferenceRequestModel, userId);
+  int get hashCode => Object.hash(
+      runtimeType, approveUserOrOrderOrConferenceRequestModel, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -281,12 +283,12 @@ class _$ApproveUserImpl implements _ApproveUser {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)
         approveUser,
   }) {
-    return approveUser(approveUserOrConferenceRequestModel, userId);
+    return approveUser(approveUserOrOrderOrConferenceRequestModel, userId);
   }
 
   @override
@@ -294,12 +296,13 @@ class _$ApproveUserImpl implements _ApproveUser {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
   }) {
-    return approveUser?.call(approveUserOrConferenceRequestModel, userId);
+    return approveUser?.call(
+        approveUserOrOrderOrConferenceRequestModel, userId);
   }
 
   @override
@@ -307,14 +310,14 @@ class _$ApproveUserImpl implements _ApproveUser {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             int userId)?
         approveUser,
     required TResult orElse(),
   }) {
     if (approveUser != null) {
-      return approveUser(approveUserOrConferenceRequestModel, userId);
+      return approveUser(approveUserOrOrderOrConferenceRequestModel, userId);
     }
     return orElse();
   }
@@ -353,11 +356,12 @@ class _$ApproveUserImpl implements _ApproveUser {
 
 abstract class _ApproveUser implements ApproveUserEvent {
   const factory _ApproveUser(
-      final ApproveUserOrConferenceRequestModel
-          approveUserOrConferenceRequestModel,
+      final ApproveUserOrOrderOrConferenceRequestModel
+          approveUserOrOrderOrConferenceRequestModel,
       final int userId) = _$ApproveUserImpl;
 
-  ApproveUserOrConferenceRequestModel get approveUserOrConferenceRequestModel;
+  ApproveUserOrOrderOrConferenceRequestModel
+      get approveUserOrOrderOrConferenceRequestModel;
   int get userId;
   @JsonKey(ignore: true)
   _$$ApproveUserImplCopyWith<_$ApproveUserImpl> get copyWith =>

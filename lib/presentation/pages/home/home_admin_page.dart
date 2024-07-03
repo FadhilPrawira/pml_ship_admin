@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/routes.dart';
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
@@ -19,7 +18,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   void initState() {
     AuthLocalDataSource().getAuthData().then((value) {
       setState(() {
-        user = value.data;
+        user = value.data.user;
       });
     });
     super.initState();

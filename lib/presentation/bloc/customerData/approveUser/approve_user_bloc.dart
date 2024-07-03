@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../data/datasources/user_remote_datasource.dart';
-import '../../../../data/models/request/approve_user_or_conference_request_model.dart';
+import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/update_user_or_conference_status_response_model.dart';
 
 part 'approve_user_bloc.freezed.dart';
@@ -15,7 +15,7 @@ class ApproveUserBloc extends Bloc<ApproveUserEvent, ApproveUserState> {
     on<_ApproveUser>((event, emit) async {
       emit(const ApproveUserState.loading());
       final response = await userRemoteDatasource.approveUser(
-        event.approveUserOrConferenceRequestModel,
+        event.approveUserOrOrderOrConferenceRequestModel,
         event.userId,
       );
       response.fold(

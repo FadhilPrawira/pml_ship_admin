@@ -4,6 +4,7 @@ part of 'reject_conference_bloc.dart';
 class RejectConferenceEvent with _$RejectConferenceEvent {
   const factory RejectConferenceEvent.started() = _Started;
   const factory RejectConferenceEvent.rejectConference(
-      RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel,
+      RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       String transactionId) = _RejectConference;
 }

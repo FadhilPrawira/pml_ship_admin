@@ -20,8 +20,8 @@ mixin _$RejectConferenceEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)
         rejectConference,
   }) =>
@@ -30,8 +30,8 @@ mixin _$RejectConferenceEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
   }) =>
@@ -40,8 +40,8 @@ mixin _$RejectConferenceEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
     required TResult orElse(),
@@ -127,8 +127,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)
         rejectConference,
   }) {
@@ -140,8 +140,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
   }) {
@@ -153,8 +153,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
     required TResult orElse(),
@@ -208,7 +208,8 @@ abstract class _$$RejectConferenceImplCopyWith<$Res> {
       __$$RejectConferenceImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel,
+      {RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       String transactionId});
 }
 
@@ -223,14 +224,14 @@ class __$$RejectConferenceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rejectUserOrConferenceRequestModel = null,
+    Object? rejectUserOrOrderOrConferenceRequestModel = null,
     Object? transactionId = null,
   }) {
     return _then(_$RejectConferenceImpl(
-      null == rejectUserOrConferenceRequestModel
-          ? _value.rejectUserOrConferenceRequestModel
-          : rejectUserOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
-              as RejectUserOrConferenceRequestModel,
+      null == rejectUserOrOrderOrConferenceRequestModel
+          ? _value.rejectUserOrOrderOrConferenceRequestModel
+          : rejectUserOrOrderOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
+              as RejectUserOrOrderOrConferenceRequestModel,
       null == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
@@ -243,16 +244,17 @@ class __$$RejectConferenceImplCopyWithImpl<$Res>
 
 class _$RejectConferenceImpl implements _RejectConference {
   const _$RejectConferenceImpl(
-      this.rejectUserOrConferenceRequestModel, this.transactionId);
+      this.rejectUserOrOrderOrConferenceRequestModel, this.transactionId);
 
   @override
-  final RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel;
+  final RejectUserOrOrderOrConferenceRequestModel
+      rejectUserOrOrderOrConferenceRequestModel;
   @override
   final String transactionId;
 
   @override
   String toString() {
-    return 'RejectConferenceEvent.rejectConference(rejectUserOrConferenceRequestModel: $rejectUserOrConferenceRequestModel, transactionId: $transactionId)';
+    return 'RejectConferenceEvent.rejectConference(rejectUserOrOrderOrConferenceRequestModel: $rejectUserOrOrderOrConferenceRequestModel, transactionId: $transactionId)';
   }
 
   @override
@@ -260,17 +262,17 @@ class _$RejectConferenceImpl implements _RejectConference {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RejectConferenceImpl &&
-            (identical(other.rejectUserOrConferenceRequestModel,
-                    rejectUserOrConferenceRequestModel) ||
-                other.rejectUserOrConferenceRequestModel ==
-                    rejectUserOrConferenceRequestModel) &&
+            (identical(other.rejectUserOrOrderOrConferenceRequestModel,
+                    rejectUserOrOrderOrConferenceRequestModel) ||
+                other.rejectUserOrOrderOrConferenceRequestModel ==
+                    rejectUserOrOrderOrConferenceRequestModel) &&
             (identical(other.transactionId, transactionId) ||
                 other.transactionId == transactionId));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, rejectUserOrConferenceRequestModel, transactionId);
+      runtimeType, rejectUserOrOrderOrConferenceRequestModel, transactionId);
 
   @JsonKey(ignore: true)
   @override
@@ -284,12 +286,13 @@ class _$RejectConferenceImpl implements _RejectConference {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)
         rejectConference,
   }) {
-    return rejectConference(rejectUserOrConferenceRequestModel, transactionId);
+    return rejectConference(
+        rejectUserOrOrderOrConferenceRequestModel, transactionId);
   }
 
   @override
@@ -297,13 +300,13 @@ class _$RejectConferenceImpl implements _RejectConference {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
   }) {
     return rejectConference?.call(
-        rejectUserOrConferenceRequestModel, transactionId);
+        rejectUserOrOrderOrConferenceRequestModel, transactionId);
   }
 
   @override
@@ -311,15 +314,15 @@ class _$RejectConferenceImpl implements _RejectConference {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         rejectConference,
     required TResult orElse(),
   }) {
     if (rejectConference != null) {
       return rejectConference(
-          rejectUserOrConferenceRequestModel, transactionId);
+          rejectUserOrOrderOrConferenceRequestModel, transactionId);
     }
     return orElse();
   }
@@ -358,11 +361,12 @@ class _$RejectConferenceImpl implements _RejectConference {
 
 abstract class _RejectConference implements RejectConferenceEvent {
   const factory _RejectConference(
-      final RejectUserOrConferenceRequestModel
-          rejectUserOrConferenceRequestModel,
+      final RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       final String transactionId) = _$RejectConferenceImpl;
 
-  RejectUserOrConferenceRequestModel get rejectUserOrConferenceRequestModel;
+  RejectUserOrOrderOrConferenceRequestModel
+      get rejectUserOrOrderOrConferenceRequestModel;
   String get transactionId;
   @JsonKey(ignore: true)
   _$$RejectConferenceImplCopyWith<_$RejectConferenceImpl> get copyWith =>

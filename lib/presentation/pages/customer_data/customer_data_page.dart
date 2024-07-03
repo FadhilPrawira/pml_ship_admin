@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/constants/routes.dart';
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/models/response/get_all_status_user_response_model.dart';
@@ -106,7 +105,7 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
       builder: (context, state) {
         return (state as dynamic).maybeWhen(
           orElse: () {
-            return const Center(child: Text('Error'));
+            return const Center(child: Text('No data available'));
           },
           loading: () {
             return const Center(
@@ -114,9 +113,9 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
             );
           },
           success: (response) {
-            if (response.data.isEmpty) {
-              return const Center(child: Text('No Data Available'));
-            }
+            // if (response.data.isEmpty) {
+            //   return const Center(child: Text('No Data Available'));
+            // }
             return buildCustomerDataItem(
               response,
               fetchData,
@@ -152,21 +151,28 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                userData.createdAt.toFormattedIndonesianLongDateAndUTC7Time(),
+                // Show the date based on the status. Display the createdAt date if the status is pending, approvedAt date if the status is approved, and rejectedAt date if the status is rejected. If the status is none of the above, display the createdAt date.
+                userData.status == 'pending'
+                    ? 'Created at : ${userData.createdAt.toIso8601String()}'
+                    : userData.status == 'approved'
+                        ? 'Approved at : ${userData.approvedAt!.toIso8601String()}'
+                        : userData.status == 'rejected'
+                            ? 'Rejected at : ${userData.rejectedAt!.toIso8601String()}'
+                            : 'Created at : ${userData.createdAt.toIso8601String()}',
                 style: primaryTextStyle.copyWith(
                   fontWeight: medium,
                   fontSize: 12.0,
                 ),
               ),
               Text(
-                userData.name,
+                userData.user.name,
                 style: primaryTextStyle.copyWith(
                   fontWeight: medium,
                   fontSize: 18.0,
                 ),
               ),
               Text(
-                userData.companyName,
+                userData.company.companyName,
                 style: primaryTextStyle.copyWith(
                   fontWeight: bold,
                   fontSize: 18.0,
@@ -182,7 +188,7 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
                         context,
                         AppRoutes.verifyCustomer,
                         arguments: {
-                          'userId': userData.id,
+                          'userId': userData.user.id,
                           'refreshData': refreshData,
                         },
                       );

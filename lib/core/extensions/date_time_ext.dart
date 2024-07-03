@@ -85,10 +85,10 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedInternationalShortDate() {
-    DateTime utcPlus7 = toUtcPlus7();
+    // DateTime utcPlus7 = toUtcPlus7();
 
-    String day = utcPlus7.day.toString().padLeft(2, '0');
-    String month = utcPlus7.month.toString().padLeft(2, '0');
+    String day = this.day.toString().padLeft(2, '0');
+    String month = this.month.toString().padLeft(2, '0');
     return '$year-$month-$day';
     // 2024-12-31
     // 2024-12-02
@@ -107,11 +107,11 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedUTC7Time() {
-    DateTime utcPlus7 = toUtcPlus7();
+    // DateTime utcPlus7 = toUtcPlus7();
 
     // Get the datetime and add hours to get UTC+7 time (WIB)
-    String hour = add(const Duration(hours: 7)).hour.toString().padLeft(2, '0');
-    String minute = utcPlus7.minute.toString().padLeft(2, '0');
+    String hour = this.hour.toString().padLeft(2, '0');
+    String minute = this.minute.toString().padLeft(2, '0');
     return '$hour:$minute WIB';
     // 07:59 WIB
   }

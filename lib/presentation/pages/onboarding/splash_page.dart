@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/routes.dart';
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 
@@ -34,9 +33,15 @@ class _SplashPageState extends State<SplashPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            Assets.image.ship.imageShipUnsplash.image(
-              height: double.infinity, // Ensures image takes full height
-              fit: BoxFit.cover, // Ensure the image covers the whole screen
+            // Assets.image.ship.imageShipUnsplash.image(
+            //   height: double.infinity, // Ensures image takes full height
+            //   fit: BoxFit.cover, // Ensure the image covers the whole screen
+            // ),
+            Positioned.fill(
+              child: Assets.image.ship.imageShipUnsplash.image(
+                // height: double.infinity, // Ensures image takes full height
+                fit: BoxFit.cover, // Ensure the image covers the whole screen
+              ),
             ),
             Container(
               decoration: BoxDecoration(

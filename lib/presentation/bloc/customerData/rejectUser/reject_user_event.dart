@@ -4,6 +4,7 @@ part of 'reject_user_bloc.dart';
 class RejectUserEvent with _$RejectUserEvent {
   const factory RejectUserEvent.started() = _Started;
   const factory RejectUserEvent.rejectUser(
-      RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel,
+      RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       int userId) = _RejectUser;
 }

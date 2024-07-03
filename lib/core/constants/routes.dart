@@ -11,4 +11,6 @@ class AppRoutes {
   static const String verifyCustomer = '/verify-customer';
   static const String verifyConference = '/verify-conference';
   static const String verifyOrder = '/verify-order';
+  static const String documentList = '/document-list';
+  static const String uploadDocument = '/upload-document';
 }

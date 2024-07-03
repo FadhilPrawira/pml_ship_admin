@@ -79,7 +79,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 const SizedBox(height: 20.0),
                 Text(
-                  'PML SHIP',
+                  'PML SHIP Admin',
                   style: primaryTextStyle.copyWith(
                     fontWeight: bold,
                     fontSize: 24.0,

@@ -1,9 +1,13 @@
 import 'dart:convert';
 
 class GetAllStatusUserResponseModel {
+  final String status;
+  final String message;
   final List<Datum> data;
 
   GetAllStatusUserResponseModel({
+    required this.status,
+    required this.message,
     required this.data,
   });
 
@@ -14,53 +18,41 @@ class GetAllStatusUserResponseModel {
 
   factory GetAllStatusUserResponseModel.fromMap(Map<String, dynamic> json) =>
       GetAllStatusUserResponseModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] != null
+            ? List<Datum>.from(json["data"].map((x) => Datum.fromMap(x)))
+            : [],
       );
 
   Map<String, dynamic> toMap() => {
+        "status": status,
+        "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }
 
 class Datum {
-  final int id;
   final String status;
   final String role;
-  final String name;
-  final String phone;
-  final String email;
-  final DateTime? emailVerifiedAt;
-  final String companyName;
-  final String companyAddress;
-  final String companyPhone;
-  final String companyEmail;
-  final String companyNpwp;
-  final String companyAktaUrl;
+  final User user;
+  final Company company;
+  final String? reasonRejected;
+  final DateTime? rejectedAt;
+  final DateTime? approvedAt;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final DateTime? rejectedDate;
-  final DateTime? approvedDate;
-  final DateTime? deletedAt;
 
   Datum({
-    required this.id,
     required this.status,
     required this.role,
-    required this.name,
-    required this.phone,
-    required this.email,
-    this.emailVerifiedAt,
-    required this.companyName,
-    required this.companyAddress,
-    required this.companyPhone,
-    required this.companyEmail,
-    required this.companyNpwp,
-    required this.companyAktaUrl,
+    required this.user,
+    required this.company,
+    this.reasonRejected,
+    this.rejectedAt,
+    this.approvedAt,
     required this.createdAt,
     required this.updatedAt,
-    this.rejectedDate,
-    this.approvedDate,
-    this.deletedAt,
   });
 
   factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
@@ -68,52 +60,102 @@ class Datum {
   String toJson() => json.encode(toMap());
 
   factory Datum.fromMap(Map<String, dynamic> json) => Datum(
-        id: json["id"],
         status: json["status"],
         role: json["role"],
-        name: json["name"],
-        phone: json["phone"],
-        email: json["email"],
-        emailVerifiedAt: json["email_verified_at"] != null
-            ? DateTime.parse(json["email_verified_at"])
+        user: User.fromMap(json["user"]),
+        company: Company.fromMap(json["company"]),
+        reasonRejected: json["reason_rejected"],
+        rejectedAt: json["rejected_at"] != null
+            ? DateTime.parse(json["rejected_at"])
             : null,
+        approvedAt: json["approved_at"] != null
+            ? DateTime.parse(json["approved_at"])
+            : null,
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "status": status,
+        "role": role,
+        "user": user.toMap(),
+        "company": company.toMap(),
+        "reason_rejected": reasonRejected,
+        "rejected_at": rejectedAt?.toIso8601String(),
+        "approved_at": approvedAt?.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Company {
+  final String companyName;
+  final String companyAddress;
+  final String companyPhone;
+  final String companyEmail;
+  final String companyNpwp;
+  final String companyAkta;
+
+  Company({
+    required this.companyName,
+    required this.companyAddress,
+    required this.companyPhone,
+    required this.companyEmail,
+    required this.companyNpwp,
+    required this.companyAkta,
+  });
+
+  factory Company.fromJson(String str) => Company.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Company.fromMap(Map<String, dynamic> json) => Company(
         companyName: json["company_name"],
         companyAddress: json["company_address"],
         companyPhone: json["company_phone"],
         companyEmail: json["company_email"],
         companyNpwp: json["company_NPWP"],
-        companyAktaUrl: json["company_akta_url"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        rejectedDate: json["rejectedDate"] != null
-            ? DateTime.parse(json["rejectedDate"])
-            : null,
-        approvedDate: json["approvedDate"] != null
-            ? DateTime.parse(json["approvedDate"])
-            : null,
-        deletedAt: json["deleted_at"] != null
-            ? DateTime.parse(json["deleted_at"])
-            : null,
+        companyAkta: json["company_akta"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "status": status,
-        "role": role,
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "company_name": companyName,
         "company_address": companyAddress,
         "company_phone": companyPhone,
         "company_email": companyEmail,
         "company_NPWP": companyNpwp,
-        "company_akta_url": companyAktaUrl,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "rejectedDate": rejectedDate?.toIso8601String(),
-        "approvedDate": approvedDate?.toIso8601String(),
-        "deleted_at": deletedAt?.toIso8601String(),
+        "company_akta": companyAkta,
+      };
+}
+
+class User {
+  final int id;
+  final String name;
+  final String phone;
+  final String email;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.phone,
+    required this.email,
+  });
+
+  factory User.fromJson(String str) => User.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory User.fromMap(Map<String, dynamic> json) => User(
+        id: json["id"],
+        name: json["name"],
+        phone: json["phone"],
+        email: json["email"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "phone": phone,
+        "email": email,
       };
 }

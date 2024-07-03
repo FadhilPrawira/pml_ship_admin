@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/styles.dart';
-import '../../../data/models/request/approve_user_or_conference_request_model.dart';
-import '../../../data/models/request/reject_user_or_conference_request_model.dart';
+import '../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
+import '../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../bloc/conferenceData/approveConference/approve_conference_bloc.dart';
 import '../../bloc/conferenceData/detailConference/detail_conference_bloc.dart';
 import '../../bloc/conferenceData/rejectConference/reject_conference_bloc.dart';
-import 'package:pml_ship_admin/data/models/response/conference_response_model.dart';
+import '../../../data/models/response/conference_response_model.dart';
 
 class VerifyConferenceData extends StatefulWidget {
   final String transactionId;
@@ -68,17 +68,17 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
       children: [
         buildSectionHeader('Conference Info'),
         buildInfoItem('Transaction ID', conference.data.transactionId),
-        buildInfoItem('Conference method', conference.data.conferenceType),
-        buildInfoItem('Company Name', conference.data.companyName),
+        buildInfoItem('Conference method', conference.data.conference.type),
+        buildInfoItem('Company Name', conference.data.conference.companyName),
         buildSectionHeader('Order Info'),
-        buildInfoItem('Shipper', conference.data.shipperName),
-        buildInfoItem('Consignee', conference.data.consigneeName),
+        buildInfoItem('Shipper', conference.data.order.shipper.name),
+        buildInfoItem('Consignee', conference.data.order.consignee.name),
         buildInfoItem('Route',
-            '${conference.data.portOfLoadingName} to ${conference.data.portOfDischargeName}'),
-        buildInfoItem(
-            'Date of Loading', conference.data.dateOfLoading.toIso8601String()),
+            '${conference.data.order.loading.port} to ${conference.data.order.discharge.port}'),
+        buildInfoItem('Date of Loading',
+            conference.data.order.loading.date.toIso8601String()),
         buildInfoItem('Date of Discharge',
-            conference.data.dateOfDischarge.toIso8601String()),
+            conference.data.order.discharge.date.toIso8601String()),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 30.0),
           child: Visibility(
@@ -86,8 +86,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buildRejectButton(conference.data.companyName),
-                buildApproveButton(conference.data.companyName),
+                buildRejectButton(conference.data.conference.companyName),
+                buildApproveButton(conference.data.conference.companyName),
               ],
             ),
           ),
@@ -126,8 +126,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
       },
       child: TextButton(
         onPressed: () {
-          final dataRequest = ApproveUserOrConferenceRequestModel(
-            approvedDate: DateTime.now(),
+          final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
+            approvedAt: DateTime.now(),
           );
           context.read<ApproveConferenceBloc>().add(
                 ApproveConferenceEvent.approveConference(
@@ -183,8 +183,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
       },
       child: TextButton(
         onPressed: () {
-          final dataRequest = RejectUserOrConferenceRequestModel(
-            rejectedDate: DateTime.now(),
+          final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
+            rejectedAt: DateTime.now(),
           );
           context.read<RejectConferenceBloc>().add(
                 RejectConferenceEvent.rejectConference(

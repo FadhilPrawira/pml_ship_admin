@@ -2,22 +2,23 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import '../models/response/update_user_or_conference_status_response_model.dart';
 
 import '../../core/constants/variables.dart';
-import '../models/request/approve_user_or_conference_request_model.dart';
-import '../models/request/reject_user_or_conference_request_model.dart';
+import '../models/request/approve_user_or_order_or_conference_request_model.dart';
+import '../models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../models/response/conference_response_model.dart';
 import '../models/response/get_all_status_conference_response_model.dart';
-import '../models/response/update_user_or_conference_status_response_model.dart';
 import 'auth_local_datasource.dart';
 
 class ConferenceRemoteDatasource {
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllPendingConference() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/pendingConferences');
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/conferences?status=pending');
     final authData = await AuthLocalDataSource().getAuthData();
     var headers = {
-      'Authorization': 'Bearer ${authData.token}',
+      'Authorization': 'Bearer ${authData.data.token}',
       'Accept': 'application/json',
     };
     final response = await http.get(
@@ -40,10 +41,11 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllApprovedConference() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/approvedConferences');
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/conferences?status=approved');
     final authData = await AuthLocalDataSource().getAuthData();
     final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.token}',
+      'Authorization': 'Bearer ${authData.data.token}',
       'Accept': 'application/json',
     });
 
@@ -59,10 +61,11 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllRejectedConference() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/rejectedConferences');
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/conferences?status=rejected');
     final authData = await AuthLocalDataSource().getAuthData();
     final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.token}',
+      'Authorization': 'Bearer ${authData.data.token}',
       'Accept': 'application/json',
     });
 
@@ -82,7 +85,7 @@ class ConferenceRemoteDatasource {
         Uri.parse('${Variables.baseUrl}/api/conferences/$transactionId');
     final authData = await AuthLocalDataSource().getAuthData();
     final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.token}',
+      'Authorization': 'Bearer ${authData.data.token}',
       'Accept': 'application/json',
     });
 
@@ -98,8 +101,8 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>>
       approveConference(
-          ApproveUserOrConferenceRequestModel
-              approveUserOrConferenceRequestModel,
+          ApproveUserOrOrderOrConferenceRequestModel
+              approveUserOrOrderOrConferenceRequestModel,
           String transactionId) async {
     final authData = await AuthLocalDataSource().getAuthData();
     final url = Uri.parse(
@@ -107,15 +110,15 @@ class ConferenceRemoteDatasource {
     final response = await http.patch(
       url,
       headers: <String, String>{
-        'Authorization': 'Bearer ${authData.token}',
+        'Authorization': 'Bearer ${authData.data.token}',
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: approveUserOrConferenceRequestModel.toJson(),
+      body: approveUserOrOrderOrConferenceRequestModel.toJson(),
     );
     // Log url
 
-    log("request: ${approveUserOrConferenceRequestModel.toJson()}");
+    log("request: ${approveUserOrOrderOrConferenceRequestModel.toJson()}");
     log("resposen: ${response.statusCode}");
     log("resposen: ${response.body}");
 
@@ -129,7 +132,8 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>>
       rejectConference(
-          RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel,
+          RejectUserOrOrderOrConferenceRequestModel
+              rejectUserOrOrderOrConferenceRequestModel,
           String transactionId) async {
     final authData = await AuthLocalDataSource().getAuthData();
     final url =
@@ -137,15 +141,15 @@ class ConferenceRemoteDatasource {
     final response = await http.patch(
       url,
       headers: <String, String>{
-        'Authorization': 'Bearer ${authData.token}',
+        'Authorization': 'Bearer ${authData.data.token}',
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: rejectUserOrConferenceRequestModel.toJson(),
+      body: rejectUserOrOrderOrConferenceRequestModel.toJson(),
     );
     // Log url
 
-    log("request: ${rejectUserOrConferenceRequestModel.toJson()}");
+    log("request: ${rejectUserOrOrderOrConferenceRequestModel.toJson()}");
     log("resposen: ${response.statusCode}");
     log("resposen: ${response.body}");
 

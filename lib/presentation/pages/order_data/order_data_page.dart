@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/core.dart';
-import '../../core/styles.dart';
-import '../../data/models/response/get_all_status_order_response_model.dart';
-import '../bloc/orderData/OnShippingOrdersData/on_shipping_orders_data_bloc.dart';
-import '../bloc/orderData/canceledOrdersData/canceled_orders_data_bloc.dart';
-import '../bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
-import '../bloc/orderData/paymentPendingOrdersData/payment_pending_orders_data_bloc.dart';
-import '../bloc/orderData/pendingOrdersData/pending_orders_data_bloc.dart';
-import '../bloc/orderData/rejectedOrdersData/rejected_orders_data_bloc.dart';
+import '../../../core/core.dart';
+import '../../../core/styles.dart';
+import '../../../data/models/response/get_all_status_order_response_model.dart';
+import '../../bloc/orderData/OnShippingOrdersData/on_shipping_orders_data_bloc.dart';
+import '../../bloc/orderData/canceledOrdersData/canceled_orders_data_bloc.dart';
+import '../../bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
+import '../../bloc/orderData/paymentPendingOrdersData/payment_pending_orders_data_bloc.dart';
+import '../../bloc/orderData/pendingOrdersData/pending_orders_data_bloc.dart';
+import '../../bloc/orderData/rejectedOrdersData/rejected_orders_data_bloc.dart';
 
 class OrderDataPage extends StatefulWidget {
   const OrderDataPage({super.key});
@@ -161,7 +161,9 @@ class _OrderDataPageState extends State<OrderDataPage> {
       builder: (context, state) {
         return (state as dynamic).maybeWhen(
           orElse: () {
-            return const Center(child: Text('Error'));
+            return const Center(
+              child: Text('No data available'),
+            );
           },
           loading: () {
             return const Center(
@@ -206,22 +208,40 @@ class _OrderDataPageState extends State<OrderDataPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
             children: [
-              Text(
-                orderData.createdAt.toIso8601String(),
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
-                  fontSize: 12.0,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    orderData.status == 'order_pending'
+                        ? 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}'
+                        : orderData.status == 'payment_pending'
+                            ? 'Approved at: ${orderData.negotiationOrOrderApprovedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+                            : orderData.status == 'on_shipping'
+                                ? 'On shipping at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
+                                : orderData.status == 'order_completed'
+                                    ? 'Completed at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
+                                    : orderData.status == 'order_rejected'
+                                        ? 'Rejected at: ${orderData.orderRejectedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+                                        : orderData.status == 'order_canceled'
+                                            ? 'Canceled at: ${orderData.orderCanceledAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+                                            : 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}',
+                    style: primaryTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                  Text(orderData.transactionId),
+                ],
               ),
               Text(
-                '${orderData.shipperName} - ${orderData.consigneeName}',
+                '${orderData.shipper.name} - ${orderData.consignee.name}',
                 style: primaryTextStyle.copyWith(
                   fontWeight: medium,
                   fontSize: 18.0,
                 ),
               ),
               Text(
-                '${orderData.portOfLoadingName.toString()} → ${orderData.portOfDischargeName.toString()}',
+                '${orderData.loading.port} → ${orderData.discharge.port}',
                 style:
                     primaryTextStyle.copyWith(fontWeight: bold, fontSize: 18.0),
               ),
@@ -232,11 +252,14 @@ class _OrderDataPageState extends State<OrderDataPage> {
                     width: 170,
                     onPressed: () {
                       // To navigate to VerifyOrderDataPage
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   AppRoutes.verifyCustomer,
-                      //   arguments: userData.id,
-                      // );
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.verifyOrder,
+                        arguments: {
+                          'transactionId': orderData.transactionId,
+                          'refreshData': refreshData,
+                        },
+                      );
                     },
                     label: 'Order Detail',
                     fontSize: 12.0,

@@ -1,14 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'dart:developer';
 import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
-import '../../../core/constants/routes.dart';
+import '../../../data/models/response/get_all_status_conference_response_model.dart';
 import '../../bloc/conferenceData/approvedConferenceData/approved_conference_data_bloc.dart';
 import '../../bloc/conferenceData/pendingConferenceData/pending_conference_data_bloc.dart';
 import '../../bloc/conferenceData/rejectedConferenceData/rejected_conference_data_bloc.dart';
-import 'package:pml_ship_admin/data/models/response/get_all_status_conference_response_model.dart';
 
 class ConferenceDataPage extends StatefulWidget {
   const ConferenceDataPage({super.key});
@@ -119,7 +119,7 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
       builder: (context, state) {
         return (state as dynamic).maybeWhen(
           orElse: () {
-            return const Center(child: Text('Error'));
+            return const Center(child: Text('No data available'));
           },
           loading: () {
             return const Center(
@@ -166,12 +166,12 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                conferenceData.createdAt.toString(),
+                conferenceData.createdAt.toIso8601String(),
                 style: primaryTextStyle.copyWith(
                     fontWeight: medium, fontSize: 12.0),
               ),
               Text(
-                conferenceData.companyName,
+                conferenceData.conference.companyName,
                 style: primaryTextStyle.copyWith(
                     fontWeight: medium, fontSize: 18.0),
               ),

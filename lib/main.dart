@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'data/datasources/payment_remote_datasource.dart';
+import 'presentation/bloc/orderData/approveOrderData/approve_order_data_bloc.dart';
+import 'presentation/bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
+import 'presentation/bloc/orderData/rejectOrderData/reject_order_data_bloc.dart';
 
-import 'core/constants/routes.dart';
+import 'core/core.dart';
 import 'data/datasources/auth_local_datasource.dart';
 import 'data/datasources/auth_remote_datasource.dart';
 import 'data/datasources/conference_remote_datasource.dart';
+import 'data/datasources/document_remote_datasource.dart';
 import 'data/datasources/order_remote_datasource.dart';
 import 'data/datasources/user_remote_datasource.dart';
 import 'presentation/bloc/conferenceData/approveConference/approve_conference_bloc.dart';
@@ -19,14 +24,22 @@ import 'presentation/bloc/customerData/pendingCustomerData/pending_customer_data
 import 'presentation/bloc/customerData/profileAndDetailCustomer/profile_and_detail_customer_bloc.dart';
 import 'presentation/bloc/customerData/rejectUser/reject_user_bloc.dart';
 import 'presentation/bloc/customerData/rejectedCustomerData/rejected_customer_data_bloc.dart';
+import 'presentation/bloc/documentData/document_data_bloc.dart';
 import 'presentation/bloc/login/login_bloc.dart';
 import 'presentation/bloc/logout/logout_bloc.dart';
 import 'presentation/bloc/orderData/OnShippingOrdersData/on_shipping_orders_data_bloc.dart';
 import 'presentation/bloc/orderData/canceledOrdersData/canceled_orders_data_bloc.dart';
 import 'presentation/bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
+import 'presentation/bloc/orderData/detailOrderData/detail_order_data_bloc.dart';
 import 'presentation/bloc/orderData/paymentPendingOrdersData/payment_pending_orders_data_bloc.dart';
 import 'presentation/bloc/orderData/pendingOrdersData/pending_orders_data_bloc.dart';
 import 'presentation/bloc/orderData/rejectedOrdersData/rejected_orders_data_bloc.dart';
+import 'presentation/bloc/paymentData/approvePayment/approve_payment_bloc.dart';
+import 'presentation/bloc/paymentData/approvedPaymentData/approved_payment_data_bloc.dart';
+import 'presentation/bloc/paymentData/pendingPaymentData/pending_payment_data_bloc.dart';
+import 'presentation/bloc/paymentData/rejectPayment/reject_payment_bloc.dart';
+import 'presentation/bloc/paymentData/rejectedPaymentData/rejected_payment_data_bloc.dart';
+import 'presentation/bloc/uploadDocument/upload_document_bloc.dart';
 import 'presentation/main_page.dart';
 import 'presentation/pages/auth/sign_in_page.dart';
 import 'presentation/pages/conference_data/conference_data_page.dart';
@@ -34,9 +47,12 @@ import 'presentation/pages/conference_data/verify_conference_data.dart';
 import 'presentation/pages/customer_data/customer_data_page.dart';
 import 'presentation/pages/customer_data/verify_customer_data.dart';
 import 'presentation/pages/document/customer_document_data_page.dart';
-import 'presentation/pages/document/payment_data_page.dart';
+import 'presentation/pages/document/document_list_page.dart';
+import 'presentation/pages/payment/payment_data_page.dart';
+import 'presentation/pages/document/upload_document_page.dart';
 import 'presentation/pages/onboarding/splash_page.dart';
-import 'presentation/pages/order_data_page.dart';
+import 'presentation/pages/order_data/order_data_page.dart';
+import 'presentation/pages/order_data/verify_order_data_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -119,6 +135,42 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RejectedOrdersDataBloc(OrderRemoteDatasource()),
         ),
+        BlocProvider(
+          create: (context) => DetailOrderDataBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ApproveOrderDataBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => RejectOrderDataBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => DocumentDataBloc(DocumentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => OnProcessOrdersDataBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => UploadDocumentBloc(DocumentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ApprovedPaymentDataBloc(PaymentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              RejectedPaymentDataBloc(PaymentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              PendingPaymentDataBloc(PaymentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ApprovePaymentBloc(PaymentRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => RejectPaymentBloc(PaymentRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
         home: FutureBuilder<bool>(
@@ -151,6 +203,20 @@ class MainApp extends StatelessWidget {
           '/mainpage': (context) => const MainPage(),
           AppRoutes.customerData: (context) => const CustomerDataPage(),
           AppRoutes.documentData: (context) => const CustomerDocumentDataPage(),
+          AppRoutes.documentList: (context) {
+            final args = ModalRoute.of(context)!.settings.arguments;
+            return DocumentListPage(
+              transactionId: args as String,
+            );
+          },
+          AppRoutes.uploadDocument: (context) {
+            final args = ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>;
+            return UploadDocumentPage(
+              documentType: args['documentType'] as String,
+              transactionId: args['transactionId'] as String,
+            );
+          },
           AppRoutes.orderData: (context) => const OrderDataPage(),
           AppRoutes.paymentData: (context) => const PaymentDataPage(),
           AppRoutes.conferenceData: (context) => const ConferenceDataPage(),
@@ -181,6 +247,25 @@ class MainApp extends StatelessWidget {
               final refreshData = args['refreshData'] as Function;
 
               return VerifyConferenceData(
+                transactionId: transactionId,
+                refreshData: refreshData,
+              );
+            }
+            return const Scaffold(
+              body: Center(
+                child: Text('Invalid arguments'),
+              ),
+            );
+          },
+          AppRoutes.verifyOrder: (context) {
+            final args = ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>;
+            if (args.containsKey('transactionId') &&
+                args['transactionId'] is String) {
+              final transactionId = args['transactionId'] as String;
+              final refreshData = args['refreshData'] as Function;
+
+              return VerifyOrderDataPage(
                 transactionId: transactionId,
                 refreshData: refreshData,
               );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pml_ship_admin/data/models/response/user_response_model.dart';
 
 import '../../../core/styles.dart';
-import '../../../data/models/request/approve_user_or_conference_request_model.dart';
-import '../../../data/models/request/reject_user_or_conference_request_model.dart';
+import '../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
+import '../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
+import '../../../data/models/response/user_response_model.dart';
 import '../../bloc/customerData/approveUser/approve_user_bloc.dart';
 import '../../bloc/customerData/profileAndDetailCustomer/profile_and_detail_customer_bloc.dart';
 import '../../bloc/customerData/rejectUser/reject_user_bloc.dart';
@@ -88,16 +88,16 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
         buildSectionHeader('PIC Info'),
-        buildInfoItem('PIC Name', user.data.name),
-        buildInfoItem('PIC Phone', user.data.phone),
-        buildInfoItem('PIC Email', user.data.email),
+        buildInfoItem('PIC Name', user.data.user.name),
+        buildInfoItem('PIC Phone', user.data.user.phone),
+        buildInfoItem('PIC Email', user.data.user.email),
         buildSectionHeader('Company Info'),
-        buildInfoItem('Company Name', user.data.companyName),
-        buildInfoItem('Company NPWP', user.data.companyNpwp),
-        buildInfoItem('Company Address', user.data.companyAddress),
-        buildInfoItem('Company Phone', user.data.companyPhone),
-        buildInfoItem('Company Email', user.data.companyEmail),
-        buildInfoItem('Akta Perusahaan', user.data.companyAktaUrl),
+        buildInfoItem('Company Name', user.data.company.companyName),
+        buildInfoItem('Company NPWP', user.data.company.companyNpwp),
+        buildInfoItem('Company Address', user.data.company.companyAddress),
+        buildInfoItem('Company Phone', user.data.company.companyPhone),
+        buildInfoItem('Company Email', user.data.company.companyEmail),
+        buildInfoItem('Akta Perusahaan', user.data.company.companyAkta),
         Padding(
           padding: const EdgeInsets.only(bottom: 30.0),
           child: Visibility(
@@ -106,8 +106,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buildRejectButton(user.data.companyName),
-                buildApproveButton(user.data.companyName),
+                buildRejectButton(user.data.company.companyName),
+                buildApproveButton(user.data.company.companyName),
               ],
             ),
           ),
@@ -182,8 +182,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       },
       child: TextButton(
         onPressed: () {
-          final dataRequest = RejectUserOrConferenceRequestModel(
-            rejectedDate: DateTime.now(),
+          final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
+            rejectedAt: DateTime.now(),
           );
           context.read<RejectUserBloc>().add(
                 RejectUserEvent.rejectUser(
@@ -234,8 +234,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       },
       child: TextButton(
         onPressed: () {
-          final dataRequest = ApproveUserOrConferenceRequestModel(
-            approvedDate: DateTime.now(),
+          final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
+            approvedAt: DateTime.now(),
           );
           context.read<ApproveUserBloc>().add(
                 ApproveUserEvent.approveUser(

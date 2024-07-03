@@ -17,7 +17,9 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
       emit(const _Loading());
       final result = await datasource.logout();
       result.fold(
-          (l) => emit(_Error(l)), (r) => emit(const LogoutState.success()));
+        (l) => emit(_Error(l)),
+        (r) => emit(const LogoutState.success()),
+      );
     });
   }
 }

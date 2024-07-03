@@ -1,9 +1,13 @@
 import 'dart:convert';
 
 class ConferenceResponseModel {
-  final FullConferenceData data;
+  final String status;
+  final String message;
+  final Data data;
 
   ConferenceResponseModel({
+    required this.status,
+    required this.message,
     required this.data,
   });
 
@@ -14,72 +18,48 @@ class ConferenceResponseModel {
 
   factory ConferenceResponseModel.fromMap(Map<String, dynamic> json) =>
       ConferenceResponseModel(
-        data: FullConferenceData.fromMap(json["data"]),
+        status: json["status"],
+        message: json["message"],
+        data: Data.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
+        "status": status,
+        "message": message,
         "data": data.toMap(),
       };
 }
 
-class FullConferenceData {
-  final int id;
-  final String transactionId;
-  final int customerCompanyId;
+class Data {
   final String status;
-  final String conferenceType;
-  final String location;
-  final DateTime conferenceDate;
-  final String conferenceTime;
+  final String transactionId;
+  final Conference conference;
+  final Order order;
   final DateTime? conferenceApprovedAt;
   final DateTime? conferenceRejectedAt;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final String companyName;
-  final String portOfLoadingName;
-  final String portOfDischargeName;
-  final DateTime dateOfLoading;
-  final DateTime dateOfDischarge;
-  final String shipperName;
-  final String consigneeName;
 
-  FullConferenceData({
-    required this.id,
-    required this.transactionId,
-    required this.customerCompanyId,
+  Data({
     required this.status,
-    required this.conferenceType,
-    required this.location,
-    required this.conferenceDate,
-    required this.conferenceTime,
+    required this.transactionId,
+    required this.conference,
+    required this.order,
     this.conferenceApprovedAt,
     this.conferenceRejectedAt,
     required this.createdAt,
     required this.updatedAt,
-    required this.companyName,
-    required this.portOfLoadingName,
-    required this.portOfDischargeName,
-    required this.dateOfLoading,
-    required this.dateOfDischarge,
-    required this.shipperName,
-    required this.consigneeName,
   });
 
-  factory FullConferenceData.fromJson(String str) =>
-      FullConferenceData.fromMap(json.decode(str));
+  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory FullConferenceData.fromMap(Map<String, dynamic> json) =>
-      FullConferenceData(
-        id: json["id"],
-        transactionId: json["transaction_id"],
-        customerCompanyId: json["customer_company_id"],
+  factory Data.fromMap(Map<String, dynamic> json) => Data(
         status: json["status"],
-        conferenceType: json["conference_type"],
-        location: json["location"],
-        conferenceDate: DateTime.parse(json["conference_date"]),
-        conferenceTime: json["conference_time"],
+        transactionId: json["transaction_id"],
+        conference: Conference.fromMap(json["conference"]),
+        order: Order.fromMap(json["order"]),
         conferenceApprovedAt: json["conference_approved_at"] != null
             ? DateTime.parse(json["conference_approved_at"])
             : null,
@@ -88,37 +68,135 @@ class FullConferenceData {
             : null,
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        companyName: json["company_name"],
-        portOfLoadingName: json["port_of_loading_name"],
-        portOfDischargeName: json["port_of_discharge_name"],
-        dateOfLoading: DateTime.parse(json["date_of_loading"]),
-        dateOfDischarge: DateTime.parse(json["date_of_discharge"]),
-        shipperName: json["shipper_name"],
-        consigneeName: json["consignee_name"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "transaction_id": transactionId,
-        "customer_company_id": customerCompanyId,
         "status": status,
-        "conference_type": conferenceType,
-        "location": location,
-        "conference_date":
-            "${conferenceDate.year.toString().padLeft(4, '0')}-${conferenceDate.month.toString().padLeft(2, '0')}-${conferenceDate.day.toString().padLeft(2, '0')}",
-        "conference_time": conferenceTime,
+        "transaction_id": transactionId,
+        "conference": conference.toMap(),
+        "order": order.toMap(),
         "conference_approved_at": conferenceApprovedAt?.toIso8601String(),
         "conference_rejected_at": conferenceRejectedAt?.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Conference {
+  final String companyName;
+  final String type;
+  final String location;
+  final DateTime date;
+  final String time;
+
+  Conference({
+    required this.companyName,
+    required this.type,
+    required this.location,
+    required this.date,
+    required this.time,
+  });
+
+  factory Conference.fromJson(String str) =>
+      Conference.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Conference.fromMap(Map<String, dynamic> json) => Conference(
+        companyName: json["company_name"],
+        type: json["type"],
+        location: json["location"],
+        date: DateTime.parse(json["date"]),
+        time: json["time"],
+      );
+
+  Map<String, dynamic> toMap() => {
         "company_name": companyName,
-        "port_of_loading_name": portOfLoadingName,
-        "port_of_discharge_name": portOfDischargeName,
-        "date_of_loading":
-            "${dateOfLoading.year.toString().padLeft(4, '0')}-${dateOfLoading.month.toString().padLeft(2, '0')}-${dateOfLoading.day.toString().padLeft(2, '0')}",
-        "date_of_discharge":
-            "${dateOfDischarge.year.toString().padLeft(4, '0')}-${dateOfDischarge.month.toString().padLeft(2, '0')}-${dateOfDischarge.day.toString().padLeft(2, '0')}",
-        "shipper_name": shipperName,
-        "consignee_name": consigneeName,
+        "type": type,
+        "location": location,
+        "date":
+            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "time": time,
+      };
+}
+
+class Order {
+  final Discharge loading;
+  final Discharge discharge;
+  final Consignee shipper;
+  final Consignee consignee;
+
+  Order({
+    required this.loading,
+    required this.discharge,
+    required this.shipper,
+    required this.consignee,
+  });
+
+  factory Order.fromJson(String str) => Order.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Order.fromMap(Map<String, dynamic> json) => Order(
+        loading: Discharge.fromMap(json["loading"]),
+        discharge: Discharge.fromMap(json["discharge"]),
+        shipper: Consignee.fromMap(json["shipper"]),
+        consignee: Consignee.fromMap(json["consignee"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "loading": loading.toMap(),
+        "discharge": discharge.toMap(),
+        "shipper": shipper.toMap(),
+        "consignee": consignee.toMap(),
+      };
+}
+
+class Consignee {
+  final String name;
+  final String address;
+
+  Consignee({
+    required this.name,
+    required this.address,
+  });
+
+  factory Consignee.fromJson(String str) => Consignee.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Consignee.fromMap(Map<String, dynamic> json) => Consignee(
+        name: json["name"],
+        address: json["address"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "name": name,
+        "address": address,
+      };
+}
+
+class Discharge {
+  final int port;
+  final DateTime date;
+
+  Discharge({
+    required this.port,
+    required this.date,
+  });
+
+  factory Discharge.fromJson(String str) => Discharge.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Discharge.fromMap(Map<String, dynamic> json) => Discharge(
+        port: json["port"],
+        date: DateTime.parse(json["date"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "port": port,
+        "date":
+            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
       };
 }

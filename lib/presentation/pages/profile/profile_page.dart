@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/constants/routes.dart';
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../../data/models/response/auth_response_model.dart';
 import '../../bloc/logout/logout_bloc.dart';
-// import '../bloc/profile/profile_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -22,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     AuthLocalDataSource().getAuthData().then((value) {
       setState(() {
-        user = value.data;
+        user = value.data.user;
       });
     });
     super.initState();

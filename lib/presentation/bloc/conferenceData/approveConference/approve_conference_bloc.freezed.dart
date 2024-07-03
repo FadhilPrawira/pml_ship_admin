@@ -20,8 +20,8 @@ mixin _$ApproveConferenceEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)
         approveConference,
   }) =>
@@ -30,8 +30,8 @@ mixin _$ApproveConferenceEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
   }) =>
@@ -40,8 +40,8 @@ mixin _$ApproveConferenceEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
     required TResult orElse(),
@@ -127,8 +127,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)
         approveConference,
   }) {
@@ -140,8 +140,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
   }) {
@@ -153,8 +153,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
     required TResult orElse(),
@@ -208,7 +208,8 @@ abstract class _$$ApproveConferenceImplCopyWith<$Res> {
       __$$ApproveConferenceImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {ApproveUserOrConferenceRequestModel approveUserOrConferenceRequestModel,
+      {ApproveUserOrOrderOrConferenceRequestModel
+          approveUserOrOrderOrConferenceRequestModel,
       String transactionId});
 }
 
@@ -223,14 +224,14 @@ class __$$ApproveConferenceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? approveUserOrConferenceRequestModel = null,
+    Object? approveUserOrOrderOrConferenceRequestModel = null,
     Object? transactionId = null,
   }) {
     return _then(_$ApproveConferenceImpl(
-      null == approveUserOrConferenceRequestModel
-          ? _value.approveUserOrConferenceRequestModel
-          : approveUserOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
-              as ApproveUserOrConferenceRequestModel,
+      null == approveUserOrOrderOrConferenceRequestModel
+          ? _value.approveUserOrOrderOrConferenceRequestModel
+          : approveUserOrOrderOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
+              as ApproveUserOrOrderOrConferenceRequestModel,
       null == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
@@ -243,16 +244,17 @@ class __$$ApproveConferenceImplCopyWithImpl<$Res>
 
 class _$ApproveConferenceImpl implements _ApproveConference {
   const _$ApproveConferenceImpl(
-      this.approveUserOrConferenceRequestModel, this.transactionId);
+      this.approveUserOrOrderOrConferenceRequestModel, this.transactionId);
 
   @override
-  final ApproveUserOrConferenceRequestModel approveUserOrConferenceRequestModel;
+  final ApproveUserOrOrderOrConferenceRequestModel
+      approveUserOrOrderOrConferenceRequestModel;
   @override
   final String transactionId;
 
   @override
   String toString() {
-    return 'ApproveConferenceEvent.approveConference(approveUserOrConferenceRequestModel: $approveUserOrConferenceRequestModel, transactionId: $transactionId)';
+    return 'ApproveConferenceEvent.approveConference(approveUserOrOrderOrConferenceRequestModel: $approveUserOrOrderOrConferenceRequestModel, transactionId: $transactionId)';
   }
 
   @override
@@ -260,17 +262,17 @@ class _$ApproveConferenceImpl implements _ApproveConference {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApproveConferenceImpl &&
-            (identical(other.approveUserOrConferenceRequestModel,
-                    approveUserOrConferenceRequestModel) ||
-                other.approveUserOrConferenceRequestModel ==
-                    approveUserOrConferenceRequestModel) &&
+            (identical(other.approveUserOrOrderOrConferenceRequestModel,
+                    approveUserOrOrderOrConferenceRequestModel) ||
+                other.approveUserOrOrderOrConferenceRequestModel ==
+                    approveUserOrOrderOrConferenceRequestModel) &&
             (identical(other.transactionId, transactionId) ||
                 other.transactionId == transactionId));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, approveUserOrConferenceRequestModel, transactionId);
+      runtimeType, approveUserOrOrderOrConferenceRequestModel, transactionId);
 
   @JsonKey(ignore: true)
   @override
@@ -284,13 +286,13 @@ class _$ApproveConferenceImpl implements _ApproveConference {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)
         approveConference,
   }) {
     return approveConference(
-        approveUserOrConferenceRequestModel, transactionId);
+        approveUserOrOrderOrConferenceRequestModel, transactionId);
   }
 
   @override
@@ -298,13 +300,13 @@ class _$ApproveConferenceImpl implements _ApproveConference {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
   }) {
     return approveConference?.call(
-        approveUserOrConferenceRequestModel, transactionId);
+        approveUserOrOrderOrConferenceRequestModel, transactionId);
   }
 
   @override
@@ -312,15 +314,15 @@ class _$ApproveConferenceImpl implements _ApproveConference {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            ApproveUserOrConferenceRequestModel
-                approveUserOrConferenceRequestModel,
+            ApproveUserOrOrderOrConferenceRequestModel
+                approveUserOrOrderOrConferenceRequestModel,
             String transactionId)?
         approveConference,
     required TResult orElse(),
   }) {
     if (approveConference != null) {
       return approveConference(
-          approveUserOrConferenceRequestModel, transactionId);
+          approveUserOrOrderOrConferenceRequestModel, transactionId);
     }
     return orElse();
   }
@@ -359,11 +361,12 @@ class _$ApproveConferenceImpl implements _ApproveConference {
 
 abstract class _ApproveConference implements ApproveConferenceEvent {
   const factory _ApproveConference(
-      final ApproveUserOrConferenceRequestModel
-          approveUserOrConferenceRequestModel,
+      final ApproveUserOrOrderOrConferenceRequestModel
+          approveUserOrOrderOrConferenceRequestModel,
       final String transactionId) = _$ApproveConferenceImpl;
 
-  ApproveUserOrConferenceRequestModel get approveUserOrConferenceRequestModel;
+  ApproveUserOrOrderOrConferenceRequestModel
+      get approveUserOrOrderOrConferenceRequestModel;
   String get transactionId;
   @JsonKey(ignore: true)
   _$$ApproveConferenceImplCopyWith<_$ApproveConferenceImpl> get copyWith =>

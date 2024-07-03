@@ -20,8 +20,8 @@ mixin _$RejectUserEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)
         rejectUser,
   }) =>
@@ -30,8 +30,8 @@ mixin _$RejectUserEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
   }) =>
@@ -40,8 +40,8 @@ mixin _$RejectUserEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
     required TResult orElse(),
@@ -126,8 +126,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)
         rejectUser,
   }) {
@@ -139,8 +139,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
   }) {
@@ -152,8 +152,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
     required TResult orElse(),
@@ -207,7 +207,8 @@ abstract class _$$RejectUserImplCopyWith<$Res> {
       __$$RejectUserImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel,
+      {RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       int userId});
 }
 
@@ -222,14 +223,14 @@ class __$$RejectUserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rejectUserOrConferenceRequestModel = null,
+    Object? rejectUserOrOrderOrConferenceRequestModel = null,
     Object? userId = null,
   }) {
     return _then(_$RejectUserImpl(
-      null == rejectUserOrConferenceRequestModel
-          ? _value.rejectUserOrConferenceRequestModel
-          : rejectUserOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
-              as RejectUserOrConferenceRequestModel,
+      null == rejectUserOrOrderOrConferenceRequestModel
+          ? _value.rejectUserOrOrderOrConferenceRequestModel
+          : rejectUserOrOrderOrConferenceRequestModel // ignore: cast_nullable_to_non_nullable
+              as RejectUserOrOrderOrConferenceRequestModel,
       null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -241,16 +242,18 @@ class __$$RejectUserImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RejectUserImpl implements _RejectUser {
-  const _$RejectUserImpl(this.rejectUserOrConferenceRequestModel, this.userId);
+  const _$RejectUserImpl(
+      this.rejectUserOrOrderOrConferenceRequestModel, this.userId);
 
   @override
-  final RejectUserOrConferenceRequestModel rejectUserOrConferenceRequestModel;
+  final RejectUserOrOrderOrConferenceRequestModel
+      rejectUserOrOrderOrConferenceRequestModel;
   @override
   final int userId;
 
   @override
   String toString() {
-    return 'RejectUserEvent.rejectUser(rejectUserOrConferenceRequestModel: $rejectUserOrConferenceRequestModel, userId: $userId)';
+    return 'RejectUserEvent.rejectUser(rejectUserOrOrderOrConferenceRequestModel: $rejectUserOrOrderOrConferenceRequestModel, userId: $userId)';
   }
 
   @override
@@ -258,16 +261,16 @@ class _$RejectUserImpl implements _RejectUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RejectUserImpl &&
-            (identical(other.rejectUserOrConferenceRequestModel,
-                    rejectUserOrConferenceRequestModel) ||
-                other.rejectUserOrConferenceRequestModel ==
-                    rejectUserOrConferenceRequestModel) &&
+            (identical(other.rejectUserOrOrderOrConferenceRequestModel,
+                    rejectUserOrOrderOrConferenceRequestModel) ||
+                other.rejectUserOrOrderOrConferenceRequestModel ==
+                    rejectUserOrOrderOrConferenceRequestModel) &&
             (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, rejectUserOrConferenceRequestModel, userId);
+  int get hashCode => Object.hash(
+      runtimeType, rejectUserOrOrderOrConferenceRequestModel, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -280,12 +283,12 @@ class _$RejectUserImpl implements _RejectUser {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)
         rejectUser,
   }) {
-    return rejectUser(rejectUserOrConferenceRequestModel, userId);
+    return rejectUser(rejectUserOrOrderOrConferenceRequestModel, userId);
   }
 
   @override
@@ -293,12 +296,12 @@ class _$RejectUserImpl implements _RejectUser {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
   }) {
-    return rejectUser?.call(rejectUserOrConferenceRequestModel, userId);
+    return rejectUser?.call(rejectUserOrOrderOrConferenceRequestModel, userId);
   }
 
   @override
@@ -306,14 +309,14 @@ class _$RejectUserImpl implements _RejectUser {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(
-            RejectUserOrConferenceRequestModel
-                rejectUserOrConferenceRequestModel,
+            RejectUserOrOrderOrConferenceRequestModel
+                rejectUserOrOrderOrConferenceRequestModel,
             int userId)?
         rejectUser,
     required TResult orElse(),
   }) {
     if (rejectUser != null) {
-      return rejectUser(rejectUserOrConferenceRequestModel, userId);
+      return rejectUser(rejectUserOrOrderOrConferenceRequestModel, userId);
     }
     return orElse();
   }
@@ -352,11 +355,12 @@ class _$RejectUserImpl implements _RejectUser {
 
 abstract class _RejectUser implements RejectUserEvent {
   const factory _RejectUser(
-      final RejectUserOrConferenceRequestModel
-          rejectUserOrConferenceRequestModel,
+      final RejectUserOrOrderOrConferenceRequestModel
+          rejectUserOrOrderOrConferenceRequestModel,
       final int userId) = _$RejectUserImpl;
 
-  RejectUserOrConferenceRequestModel get rejectUserOrConferenceRequestModel;
+  RejectUserOrOrderOrConferenceRequestModel
+      get rejectUserOrOrderOrConferenceRequestModel;
   int get userId;
   @JsonKey(ignore: true)
   _$$RejectUserImplCopyWith<_$RejectUserImpl> get copyWith =>

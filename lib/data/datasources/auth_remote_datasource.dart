@@ -40,7 +40,7 @@ class AuthRemoteDatasource {
       final response = await http.delete(
         url,
         headers: {
-          'Authorization': 'Bearer ${authData.token}',
+          'Authorization': 'Bearer ${authData.data.token}',
           'Accept': 'application/json',
         },
       );
