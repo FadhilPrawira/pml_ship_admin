@@ -1,6 +1,0 @@
-part of 'download_file_bloc.txt';
-
-@freezed
-class DownloadFileEvent with _$DownloadFileEvent {
-  const factory DownloadFileEvent.started() = _Started;
-}

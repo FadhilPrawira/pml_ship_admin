@@ -1,9 +1,0 @@
-part of 'download_file_bloc.txt';
-
-@freezed
-class DownloadFileState with _$DownloadFileState {
-  const factory DownloadFileState.initial() = _Initial;
-  const factory DownloadFileState.inProgress() = _InProgress;
-  const factory DownloadFileState.success() = _Success;
-  const factory DownloadFileState.failure(String error) = _Failure;
-}
