@@ -3,12 +3,12 @@ import 'dart:convert';
 class UpdateOrderStatusResponseModel {
   final String status;
   final String message;
-  final Data data;
+  final Data? data;
 
   UpdateOrderStatusResponseModel({
     required this.status,
     required this.message,
-    required this.data,
+    this.data,
   });
 
   factory UpdateOrderStatusResponseModel.fromJson(String str) =>
@@ -20,13 +20,11 @@ class UpdateOrderStatusResponseModel {
       UpdateOrderStatusResponseModel(
         status: json["status"],
         message: json["message"],
-        data: Data.fromMap(json["data"]),
       );
 
   Map<String, dynamic> toMap() => {
         "status": status,
         "message": message,
-        "data": data.toMap(),
       };
 }
 

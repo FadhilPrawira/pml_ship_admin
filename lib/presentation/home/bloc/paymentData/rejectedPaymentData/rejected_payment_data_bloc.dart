@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pml_ship_admin/data/datasources/payment_remote_datasource.dart';
+import '../../../../../data/datasources/payment_remote_datasource.dart';
 
 import '../../../../../data/models/response/get_all_payments_response_model.dart';
 

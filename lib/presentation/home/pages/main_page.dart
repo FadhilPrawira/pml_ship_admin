@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/styles.dart';
 import '../../history/pages/history_page.dart';
-import 'home_admin_page.dart';
 import '../../profile/pages/profile_page.dart';
+import 'home_admin_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

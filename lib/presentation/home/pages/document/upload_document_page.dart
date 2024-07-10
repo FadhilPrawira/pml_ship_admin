@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/models/request/update_document_request_model.dart';
+import '../../bloc/documentData/document_data_bloc.dart';
 import '../../bloc/uploadDocument/upload_document_bloc.dart';
 
 class UploadDocumentPage extends StatefulWidget {
@@ -46,12 +47,6 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Upload Document'),
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
@@ -138,6 +133,10 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                                 );
                             Navigator.pop(
                                 context); //kembali ke halaman sebelumnya
+                            context.read<DocumentDataBloc>().add(
+                                  DocumentDataEvent.getDocumentsData(
+                                      widget.transactionId),
+                                );
                           }
                         },
                       );

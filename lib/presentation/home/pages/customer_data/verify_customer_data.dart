@@ -38,12 +38,6 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundColor1,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: Container(
             padding: EdgeInsets.all(defaultMargin),
             child: Text(
@@ -82,22 +76,23 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
   }
 
   ListView buildCustomerDataTab(UserResponseModel user) {
-    bool isPending = user.data.status == 'pending';
+    bool isPending = user.data!.status == 'pending';
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
         buildSectionHeader('PIC Info'),
-        buildInfoItem('PIC Name', user.data.user.name),
-        buildInfoItem('PIC Phone', user.data.user.phone),
-        buildInfoItem('PIC Email', user.data.user.email),
+        buildInfoItem('PIC Name', '${user.data!.user!.name}'),
+        buildInfoItem('PIC Phone', '${user.data!.user!.phone}'),
+        buildInfoItem('PIC Email', '${user.data!.user!.email}'),
         buildSectionHeader('Company Info'),
-        buildInfoItem('Company Name', user.data.company.companyName),
-        buildInfoItem('Company NPWP', user.data.company.companyNpwp),
-        buildInfoItem('Company Address', user.data.company.companyAddress),
-        buildInfoItem('Company Phone', user.data.company.companyPhone),
-        buildInfoItem('Company Email', user.data.company.companyEmail),
-        buildInfoItem('Akta Perusahaan', user.data.company.companyAkta),
+        buildInfoItem('Company Name', '${user.data!.company!.companyName}'),
+        buildInfoItem('Company NPWP', '${user.data!.company!.companyNpwp}'),
+        buildInfoItem(
+            'Company Address', '${user.data!.company!.companyAddress}'),
+        buildInfoItem('Company Phone', '${user.data!.company!.companyPhone}'),
+        buildInfoItem('Company Email', '${user.data!.company!.companyEmail}'),
+        buildInfoItem('Akta Perusahaan', '${user.data!.company!.companyAkta}'),
         Padding(
           padding: const EdgeInsets.only(bottom: 30.0),
           child: Visibility(
@@ -106,8 +101,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buildRejectButton(user.data.company.companyName),
-                buildApproveButton(user.data.company.companyName),
+                buildRejectButton('${user.data!.company!.companyName}'),
+                buildApproveButton('${user.data!.company!.companyName}'),
               ],
             ),
           ),

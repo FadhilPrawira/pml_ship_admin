@@ -50,12 +50,6 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Customer Data'),
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             bottom: TabBar(
               onTap: (index) {
                 if (index == 0) {

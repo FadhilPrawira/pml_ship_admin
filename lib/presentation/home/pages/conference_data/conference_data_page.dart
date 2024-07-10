@@ -53,12 +53,6 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             bottom: TabBar(
               onTap: (index) {
                 if (index == 0) {

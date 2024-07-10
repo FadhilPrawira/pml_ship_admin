@@ -2,35 +2,44 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import '../models/response/update_user_or_conference_status_response_model.dart';
 
 import '../../core/constants/variables.dart';
 import '../models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../models/response/conference_response_model.dart';
 import '../models/response/get_all_status_conference_response_model.dart';
+import '../models/response/update_user_or_conference_status_response_model.dart';
 import 'auth_local_datasource.dart';
 
 class ConferenceRemoteDatasource {
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllPendingConference() async {
+    // Get the token from the local storage
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/conferences?status=pending');
-    final authData = await AuthLocalDataSource().getAuthData();
-    var headers = {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    };
+
+    // Send the request
     final response = await http.get(
       url,
       headers: headers,
     );
-// Log the request
-    log("Request URL: $url");
-    log("Request Headers: ${headers.toString()}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
 
-    log("resposen: ${response.statusCode}");
-    log("resposen pendingConferences: ${response.body}");
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusConferenceResponseModel.fromJson(response.body));
@@ -41,16 +50,33 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllApprovedConference() async {
+    // Get the token from the local storage
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/conferences?status=approved');
-    final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen approvedConferences: ${response.body}");
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusConferenceResponseModel.fromJson(response.body));
@@ -61,16 +87,33 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, GetAllStatusConferenceResponseModel>>
       getAllRejectedConference() async {
+    // Get the token from the local storage
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/conferences?status=rejected');
-    final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusConferenceResponseModel.fromJson(response.body));
@@ -81,16 +124,33 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, ConferenceResponseModel>> getFullConferenceData(
       String transactionId) async {
+    // Get the token from the local storage
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/conferences/$transactionId');
-    final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(ConferenceResponseModel.fromJson(response.body));
@@ -101,26 +161,37 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>>
       approveConference(
-          ApproveUserOrOrderOrConferenceRequestModel
-              approveUserOrOrderOrConferenceRequestModel,
-          String transactionId) async {
+    ApproveUserOrOrderOrConferenceRequestModel requestModel,
+    String transactionId,
+  ) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url = Uri.parse(
         '${Variables.baseUrl}/api/conferences/$transactionId/approve');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: approveUserOrOrderOrConferenceRequestModel.toJson(),
+      headers: headers,
+      body: requestModel.toJson(),
     );
-    // Log url
 
-    log("request: ${approveUserOrOrderOrConferenceRequestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(
@@ -132,26 +203,38 @@ class ConferenceRemoteDatasource {
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>>
       rejectConference(
-          RejectUserOrOrderOrConferenceRequestModel
-              rejectUserOrOrderOrConferenceRequestModel,
-          String transactionId) async {
+    RejectUserOrOrderOrConferenceRequestModel requestModel,
+    String transactionId,
+  ) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/conferences/$transactionId/reject');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: rejectUserOrOrderOrConferenceRequestModel.toJson(),
+      headers: headers,
+      body: requestModel.toJson(),
     );
     // Log url
 
-    log("request: ${rejectUserOrOrderOrConferenceRequestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(

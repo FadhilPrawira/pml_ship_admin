@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
 
 import '../../bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
+import '../../bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
 import '../../widgets/document_data_card/on_process_document_data_card.dart';
 
 class CustomerDocumentDataPage extends StatefulWidget {
@@ -33,12 +33,6 @@ class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             bottom: const TabBar(
               tabs: [
                 Tab(

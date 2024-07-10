@@ -10,12 +10,6 @@ class ShippingInstructionDataPage extends StatelessWidget {
     PreferredSizeWidget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Container(
           padding: EdgeInsets.all(defaultMargin),
           child: Text(

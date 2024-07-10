@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'data/datasources/payment_remote_datasource.dart';
-import 'presentation/home/bloc/orderData/approveOrderData/approve_order_data_bloc.dart';
-import 'presentation/home/bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
-import 'presentation/home/bloc/orderData/rejectOrderData/reject_order_data_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pml_ship_admin/presentation/profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 
 import 'core/core.dart';
 import 'data/datasources/auth_local_datasource.dart';
@@ -11,7 +9,11 @@ import 'data/datasources/auth_remote_datasource.dart';
 import 'data/datasources/conference_remote_datasource.dart';
 import 'data/datasources/document_remote_datasource.dart';
 import 'data/datasources/order_remote_datasource.dart';
+import 'data/datasources/payment_remote_datasource.dart';
 import 'data/datasources/user_remote_datasource.dart';
+import 'presentation/auth/bloc/login/login_bloc.dart';
+import 'presentation/auth/bloc/logout/logout_bloc.dart';
+import 'presentation/auth/pages/sign_in_page.dart';
 import 'presentation/home/bloc/conferenceData/approveConference/approve_conference_bloc.dart';
 import 'presentation/home/bloc/conferenceData/approvedConferenceData/approved_conference_data_bloc.dart';
 import 'presentation/home/bloc/conferenceData/detailConference/detail_conference_bloc.dart';
@@ -25,14 +27,15 @@ import 'presentation/home/bloc/customerData/profileAndDetailCustomer/profile_and
 import 'presentation/home/bloc/customerData/rejectUser/reject_user_bloc.dart';
 import 'presentation/home/bloc/customerData/rejectedCustomerData/rejected_customer_data_bloc.dart';
 import 'presentation/home/bloc/documentData/document_data_bloc.dart';
-import 'presentation/auth/bloc/login/login_bloc.dart';
-import 'presentation/auth/bloc/logout/logout_bloc.dart';
-import 'presentation/bloc/orderData/OnShippingOrdersData/on_shipping_orders_data_bloc.dart';
+import 'presentation/home/bloc/orderData/approveOrderData/approve_order_data_bloc.dart';
 import 'presentation/home/bloc/orderData/canceledOrdersData/canceled_orders_data_bloc.dart';
 import 'presentation/home/bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
 import 'presentation/home/bloc/orderData/detailOrderData/detail_order_data_bloc.dart';
+import 'presentation/home/bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
+import 'presentation/home/bloc/orderData/onShippingOrdersData/on_shipping_orders_data_bloc.dart';
 import 'presentation/home/bloc/orderData/paymentPendingOrdersData/payment_pending_orders_data_bloc.dart';
 import 'presentation/home/bloc/orderData/pendingOrdersData/pending_orders_data_bloc.dart';
+import 'presentation/home/bloc/orderData/rejectOrderData/reject_order_data_bloc.dart';
 import 'presentation/home/bloc/orderData/rejectedOrdersData/rejected_orders_data_bloc.dart';
 import 'presentation/home/bloc/paymentData/approvePayment/approve_payment_bloc.dart';
 import 'presentation/home/bloc/paymentData/approvedPaymentData/approved_payment_data_bloc.dart';
@@ -40,19 +43,18 @@ import 'presentation/home/bloc/paymentData/pendingPaymentData/pending_payment_da
 import 'presentation/home/bloc/paymentData/rejectPayment/reject_payment_bloc.dart';
 import 'presentation/home/bloc/paymentData/rejectedPaymentData/rejected_payment_data_bloc.dart';
 import 'presentation/home/bloc/uploadDocument/upload_document_bloc.dart';
-import 'presentation/home/pages/main_page.dart';
-import 'presentation/auth/pages/sign_in_page.dart';
 import 'presentation/home/pages/conference_data/conference_data_page.dart';
 import 'presentation/home/pages/conference_data/verify_conference_data.dart';
 import 'presentation/home/pages/customer_data/customer_data_page.dart';
 import 'presentation/home/pages/customer_data/verify_customer_data.dart';
 import 'presentation/home/pages/document/customer_document_data_page.dart';
 import 'presentation/home/pages/document/document_list_page.dart';
-import 'presentation/home/pages/payment/payment_data_page.dart';
 import 'presentation/home/pages/document/upload_document_page.dart';
-import 'presentation/onboarding/pages/splash_page.dart';
+import 'presentation/home/pages/main_page.dart';
 import 'presentation/home/pages/order_data/order_data_page.dart';
 import 'presentation/home/pages/order_data/verify_order_data_page.dart';
+import 'presentation/home/pages/payment/payment_data_page.dart';
+import 'presentation/onboarding/pages/splash_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -171,8 +173,29 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RejectPaymentBloc(PaymentRemoteDatasource()),
         ),
+        BlocProvider(
+          create: (context) => GetAuthenticatedUserBloc(AuthRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+          scaffoldBackgroundColor: Colors.white,
+          dividerTheme: const DividerThemeData(color: AppColors.divider),
+          textTheme: GoogleFonts.interTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          appBarTheme: AppBarTheme(
+            color: AppColors.blue,
+            elevation: 0,
+            titleTextStyle: GoogleFonts.inter(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
+            iconTheme: const IconThemeData(color: Colors.white),
+          ),
+        ),
         home: FutureBuilder<bool>(
           future: AuthLocalDataSource().isAuthDataExists(),
           builder: (context, snapshot) {

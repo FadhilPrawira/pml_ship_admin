@@ -13,22 +13,31 @@ import 'auth_local_datasource.dart';
 class PaymentRemoteDatasource {
   Future<Either<String, GetAllPaymentsResponseModel>>
       getAllPendingPayments() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=pending');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    var headers = {
-      'Authorization': 'Bearer ${authData.data.token}',
+
+    // Headers
+    final Map<String, String> headers = {
       'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
     };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=pending');
+
+    // Send the request
     final response = await http.get(
       url,
       headers: headers,
     );
-// Log the request
-    // log("Request URL: $url");
-    // log("Request Headers: ${headers.toString()}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
 
-    // log("resposen: ${response.statusCode}");
-    // log("resposen pendingOrders: ${response.body}");
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllPaymentsResponseModel.fromJson(response.body));
@@ -39,22 +48,31 @@ class PaymentRemoteDatasource {
 
   Future<Either<String, GetAllPaymentsResponseModel>>
       getAllApprovedPayments() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=approved');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    var headers = {
-      'Authorization': 'Bearer ${authData.data.token}',
+
+    // Headers
+    final Map<String, String> headers = {
       'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
     };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=approved');
+
+    // Send the request
     final response = await http.get(
       url,
       headers: headers,
     );
-// Log the request
-    // log("Request URL: $url");
-    // log("Request Headers: ${headers.toString()}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
 
-    // log("resposen: ${response.statusCode}");
-    // log("resposen pendingOrders: ${response.body}");
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllPaymentsResponseModel.fromJson(response.body));
@@ -65,22 +83,32 @@ class PaymentRemoteDatasource {
 
   Future<Either<String, GetAllPaymentsResponseModel>>
       getAllRejectedPayments() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=rejected');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    var headers = {
-      'Authorization': 'Bearer ${authData.data.token}',
+
+    // Headers
+    final Map<String, String> headers = {
       'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
     };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/payments?status=rejected');
+
+    // Send the request
     final response = await http.get(
       url,
       headers: headers,
     );
-// Log the request
-    // log("Request URL: $url");
-    // log("Request Headers: ${headers.toString()}");
 
-    // log("resposen: ${response.statusCode}");
-    // log("resposen pendingOrders: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllPaymentsResponseModel.fromJson(response.body));
@@ -92,23 +120,34 @@ class PaymentRemoteDatasource {
   Future<Either<String, UpdatePaymentStatusResponseModel>> approvePayment(
       ApproveUserOrOrderOrConferenceRequestModel requestModel,
       String transactionId) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/payments/$transactionId/approve');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: requestModel.toJson(),
     );
-    // Log url
 
-    log("request: ${requestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(UpdatePaymentStatusResponseModel.fromJson(response.body));
@@ -120,23 +159,34 @@ class PaymentRemoteDatasource {
   Future<Either<String, UpdatePaymentStatusResponseModel>> rejectPayment(
       RejectUserOrOrderOrConferenceRequestModel requestModel,
       String transactionId) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url =
         Uri.parse('${Variables.baseUrl}/api/payments/$transactionId/reject');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: requestModel.toJson(),
     );
-    // Log url
 
-    log("request: ${requestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(UpdatePaymentStatusResponseModel.fromJson(response.body));

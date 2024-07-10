@@ -37,12 +37,6 @@ class _VerifyPaymentDataState extends State<VerifyPaymentData> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundColor1,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: const Text(
             'Verify Conference Data',
           ),

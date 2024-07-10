@@ -2,26 +2,43 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import '../models/response/update_user_or_conference_status_response_model.dart';
 
 import '../../core/constants/variables.dart';
 import '../models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../models/response/get_all_status_user_response_model.dart';
+import '../models/response/update_user_or_conference_status_response_model.dart';
 import '../models/response/user_response_model.dart';
 import 'auth_local_datasource.dart';
 
 class UserRemoteDatasource {
   Future<Either<String, UserResponseModel>> getFullUserData(int userId) async {
-    final url = Uri.parse('${Variables.baseUrl}/api/users/$userId');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/users/$userId');
+
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(UserResponseModel.fromJson(response.body));
@@ -31,15 +48,32 @@ class UserRemoteDatasource {
   }
 
   Future<Either<String, GetAllStatusUserResponseModel>> getAllUser() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/users');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/users');
+
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusUserResponseModel.fromJson(response.body));
@@ -50,22 +84,32 @@ class UserRemoteDatasource {
 
   Future<Either<String, GetAllStatusUserResponseModel>>
       getAllPendingUser() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/users?status=pending');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    var headers = {
-      'Authorization': 'Bearer ${authData.data.token}',
+
+    // Headers
+    final Map<String, String> headers = {
       'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
     };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/users?status=pending');
+
+    // Send the request
     final response = await http.get(
       url,
       headers: headers,
     );
-// Log the request
-    log("Request URL: $url");
-    log("Request Headers: ${headers.toString()}");
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusUserResponseModel.fromJson(response.body));
@@ -76,15 +120,32 @@ class UserRemoteDatasource {
 
   Future<Either<String, GetAllStatusUserResponseModel>>
       getAllApprovedUser() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/users?status=approved');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/users?status=approved');
+
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusUserResponseModel.fromJson(response.body));
@@ -95,15 +156,32 @@ class UserRemoteDatasource {
 
   Future<Either<String, GetAllStatusUserResponseModel>>
       getAllRejectedUser() async {
-    final url = Uri.parse('${Variables.baseUrl}/api/users?status=rejected');
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
-    final response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${authData.data.token}',
-      'Accept': 'application/json',
-    });
 
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
+    final url = Uri.parse('${Variables.baseUrl}/api/users?status=rejected');
+
+    // Send the request
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusUserResponseModel.fromJson(response.body));
@@ -133,25 +211,37 @@ class UserRemoteDatasource {
   // }
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>> approveUser(
-      ApproveUserOrOrderOrConferenceRequestModel
-          approveUserOrConferenceRequestModel,
-      int userId) async {
+    ApproveUserOrOrderOrConferenceRequestModel
+        approveUserOrConferenceRequestModel,
+    int userId,
+  ) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url = Uri.parse('${Variables.baseUrl}/api/users/$userId/approve');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: approveUserOrConferenceRequestModel.toJson(),
     );
-    // Log url
 
-    log("request: ${approveUserOrConferenceRequestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(
@@ -162,25 +252,37 @@ class UserRemoteDatasource {
   }
 
   Future<Either<String, UpdateUserOrConferenceStatusResponseModel>> rejectUser(
-      RejectUserOrOrderOrConferenceRequestModel
-          rejectUserOrOrderOrConferenceRequestModel,
-      int userId) async {
+    RejectUserOrOrderOrConferenceRequestModel
+        rejectUserOrOrderOrConferenceRequestModel,
+    int userId,
+  ) async {
+    // Get the token from the local storage
     final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
     final url = Uri.parse('${Variables.baseUrl}/api/users/$userId/reject');
+
+    // Send the request
     final response = await http.patch(
       url,
-      headers: <String, String>{
-        'Authorization': 'Bearer ${authData.data.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: rejectUserOrOrderOrConferenceRequestModel.toJson(),
     );
-    // Log url
 
-    log("request: ${rejectUserOrOrderOrConferenceRequestModel.toJson()}");
-    log("resposen: ${response.statusCode}");
-    log("resposen: ${response.body}");
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
-import '../../../../data/models/response/get_all_status_order_response_model.dart';
-import '../../../bloc/orderData/OnShippingOrdersData/on_shipping_orders_data_bloc.dart';
 import '../../bloc/orderData/canceledOrdersData/canceled_orders_data_bloc.dart';
 import '../../bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
+import '../../bloc/orderData/onShippingOrdersData/on_shipping_orders_data_bloc.dart';
 import '../../bloc/orderData/paymentPendingOrdersData/payment_pending_orders_data_bloc.dart';
 import '../../bloc/orderData/pendingOrdersData/pending_orders_data_bloc.dart';
 import '../../bloc/orderData/rejectedOrdersData/rejected_orders_data_bloc.dart';
+import '../../widgets/order_data/build_order_data_item.dart';
 
 class OrderDataPage extends StatefulWidget {
   const OrderDataPage({super.key});
@@ -71,12 +69,6 @@ class _OrderDataPageState extends State<OrderDataPage> {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: const Text('Order Data'),
           bottom: TabBar(
             onTap: (index) {
@@ -174,9 +166,9 @@ class _OrderDataPageState extends State<OrderDataPage> {
             if (response.data.isEmpty) {
               return const Center(child: Text('No Data Available'));
             }
-            return buildOrderDataItem(
-              response,
-              fetchData,
+            return BuildOrderDataItem(
+              response: response,
+              refreshData: fetchData,
             );
           },
         );
@@ -184,92 +176,92 @@ class _OrderDataPageState extends State<OrderDataPage> {
     );
   }
 
-  ListView buildOrderDataItem(
-    GetAllStatusOrderResponseModel response,
-    VoidCallback refreshData,
-  ) {
-    return ListView.builder(
-      itemCount: response.data.length,
-      itemBuilder: (context, index) {
-        final orderData = response.data[index];
-        return Container(
-          margin: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 12,
-          ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10,
-          ),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(5.0)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    orderData.status == 'order_pending'
-                        ? 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}'
-                        : orderData.status == 'payment_pending'
-                            ? 'Approved at: ${orderData.negotiationOrOrderApprovedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
-                            : orderData.status == 'on_shipping'
-                                ? 'On shipping at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
-                                : orderData.status == 'order_completed'
-                                    ? 'Completed at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
-                                    : orderData.status == 'order_rejected'
-                                        ? 'Rejected at: ${orderData.orderRejectedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
-                                        : orderData.status == 'order_canceled'
-                                            ? 'Canceled at: ${orderData.orderCanceledAt?.toFormattedInternationalShortDateAndUTC7Time()}'
-                                            : 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  Text(orderData.transactionId),
-                ],
-              ),
-              Text(
-                '${orderData.shipper.name} - ${orderData.consignee.name}',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
-                  fontSize: 18.0,
-                ),
-              ),
-              Text(
-                '${orderData.loading.port} → ${orderData.discharge.port}',
-                style:
-                    primaryTextStyle.copyWith(fontWeight: bold, fontSize: 18.0),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Button.filled(
-                    width: 170,
-                    onPressed: () {
-                      // To navigate to VerifyOrderDataPage
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.verifyOrder,
-                        arguments: {
-                          'transactionId': orderData.transactionId,
-                          'refreshData': refreshData,
-                        },
-                      );
-                    },
-                    label: 'Order Detail',
-                    fontSize: 12.0,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // ListView buildOrderDataItem(
+  //   GetAllStatusOrderResponseModel response,
+  //   VoidCallback refreshData,
+  // ) {
+  // return ListView.builder(
+  //   itemCount: response.data.length,
+  //   itemBuilder: (context, index) {
+  //     final orderData = response.data[index];
+  //     return Container(
+  //       margin: const EdgeInsets.symmetric(
+  //         vertical: 10,
+  //         horizontal: 12,
+  //       ),
+  //       padding: const EdgeInsets.symmetric(
+  //         vertical: 10,
+  //         horizontal: 10,
+  //       ),
+  //       decoration: BoxDecoration(
+  //           border: Border.all(color: Colors.black),
+  //           borderRadius: BorderRadius.circular(5.0)),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
+  //         children: [
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 orderData.status == 'order_pending'
+  //                     ? 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                     : orderData.status == 'payment_pending'
+  //                         ? 'Approved at: ${orderData.negotiationOrOrderApprovedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                         : orderData.status == 'on_shipping'
+  //                             ? 'On shipping at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                             : orderData.status == 'order_completed'
+  //                                 ? 'Completed at: ${orderData.updatedAt.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                                 : orderData.status == 'order_rejected'
+  //                                     ? 'Rejected at: ${orderData.orderRejectedAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                                     : orderData.status == 'order_canceled'
+  //                                         ? 'Canceled at: ${orderData.orderCanceledAt?.toFormattedInternationalShortDateAndUTC7Time()}'
+  //                                         : 'Created at: ${orderData.createdAt.toFormattedInternationalShortDateAndUTC7Time()}',
+  //                 style: primaryTextStyle.copyWith(
+  //                   fontWeight: medium,
+  //                   fontSize: 12.0,
+  //                 ),
+  //               ),
+  //               Text(orderData.transactionId),
+  //             ],
+  //           ),
+  //           Text(
+  //             '${orderData.shipper.name} - ${orderData.consignee.name}',
+  //             style: primaryTextStyle.copyWith(
+  //               fontWeight: medium,
+  //               fontSize: 18.0,
+  //             ),
+  //           ),
+  //           Text(
+  //             '${orderData.loading.port} → ${orderData.discharge.port}',
+  //             style:
+  //                 primaryTextStyle.copyWith(fontWeight: bold, fontSize: 18.0),
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.end,
+  //             children: [
+  //               Button.filled(
+  //                 width: 170,
+  //                 onPressed: () {
+  //                   // To navigate to VerifyOrderDataPage
+  //                   Navigator.pushNamed(
+  //                     context,
+  //                     AppRoutes.verifyOrder,
+  //                     arguments: {
+  //                       'transactionId': orderData.transactionId,
+  //                       'refreshData': refreshData,
+  //                     },
+  //                   );
+  //                 },
+  //                 label: 'Order Detail',
+  //                 fontSize: 12.0,
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   },
+  // );
+  // }
 }

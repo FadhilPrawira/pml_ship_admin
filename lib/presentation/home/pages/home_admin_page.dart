@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
-import '../../../data/datasources/auth_local_datasource.dart';
 import '../../../data/models/response/auth_response_model.dart';
+import '../../profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 
 class HomeAdminPage extends StatefulWidget {
   const HomeAdminPage({super.key});
@@ -16,11 +17,9 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   User? user;
   @override
   void initState() {
-    AuthLocalDataSource().getAuthData().then((value) {
-      setState(() {
-        user = value.data.user;
-      });
-    });
+    context
+        .read<GetAuthenticatedUserBloc>()
+        .add(const GetAuthenticatedUserEvent.getAuthenticatedUser());
     super.initState();
   }
 
@@ -54,12 +53,24 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                       fontSize: 16,
                     ),
                   ),
-                  Text(
-                    user?.name ?? '',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: bold,
-                      fontSize: 24,
-                    ),
+                  BlocBuilder<GetAuthenticatedUserBloc,
+                      GetAuthenticatedUserState>(
+                    builder: (context, state) {
+                      String? name = '';
+                      state.maybeWhen(
+                        orElse: () {},
+                        loaded: (user) {
+                          name = user.data?.user!.name!;
+                        },
+                      );
+                      return Text(
+                        '$name',
+                        style: primaryTextStyle.copyWith(
+                          fontWeight: bold,
+                          fontSize: 24,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

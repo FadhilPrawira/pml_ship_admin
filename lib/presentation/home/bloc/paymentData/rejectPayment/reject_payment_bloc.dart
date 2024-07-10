@@ -5,9 +5,9 @@ import '../../../../../data/datasources/payment_remote_datasource.dart';
 import '../../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../../data/models/response/update_payment_status_response_model.dart';
 
+part 'reject_payment_bloc.freezed.dart';
 part 'reject_payment_event.dart';
 part 'reject_payment_state.dart';
-part 'reject_payment_bloc.freezed.dart';
 
 class RejectPaymentBloc extends Bloc<RejectPaymentEvent, RejectPaymentState> {
   final PaymentRemoteDatasource datasource;

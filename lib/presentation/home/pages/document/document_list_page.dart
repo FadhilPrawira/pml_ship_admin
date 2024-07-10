@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/constants/constants.dart';
 import '../../bloc/documentData/document_data_bloc.dart';
 
@@ -50,12 +51,6 @@ class _DocumentListPageState extends State<DocumentListPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Document List'),
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -97,6 +92,7 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                             documentData.uploadedAt == null,
                                         child: Column(
                                           children: [
+                                            Text(documentData.documentType),
                                             ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.pushNamed(context,

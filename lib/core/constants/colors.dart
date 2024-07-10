@@ -7,6 +7,9 @@ class AppColors {
   /// gray1 = #9CA3AF
   static const Color gray1 = Color(0xff9CA3AF);
 
+  /// divider = #F4F4F5
+  static const Color divider = Color(0xffF4F4F5);
+
   /// gray2 = #999999
   static const Color gray2 = Color(0xff999999);
 

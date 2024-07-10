@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
-import '../../../../data/models/response/order_response_model.dart';
+import '../../../../data/models/response/order_detail_response_model.dart';
 import '../../bloc/orderData/approveOrderData/approve_order_data_bloc.dart';
 import '../../bloc/orderData/detailOrderData/detail_order_data_bloc.dart';
 import '../../bloc/orderData/rejectOrderData/reject_order_data_bloc.dart';
+import '../../bloc/paymentData/approvePayment/approve_payment_bloc.dart';
+import '../../bloc/paymentData/rejectPayment/reject_payment_bloc.dart';
 
 class VerifyOrderDataPage extends StatefulWidget {
   final String transactionId;
@@ -38,12 +40,6 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundColor1,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           title: Container(
             padding: EdgeInsets.all(defaultMargin),
             child: Text(
@@ -80,20 +76,21 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
     );
   }
 
-  ListView buildCustomerDataTab(OrderResponseModel order) {
-    bool isPending = order.data.status == 'order_pending';
+  ListView buildCustomerDataTab(OrderDetailResponseModel order) {
+    bool isPending = order.data!.status == 'order_pending';
+    bool isPaymentPending = order.data!.status == 'payment_pending';
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
         buildSectionHeader('Order Detail'),
-        buildInfoItem('Transaction ID', order.data.transactionId),
+        buildInfoItem('Transaction ID', '${order.data!.transactionId}'),
         buildInfoItem('Route',
-            '${order.data.loading.port} → ${order.data.discharge.port}'),
+            '${order.data!.loading!.port} → ${order.data!.discharge!.port}'),
         buildInfoItem('Date of Loading',
-            '${order.data.loading.date.day}-${order.data.loading.date.month}-${order.data.loading.date.year}'),
+            '${order.data!.loading!.date!.day}-${order.data!.loading!.date!.month}-${order.data!.loading!.date!.year}'),
         buildInfoItem('Date of Discharge',
-            '${order.data.discharge.date.day}-${order.data.discharge.date.month}-${order.data.discharge.date.year}'),
+            '${order.data!.discharge!.date!.day}-${order.data!.discharge!.date!.month}-${order.data!.discharge!.date!.year}'),
         // buildInfoItem(
         //     'Total Pembayaran', '${order.data.totalBill.currencyEYDFormatRp} '),
         // // Bukti Pembayaran
@@ -101,13 +98,13 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
         //     'Payment Proof (download here)', 'PAYMENT PROOF PDF'), //show image
         // Button approve reject pembayaran. auto reload jika dipencet
         buildSectionHeader('Shipper and Consignee Detail'),
-        buildInfoItem('Shipper Name', order.data.shipper.name),
-        buildInfoItem('Shipper Address', order.data.shipper.address),
-        buildInfoItem('Consignee Name', order.data.consignee.name),
-        buildInfoItem('Consignee Address', order.data.consignee.address),
+        buildInfoItem('Shipper Name', '${order.data!.shipper!.name}'),
+        buildInfoItem('Shipper Address', '${order.data!.shipper!.address}'),
+        buildInfoItem('Consignee Name', '${order.data!.consignee!.name}'),
+        buildInfoItem('Consignee Address', '${order.data!.consignee!.address}'),
         buildSectionHeader('Cargo Info'),
-        buildInfoItem('Cargo Description', order.data.cargo.description),
-        buildInfoItem('Cargo Weight', order.data.cargo.weight),
+        buildInfoItem('Cargo Description', '${order.data!.cargo!.description}'),
+        buildInfoItem('Cargo Weight', '${order.data!.cargo!.weight}'),
         // Button approve reject order. navigator pop jika dipencet
         Padding(
           padding: const EdgeInsets.only(bottom: 30.0),
@@ -117,10 +114,36 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buildRejectButton(order.data.transactionId),
-                buildApproveButton(order.data.transactionId),
+                buildRejectButton('${order.data!.transactionId}'),
+                buildApproveButton('${order.data!.transactionId}'),
               ],
             ),
+          ),
+        ),
+        Visibility(
+          visible: isPaymentPending, // Show only if status is not 'pending'
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.picture_as_pdf),
+                  // TODO: FIX IT payment bug when not available
+                  Flexible(
+                    child: Text(
+                      '${order.data!.payment!.payments!.first.paymentProofDocument} ',
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  buildRejectPaymentButton('${order.data!.transactionId}'),
+                  buildApprovePaymentButton('${order.data!.transactionId}'),
+                ],
+              ),
+            ],
           ),
         ),
       ],
@@ -163,6 +186,112 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildRejectPaymentButton(String transactionId) {
+    return BlocListener<RejectPaymentBloc, RejectPaymentState>(
+      listener: (context, state) {
+        state.maybeMap(
+          orElse: () {},
+          error: (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          success: (value) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text('Payment proof $transactionId rejected successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pop(context);
+            widget.refreshData();
+          },
+        );
+      },
+      child: TextButton(
+        onPressed: () {
+          final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
+            rejectedAt: DateTime.now(),
+          );
+
+          context.read<RejectPaymentBloc>().add(
+                RejectPaymentEvent.rejectPayment(
+                  dataRequest,
+                  widget.transactionId,
+                ),
+              );
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Text(
+          'Reject',
+          style: primaryTextStyle.copyWith(
+              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+        ),
+      ),
+    );
+  }
+
+  Widget buildApprovePaymentButton(String transactionId) {
+    return BlocListener<ApprovePaymentBloc, ApprovePaymentState>(
+      listener: (context, state) {
+        state.maybeMap(
+          orElse: () {},
+          error: (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(e.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          success: (value) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Payment $transactionId approved successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pop(context);
+            widget.refreshData();
+          },
+        );
+      },
+      child: TextButton(
+        onPressed: () {
+          final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
+            approvedAt: DateTime.now(),
+          );
+          context.read<ApprovePaymentBloc>().add(
+                ApprovePaymentEvent.approvePayment(
+                  dataRequest,
+                  widget.transactionId,
+                ),
+              );
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: verifyCheck,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Text(
+          'Verify',
+          style: primaryTextStyle.copyWith(
+              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+        ),
+      ),
     );
   }
 

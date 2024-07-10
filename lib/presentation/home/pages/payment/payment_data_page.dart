@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pml_ship_admin/presentation/home/bloc/paymentData/pendingPaymentData/pending_payment_data_bloc.dart';
+import '../../bloc/paymentData/pendingPaymentData/pending_payment_data_bloc.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../../core/styles.dart';
@@ -53,12 +53,6 @@ class _PaymentDataPageState extends State<PaymentDataPage> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             bottom: TabBar(
               onTap: (index) {
                 if (index == 0) {

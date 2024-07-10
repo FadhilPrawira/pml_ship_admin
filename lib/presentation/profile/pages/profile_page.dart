@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pml_ship_admin/presentation/profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
-import '../../../data/models/response/auth_response_model.dart';
 import '../../auth/bloc/logout/logout_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,14 +15,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User? user;
   @override
   void initState() {
-    AuthLocalDataSource().getAuthData().then((value) {
-      setState(() {
-        user = value.data.user;
-      });
-    });
+    context
+        .read<GetAuthenticatedUserBloc>()
+        .add(const GetAuthenticatedUserEvent.getAuthenticatedUser());
     super.initState();
   }
 
@@ -49,28 +46,42 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 16,
               ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      user?.name ?? '',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold,
-                        fontSize: 24,
-                      ),
-                      softWrap: true,
-                      overflow: TextOverflow.visible,
-                    ),
-                    Text(
-                      user?.email ?? '',
-                      style: subtitleTextStyle.copyWith(
-                        fontWeight: regular,
-                        fontSize: 16,
-                      ),
-                      softWrap: true,
-                      overflow: TextOverflow.visible,
-                    ),
-                  ],
+                child: BlocBuilder<GetAuthenticatedUserBloc,
+                    GetAuthenticatedUserState>(
+                  builder: (context, state) {
+                    String? name = '';
+                    String? email = '';
+                    state.maybeWhen(
+                      orElse: () {},
+                      loaded: (profile) {
+                        name = profile.data?.user!.name!;
+                        email = profile.data?.user!.email!;
+                      },
+                    );
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '$name',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semiBold,
+                            fontSize: 24,
+                          ),
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
+                        ),
+                        Text(
+                          '$email',
+                          style: subtitleTextStyle.copyWith(
+                            fontWeight: regular,
+                            fontSize: 16,
+                          ),
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],
