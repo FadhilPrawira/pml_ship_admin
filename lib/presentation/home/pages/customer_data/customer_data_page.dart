@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_status_user_response_model.dart';
-import '../../bloc/customerData/approvedCustomerData/approved_customer_data_bloc.dart';
-import '../../bloc/customerData/pendingCustomerData/pending_customer_data_bloc.dart';
-import '../../bloc/customerData/rejectedCustomerData/rejected_customer_data_bloc.dart';
+import '../../bloc/customer_data/customer_data_bloc.dart';
+import 'verify_customer_data.dart';
 
 class CustomerDataPage extends StatefulWidget {
   const CustomerDataPage({super.key});
@@ -18,20 +17,20 @@ class CustomerDataPage extends StatefulWidget {
 class _CustomerDataPageState extends State<CustomerDataPage> {
   void getPendingCustomerData() {
     context
-        .read<PendingCustomerDataBloc>()
-        .add(const PendingCustomerDataEvent.getPendingCustomerData());
+        .read<CustomerDataBloc>()
+        .add(const CustomerDataEvent.getPendingCustomerData());
   }
 
   void getApprovedCustomerData() {
     context
-        .read<ApprovedCustomerDataBloc>()
-        .add(const ApprovedCustomerDataEvent.getApprovedCustomerData());
+        .read<CustomerDataBloc>()
+        .add(const CustomerDataEvent.getApprovedCustomerData());
   }
 
   void getRejectedCustomerData() {
     context
-        .read<RejectedCustomerDataBloc>()
-        .add(const RejectedCustomerDataEvent.getRejectedCustomerData());
+        .read<CustomerDataBloc>()
+        .add(const CustomerDataEvent.getRejectedCustomerData());
   }
 
   @override
@@ -69,19 +68,16 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
           ),
           body: TabBarView(
             children: [
-              buildCustomerDataTab<PendingCustomerDataBloc,
-                  PendingCustomerDataState>(
-                context.read<PendingCustomerDataBloc>(),
+              buildCustomerDataTab<CustomerDataBloc, CustomerDataState>(
+                context.read<CustomerDataBloc>(),
                 getPendingCustomerData,
               ),
-              buildCustomerDataTab<ApprovedCustomerDataBloc,
-                  ApprovedCustomerDataState>(
-                context.read<ApprovedCustomerDataBloc>(),
+              buildCustomerDataTab<CustomerDataBloc, CustomerDataState>(
+                context.read<CustomerDataBloc>(),
                 getApprovedCustomerData,
               ),
-              buildCustomerDataTab<RejectedCustomerDataBloc,
-                  RejectedCustomerDataState>(
-                context.read<RejectedCustomerDataBloc>(),
+              buildCustomerDataTab<CustomerDataBloc, CustomerDataState>(
+                context.read<CustomerDataBloc>(),
                 getRejectedCustomerData,
               ),
             ],
@@ -178,13 +174,14 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
                   Button.filled(
                     width: 150,
                     onPressed: () {
-                      Navigator.pushNamed(
+                      Navigator.push(
                         context,
-                        AppRoutes.verifyCustomer,
-                        arguments: {
-                          'userId': userData.user.id,
-                          'refreshData': refreshData,
-                        },
+                        MaterialPageRoute(
+                          builder: (context) => VerifyCustomerDataPage(
+                            userId: userData.user.id,
+                            refreshData: refreshData,
+                          ),
+                        ),
                       );
                     },
                     label: 'Customer Detail',

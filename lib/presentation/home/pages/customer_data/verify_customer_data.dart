@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pml_ship_admin/data/datasources/download_file.dart';
 
+import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/user_response_model.dart';
-import '../../bloc/customerData/approveUser/approve_user_bloc.dart';
-import '../../bloc/customerData/profileAndDetailCustomer/profile_and_detail_customer_bloc.dart';
-import '../../bloc/customerData/rejectUser/reject_user_bloc.dart';
+
+import '../../bloc/customer_detail/customer_detail_bloc.dart';
+import '../../bloc/verify_customer_data/verify_customer_data_bloc.dart';
 
 class VerifyCustomerDataPage extends StatefulWidget {
   final int userId;
@@ -27,8 +31,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
   @override
   void initState() {
     context
-        .read<ProfileAndDetailCustomerBloc>()
-        .add(ProfileAndDetailCustomerEvent.getFullUserData(widget.userId));
+        .read<CustomerDetailBloc>()
+        .add(CustomerDetailEvent.getFullUserData(widget.userId));
     super.initState();
   }
 
@@ -47,8 +51,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             ),
           ),
         ),
-        body: BlocConsumer<ProfileAndDetailCustomerBloc,
-            ProfileAndDetailCustomerState>(
+        body: BlocConsumer<CustomerDetailBloc, CustomerDetailState>(
           listener: (context, state) {
             state.maybeMap(
               orElse: () {},
@@ -93,6 +96,18 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
         buildInfoItem('Company Phone', '${user.data!.company!.companyPhone}'),
         buildInfoItem('Company Email', '${user.data!.company!.companyEmail}'),
         buildInfoItem('Akta Perusahaan', '${user.data!.company!.companyAkta}'),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          child: Button.filled(
+            onPressed: () {
+              final String urlname =
+                  '${Variables.documentURL}${user.data!.company!.companyAkta}';
+              log(urlname);
+              FileStorage.downloadAndSaveFile(urlname);
+            },
+            label: 'Download Akta Perusahaan',
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(bottom: 30.0),
           child: Visibility(
@@ -151,7 +166,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
   }
 
   Widget buildRejectButton(String companyName) {
-    return BlocListener<RejectUserBloc, RejectUserState>(
+    return BlocListener<VerifyCustomerDataBloc, VerifyCustomerDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -180,8 +195,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
           final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
             rejectedAt: DateTime.now(),
           );
-          context.read<RejectUserBloc>().add(
-                RejectUserEvent.rejectUser(
+          context.read<VerifyCustomerDataBloc>().add(
+                VerifyCustomerDataEvent.rejectUser(
                   dataRequest,
                   widget.userId,
                 ),
@@ -203,7 +218,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
   }
 
   Widget buildApproveButton(String companyName) {
-    return BlocListener<ApproveUserBloc, ApproveUserState>(
+    return BlocListener<VerifyCustomerDataBloc, VerifyCustomerDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -232,8 +247,8 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
           final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
             approvedAt: DateTime.now(),
           );
-          context.read<ApproveUserBloc>().add(
-                ApproveUserEvent.approveUser(
+          context.read<VerifyCustomerDataBloc>().add(
+                VerifyCustomerDataEvent.approveUser(
                   dataRequest,
                   widget.userId,
                 ),

@@ -5,8 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../bloc/documentData/document_data_bloc.dart';
+import 'upload_document_page.dart';
 
 class DocumentListPage extends StatefulWidget {
   final String transactionId;
@@ -95,15 +95,19 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                             Text(documentData.documentType),
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.pushNamed(context,
-                                                      AppRoutes.uploadDocument,
-                                                      arguments: {
-                                                        'transactionId': widget
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          UploadDocumentPage(
+                                                        transactionId: widget
                                                             .transactionId,
-                                                        'documentType':
+                                                        documentType:
                                                             documentData
                                                                 .documentType,
-                                                      });
+                                                      ),
+                                                    ),
+                                                  );
                                                 },
                                                 child: const Text(
                                                     'No data. Please select to upload document')),

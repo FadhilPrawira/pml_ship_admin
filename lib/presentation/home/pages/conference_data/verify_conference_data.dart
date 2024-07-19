@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
-import '../../bloc/conferenceData/approveConference/approve_conference_bloc.dart';
-import '../../bloc/conferenceData/detailConference/detail_conference_bloc.dart';
-import '../../bloc/conferenceData/rejectConference/reject_conference_bloc.dart';
 import '../../../../data/models/response/conference_response_model.dart';
+import '../../bloc/detail_conference/detail_conference_bloc.dart';
+import '../../bloc/verify_conference_data/verify_conference_data_bloc.dart';
 
 class VerifyConferenceData extends StatefulWidget {
   final String transactionId;
@@ -90,9 +89,9 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
     );
   }
 
-  BlocListener<ApproveConferenceBloc, ApproveConferenceState>
+  BlocListener<VerifyConferenceDataBloc, VerifyConferenceDataState>
       buildApproveButton(String companyName) {
-    return BlocListener<ApproveConferenceBloc, ApproveConferenceState>(
+    return BlocListener<VerifyConferenceDataBloc, VerifyConferenceDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -123,8 +122,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
           final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
             approvedAt: DateTime.now(),
           );
-          context.read<ApproveConferenceBloc>().add(
-                ApproveConferenceEvent.approveConference(
+          context.read<VerifyConferenceDataBloc>().add(
+                VerifyConferenceDataEvent.approveConference(
                   dataRequest,
                   widget.transactionId,
                 ),
@@ -148,9 +147,9 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
     );
   }
 
-  BlocListener<RejectConferenceBloc, RejectConferenceState> buildRejectButton(
-      String companyName) {
-    return BlocListener<RejectConferenceBloc, RejectConferenceState>(
+  BlocListener<VerifyConferenceDataBloc, VerifyConferenceDataState>
+      buildRejectButton(String companyName) {
+    return BlocListener<VerifyConferenceDataBloc, VerifyConferenceDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -180,8 +179,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
           final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
             rejectedAt: DateTime.now(),
           );
-          context.read<RejectConferenceBloc>().add(
-                RejectConferenceEvent.rejectConference(
+          context.read<VerifyConferenceDataBloc>().add(
+                VerifyConferenceDataEvent.rejectConference(
                   dataRequest,
                   widget.transactionId,
                 ),

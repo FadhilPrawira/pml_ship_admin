@@ -1,4 +1,3 @@
-// TODO: MUST FIX UTC + 7, 8, 9
 const List<String> _dayIndonesianNames = [
   'Minggu',
   'Senin',
@@ -50,16 +49,6 @@ const List<String> _monthInternationalNames = [
 ];
 
 extension DateTimeExt on DateTime {
-  DateTime toUtcPlus7() {
-    // Convert the date to UTC
-    DateTime utc = toUtc();
-
-    // Add 7 hours to the UTC date
-    DateTime utcPlus7 = utc.add(const Duration(hours: 7));
-
-    return utcPlus7;
-  }
-
   String toFormattedIndonesianLongDate() {
     String dayName = _dayIndonesianNames[weekday - 1];
     return '$dayName, $day ${toFormattedIndonesianMonth()} $year';
@@ -73,10 +62,8 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedIndonesianShortDate() {
-    DateTime utcPlus7 = toUtcPlus7();
-
-    String day = utcPlus7.day.toString().padLeft(2, '0');
-    String month = utcPlus7.month.toString().padLeft(2, '0');
+    String day = this.day.toString().padLeft(2, '0');
+    String month = this.month.toString().padLeft(2, '0');
     return '$day-$month-$year';
     // 02-05-2024
     // 31-05-2024
@@ -85,8 +72,6 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedInternationalShortDate() {
-    // DateTime utcPlus7 = toUtcPlus7();
-
     String day = this.day.toString().padLeft(2, '0');
     String month = this.month.toString().padLeft(2, '0');
     return '$year-$month-$day';
@@ -107,29 +92,25 @@ extension DateTimeExt on DateTime {
   }
 
   String toFormattedUTC7Time() {
-    // DateTime utcPlus7 = toUtcPlus7();
-
     // Get the datetime and add hours to get UTC+7 time (WIB)
-    String hour = this.hour.toString().padLeft(2, '0');
+    String hour = add(const Duration(hours: 7)).hour.toString().padLeft(2, '0');
     String minute = this.minute.toString().padLeft(2, '0');
     return '$hour:$minute WIB';
     // 07:59 WIB
   }
 
   String toFormattedUTC8Time() {
-    DateTime utcPlus7 = toUtcPlus7();
     // Get the datetime and add hours to get UTC+8 time (WITA)
     String hour = add(const Duration(hours: 8)).hour.toString().padLeft(2, '0');
-    String minute = utcPlus7.minute.toString().padLeft(2, '0');
+    String minute = this.minute.toString().padLeft(2, '0');
     return '$hour:$minute WITA';
     // 08:59 WITA
   }
 
   String toFormattedUTC9Time() {
-    DateTime utcPlus7 = toUtcPlus7();
     // Get the datetime and add hours to get UTC+9 time (WIT)
     String hour = add(const Duration(hours: 9)).hour.toString().padLeft(2, '0');
-    String minute = utcPlus7.minute.toString().padLeft(2, '0');
+    String minute = this.minute.toString().padLeft(2, '0');
     return '$hour:$minute WIT';
     // 09:59 WIT
   }

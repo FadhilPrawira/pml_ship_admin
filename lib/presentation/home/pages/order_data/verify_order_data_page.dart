@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pml_ship_admin/data/models/request/complete_order_request_model.dart';
 
+import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/order_detail_response_model.dart';
-import '../../bloc/orderData/approveOrderData/approve_order_data_bloc.dart';
-import '../../bloc/orderData/detailOrderData/detail_order_data_bloc.dart';
-import '../../bloc/orderData/rejectOrderData/reject_order_data_bloc.dart';
-import '../../bloc/paymentData/approvePayment/approve_payment_bloc.dart';
-import '../../bloc/paymentData/rejectPayment/reject_payment_bloc.dart';
+
+import '../../bloc/order_detail/order_detail_bloc.dart';
+
+import '../../bloc/verify_order_data/verify_order_data_bloc.dart';
+import '../../bloc/verify_payment_data/verify_payment_data_bloc.dart';
 
 class VerifyOrderDataPage extends StatefulWidget {
   final String transactionId;
@@ -29,8 +31,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
   @override
   void initState() {
     context
-        .read<DetailOrderDataBloc>()
-        .add(DetailOrderDataEvent.getDetailOrderData(widget.transactionId));
+        .read<OrderDetailBloc>()
+        .add(OrderDetailEvent.getDetailOrderData(widget.transactionId));
     super.initState();
   }
 
@@ -49,7 +51,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ),
           ),
         ),
-        body: BlocConsumer<DetailOrderDataBloc, DetailOrderDataState>(
+        body: BlocConsumer<OrderDetailBloc, OrderDetailState>(
           listener: (context, state) {
             state.maybeMap(
               orElse: () {},
@@ -78,7 +80,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
 
   ListView buildCustomerDataTab(OrderDetailResponseModel order) {
     bool isPending = order.data!.status == 'order_pending';
-    bool isPaymentPending = order.data!.status == 'payment_pending';
+    // bool isPaymentPending = order.data!.status == 'payment_pending';
+    bool isOnShipping = order.data!.status == 'on_shipping';
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -110,7 +113,6 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           padding: const EdgeInsets.only(bottom: 30.0),
           child: Visibility(
             visible: isPending, // Show only if status is 'pending'
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -121,31 +123,76 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           ),
         ),
         Visibility(
-          visible: isPaymentPending, // Show only if status is not 'pending'
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.picture_as_pdf),
-                  // TODO: FIX IT payment bug when not available
-                  Flexible(
-                    child: Text(
-                      '${order.data!.payment!.payments!.first.paymentProofDocument} ',
-                    ),
-                  ),
-                ],
+          visible: isOnShipping,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
+              listener: (context, state) {
+                state.maybeMap(
+                  orElse: () {},
+                  error: (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.message),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  },
+                  success: (value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Order complteed successfully'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.pop(context);
+                    widget.refreshData();
+                  },
+                );
+              },
+              child: Button.filled(
+                onPressed: () {
+                  final dataRequest = CompleteOrderRequestModel(
+                    completedAt: DateTime.now(),
+                  );
+                  context.read<VerifyOrderDataBloc>().add(
+                        VerifyOrderDataEvent.setOrderToCompleted(
+                          dataRequest,
+                          widget.transactionId,
+                        ),
+                      );
+                },
+                label: 'Set to completed',
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  buildRejectPaymentButton('${order.data!.transactionId}'),
-                  buildApprovePaymentButton('${order.data!.transactionId}'),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
+        // Visibility(
+        //   visible: isPaymentPending, // Show only if status is not 'pending'
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Row(
+        //         children: [
+        //           const Icon(Icons.picture_as_pdf),
+        //           // TODO: FIX IT payment bug when not available
+        //           Flexible(
+        //             child: Text(
+        //               '${order.data!.payment!.payments!.first.paymentProofDocument} ',
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //         children: [
+        //           buildRejectPaymentButton('${order.data!.transactionId}'),
+        //           buildApprovePaymentButton('${order.data!.transactionId}'),
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
@@ -190,7 +237,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
   }
 
   Widget buildRejectPaymentButton(String transactionId) {
-    return BlocListener<RejectPaymentBloc, RejectPaymentState>(
+    return BlocListener<VerifyPaymentDataBloc, VerifyPaymentDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -221,8 +268,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             rejectedAt: DateTime.now(),
           );
 
-          context.read<RejectPaymentBloc>().add(
-                RejectPaymentEvent.rejectPayment(
+          context.read<VerifyPaymentDataBloc>().add(
+                VerifyPaymentDataEvent.rejectPayment(
                   dataRequest,
                   widget.transactionId,
                 ),
@@ -244,7 +291,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
   }
 
   Widget buildApprovePaymentButton(String transactionId) {
-    return BlocListener<ApprovePaymentBloc, ApprovePaymentState>(
+    return BlocListener<VerifyPaymentDataBloc, VerifyPaymentDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -273,8 +320,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
             approvedAt: DateTime.now(),
           );
-          context.read<ApprovePaymentBloc>().add(
-                ApprovePaymentEvent.approvePayment(
+          context.read<VerifyPaymentDataBloc>().add(
+                VerifyPaymentDataEvent.approvePayment(
                   dataRequest,
                   widget.transactionId,
                 ),
@@ -296,7 +343,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
   }
 
   Widget buildRejectButton(String transactionId) {
-    return BlocListener<RejectOrderDataBloc, RejectOrderDataState>(
+    return BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -326,8 +373,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             rejectedAt: DateTime.now(),
           );
 
-          context.read<RejectOrderDataBloc>().add(
-                RejectOrderDataEvent.rejectOrder(
+          context.read<VerifyOrderDataBloc>().add(
+                VerifyOrderDataEvent.rejectOrder(
                   dataRequest,
                   widget.transactionId,
                 ),
@@ -349,7 +396,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
   }
 
   Widget buildApproveButton(String transactionId) {
-    return BlocListener<ApproveOrderDataBloc, ApproveOrderDataState>(
+    return BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
@@ -378,8 +425,8 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
             approvedAt: DateTime.now(),
           );
-          context.read<ApproveOrderDataBloc>().add(
-                ApproveOrderDataEvent.approveOrder(
+          context.read<VerifyOrderDataBloc>().add(
+                VerifyOrderDataEvent.approveOrder(
                   dataRequest,
                   widget.transactionId,
                 ),

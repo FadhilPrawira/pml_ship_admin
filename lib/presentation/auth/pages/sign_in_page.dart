@@ -42,7 +42,6 @@ class _SignInPageState extends State<SignInPage> {
           Navigator.pushNamed(context, '/recover-password');
         },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           padding: const EdgeInsets.only(top: 10),
           child: Text(
             'I forget my password',
@@ -126,12 +125,12 @@ class _SignInPageState extends State<SignInPage> {
                               onPressed: toggleShowPassword,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              forgotPassword(),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     forgotPassword(),
+                          //   ],
+                          // ),
                           const SpaceHeight(33.0),
                           BlocConsumer<LoginBloc, LoginState>(
                             listener: (context, state) {

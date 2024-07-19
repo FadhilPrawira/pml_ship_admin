@@ -5,6 +5,11 @@ import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/models/response/auth_response_model.dart';
 import '../../profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
+import 'conference_data/conference_data_page.dart';
+import 'customer_data/customer_data_page.dart';
+import 'document/customer_document_data_page.dart';
+import 'order_data/order_data_page.dart';
+import 'payment/payment_data_page.dart';
 
 class HomeAdminPage extends StatefulWidget {
   const HomeAdminPage({super.key});
@@ -207,10 +212,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.customerData,
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CustomerDataPage()));
                   },
                   child: Column(
                     children: [
@@ -236,9 +241,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      AppRoutes.orderData,
+                      MaterialPageRoute(
+                        builder: (context) => const OrderDataPage(),
+                      ),
                     );
                   },
                   child: Column(
@@ -268,9 +275,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      AppRoutes.documentData,
+                      MaterialPageRoute(
+                        builder: (context) => const CustomerDocumentDataPage(),
+                      ),
                     );
                   },
                   child: Column(
@@ -297,9 +306,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      AppRoutes.paymentData,
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentDataPage(),
+                      ),
                     );
                   },
                   child: Column(
@@ -329,9 +340,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.push(
                       context,
-                      AppRoutes.conferenceData,
+                      MaterialPageRoute(
+                        builder: (context) => const ConferenceDataPage(),
+                      ),
                     );
                   },
                   child: Column(

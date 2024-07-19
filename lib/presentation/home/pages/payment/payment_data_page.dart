@@ -2,13 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/paymentData/pendingPaymentData/pending_payment_data_bloc.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_payments_response_model.dart';
-import '../../bloc/paymentData/approvedPaymentData/approved_payment_data_bloc.dart';
-import '../../bloc/paymentData/rejectedPaymentData/rejected_payment_data_bloc.dart';
+import '../../bloc/payment_data/payment_data_bloc.dart';
+import 'verify_payment_data_page.dart';
 
 class PaymentDataPage extends StatefulWidget {
   const PaymentDataPage({super.key});
@@ -20,20 +19,20 @@ class PaymentDataPage extends StatefulWidget {
 class _PaymentDataPageState extends State<PaymentDataPage> {
   void getAllPendingPayment() {
     context
-        .read<PendingPaymentDataBloc>()
-        .add(const PendingPaymentDataEvent.getPendingPaymentData());
+        .read<PaymentDataBloc>()
+        .add(const PaymentDataEvent.getPendingPaymentData());
   }
 
   void getAllApprovedPayment() {
     context
-        .read<ApprovedPaymentDataBloc>()
-        .add(const ApprovedPaymentDataEvent.getApprovedPaymentData());
+        .read<PaymentDataBloc>()
+        .add(const PaymentDataEvent.getApprovedPaymentData());
   }
 
   void getAllRejectedPayment() {
     context
-        .read<RejectedPaymentDataBloc>()
-        .add(const RejectedPaymentDataEvent.getRejectedPaymentData());
+        .read<PaymentDataBloc>()
+        .add(const PaymentDataEvent.getRejectedPaymentData());
   }
 
   @override
@@ -82,19 +81,16 @@ class _PaymentDataPageState extends State<PaymentDataPage> {
           ),
           body: TabBarView(
             children: <Widget>[
-              buildPaymentDataTab<PendingPaymentDataBloc,
-                  PendingPaymentDataState>(
-                context.read<PendingPaymentDataBloc>(),
+              buildPaymentDataTab<PaymentDataBloc, PaymentDataState>(
+                context.read<PaymentDataBloc>(),
                 getAllPendingPayment,
               ),
-              buildPaymentDataTab<ApprovedPaymentDataBloc,
-                  ApprovedPaymentDataState>(
-                context.read<ApprovedPaymentDataBloc>(),
+              buildPaymentDataTab<PaymentDataBloc, PaymentDataState>(
+                context.read<PaymentDataBloc>(),
                 getAllApprovedPayment,
               ),
-              buildPaymentDataTab<RejectedPaymentDataBloc,
-                  RejectedPaymentDataState>(
-                context.read<RejectedPaymentDataBloc>(),
+              buildPaymentDataTab<PaymentDataBloc, PaymentDataState>(
+                context.read<PaymentDataBloc>(),
                 getAllRejectedPayment,
               ),
             ],
@@ -138,9 +134,9 @@ class _PaymentDataPageState extends State<PaymentDataPage> {
     VoidCallback refreshData,
   ) {
     return ListView.builder(
-      itemCount: response.data.length,
+      itemCount: response.data!.length,
       itemBuilder: (context, index) {
-        final paymentData = response.data[index];
+        final paymentData = response.data![index];
         return Container(
           margin: const EdgeInsets.symmetric(
             vertical: 10,
@@ -159,29 +155,30 @@ class _PaymentDataPageState extends State<PaymentDataPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                paymentData.createdAt.toIso8601String(),
+                paymentData.createdAt!
+                    .toFormattedIndonesianShortDateAndUTC7Time(),
                 style: primaryTextStyle.copyWith(
                     fontWeight: medium, fontSize: 12.0),
               ),
-              // Text(
-              //   paymentData.Payment.companyName,
-              //   style: primaryTextStyle.copyWith(
-              //       fontWeight: medium, fontSize: 18.0),
-              // ),
+              Text(
+                paymentData.orderTransactionId!,
+                style: primaryTextStyle.copyWith(
+                    fontWeight: medium, fontSize: 18.0),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Button.filled(
                     width: 180,
                     onPressed: () {
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   AppRoutes.verifyPayment,
-                      //   arguments: {
-                      //     'transactionId': PaymentData.transactionId,
-                      //     'refreshData': refreshData,
-                      //   },
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VerifyPaymentDataPage(
+                            transactionId: paymentData.orderTransactionId!,
+                          ),
+                        ),
+                      );
                     },
                     label: 'Payment Detail',
                     fontSize: 12,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:pml_ship_admin/data/models/request/complete_order_request_model.dart';
 
 import '../../core/constants/variables.dart';
 import '../models/request/approve_user_or_order_or_conference_request_model.dart';
@@ -128,6 +129,45 @@ class OrderRemoteDatasource {
     }
   }
 
+  Future<Either<String, UpdateOrderStatusResponseModel>> setOrderToCompleted(
+      CompleteOrderRequestModel completeOrderRequestModel,
+      String transactionId) async {
+    // Get the token from the local storage
+    final authData = await AuthLocalDataSource().getAuthData();
+
+    // Headers
+    final Map<String, String> headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${authData.data!.token}',
+    };
+
+    // URL
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/orders/$transactionId/complete');
+
+    // Send the request
+    final response = await http.patch(
+      url,
+      headers: headers,
+      body: completeOrderRequestModel.toJson(),
+    );
+
+    // Log the request
+    log('Request: $headers');
+    log('URL: $url');
+
+    // Log the response body
+    log('Request: ${response.body}');
+    log('Status code: ${response.statusCode}');
+
+    if (response.statusCode == 200) {
+      return Right(UpdateOrderStatusResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Update order status error.');
+    }
+  }
+
   Future<Either<String, GetAllStatusOrderResponseModel>>
       getAllPendingOrders() async {
     // Get the token from the local storage
@@ -150,13 +190,13 @@ class OrderRemoteDatasource {
       headers: headers,
     );
 
-    // Log the request
-    log('Request: $headers');
-    log('URL: $url');
+    // // Log the request
+    // log('Request: $headers');
+    // log('URL: $url');
 
-    // Log the response body
-    log('Request: ${response.body}');
-    log('Status code: ${response.statusCode}');
+    // // Log the response body
+    // log('Request: ${response.body}');
+    // log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusOrderResponseModel.fromJson(response.body));
@@ -186,11 +226,11 @@ class OrderRemoteDatasource {
       headers: headers,
     );
 
-    // Log the request
+    // // Log the request
     log('Request: $headers');
     log('URL: $url');
 
-    // Log the response body
+    // // Log the response body
     log('Request: ${response.body}');
     log('Status code: ${response.statusCode}');
 
@@ -223,13 +263,13 @@ class OrderRemoteDatasource {
       headers: headers,
     );
 
-    // Log the request
-    log('Request: $headers');
-    log('URL: $url');
+    // // Log the request
+    // log('Request: $headers');
+    // log('URL: $url');
 
-    // Log the response body
-    log('Request: ${response.body}');
-    log('Status code: ${response.statusCode}');
+    // // Log the response body
+    // log('Request: ${response.body}');
+    // log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusOrderResponseModel.fromJson(response.body));

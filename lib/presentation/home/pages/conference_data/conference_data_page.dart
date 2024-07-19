@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/core.dart';
 import '../../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_status_conference_response_model.dart';
-import '../../bloc/conferenceData/approvedConferenceData/approved_conference_data_bloc.dart';
-import '../../bloc/conferenceData/pendingConferenceData/pending_conference_data_bloc.dart';
-import '../../bloc/conferenceData/rejectedConferenceData/rejected_conference_data_bloc.dart';
+
+import '../../bloc/conference_data/conference_data_bloc.dart';
+import 'verify_conference_data.dart';
 
 class ConferenceDataPage extends StatefulWidget {
   const ConferenceDataPage({super.key});
@@ -20,20 +20,20 @@ class ConferenceDataPage extends StatefulWidget {
 class _ConferenceDataPageState extends State<ConferenceDataPage> {
   void getAllPendingConference() {
     context
-        .read<PendingConferenceDataBloc>()
-        .add(const PendingConferenceDataEvent.getAllPendingConference());
+        .read<ConferenceDataBloc>()
+        .add(const ConferenceDataEvent.getAllPendingConference());
   }
 
   void getAllApprovedConference() {
     context
-        .read<ApprovedConferenceDataBloc>()
-        .add(const ApprovedConferenceDataEvent.getAllApprovedConference());
+        .read<ConferenceDataBloc>()
+        .add(const ConferenceDataEvent.getAllApprovedConference());
   }
 
   void getAllRejectedConference() {
     context
-        .read<RejectedConferenceDataBloc>()
-        .add(const RejectedConferenceDataEvent.getRejectedCustomerData());
+        .read<ConferenceDataBloc>()
+        .add(const ConferenceDataEvent.getRejectedCustomerData());
   }
 
   @override
@@ -82,19 +82,16 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
           ),
           body: TabBarView(
             children: <Widget>[
-              buildConferenceDataTab<PendingConferenceDataBloc,
-                  PendingConferenceDataState>(
-                context.read<PendingConferenceDataBloc>(),
+              buildConferenceDataTab<ConferenceDataBloc, ConferenceDataState>(
+                context.read<ConferenceDataBloc>(),
                 getAllPendingConference,
               ),
-              buildConferenceDataTab<ApprovedConferenceDataBloc,
-                  ApprovedConferenceDataState>(
-                context.read<ApprovedConferenceDataBloc>(),
+              buildConferenceDataTab<ConferenceDataBloc, ConferenceDataState>(
+                context.read<ConferenceDataBloc>(),
                 getAllApprovedConference,
               ),
-              buildConferenceDataTab<RejectedConferenceDataBloc,
-                  RejectedConferenceDataState>(
-                context.read<RejectedConferenceDataBloc>(),
+              buildConferenceDataTab<ConferenceDataBloc, ConferenceDataState>(
+                context.read<ConferenceDataBloc>(),
                 getAllRejectedConference,
               ),
             ],
@@ -175,13 +172,14 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
                   Button.filled(
                     width: 180,
                     onPressed: () {
-                      Navigator.pushNamed(
+                      Navigator.push(
                         context,
-                        AppRoutes.verifyConference,
-                        arguments: {
-                          'transactionId': conferenceData.transactionId,
-                          'refreshData': refreshData,
-                        },
+                        MaterialPageRoute(
+                          builder: (context) => VerifyConferenceData(
+                            transactionId: conferenceData.transactionId,
+                            refreshData: refreshData,
+                          ),
+                        ),
                       );
                     },
                     label: 'Conference Detail',

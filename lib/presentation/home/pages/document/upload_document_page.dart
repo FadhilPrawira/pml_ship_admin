@@ -131,12 +131,12 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                                     widget.transactionId,
                                   ),
                                 );
-                            Navigator.pop(
-                                context); //kembali ke halaman sebelumnya
                             context.read<DocumentDataBloc>().add(
                                   DocumentDataEvent.getDocumentsData(
                                       widget.transactionId),
                                 );
+                            Navigator.pop(
+                                context); //kembali ke halaman sebelumnya
                           }
                         },
                       );

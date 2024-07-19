@@ -9,6 +9,7 @@ environment:
 dependencies:
   bloc: ^8.1.4
   dartz: ^0.10.1
+  device_info_plus: ^10.1.0
   dotted_border: ^2.1.0
   file_picker: ^8.0.6
   flutter:
@@ -20,6 +21,7 @@ dependencies:
   google_maps_flutter: ^2.7.0
   http: ^1.2.1
   intl: ^0.19.0
+  permission_handler: ^11.3.1
   shared_preferences: ^2.2.3
 
 dev_dependencies:

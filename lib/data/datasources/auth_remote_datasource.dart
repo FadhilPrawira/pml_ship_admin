@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -110,13 +110,13 @@ class AuthRemoteDatasource {
       headers: headers,
     );
 
-    // Log the request
-    log('Request: $headers');
-    log('URL: $url');
+    // // Log the request
+    // log('Request: $headers');
+    // log('URL: $url');
 
-    // Log the response body
-    log('Request: ${response.body}');
-    log('Status code: ${response.statusCode}');
+    // // Log the response body
+    // log('Request: ${response.body}');
+    // log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(UserResponseModel.fromJson(response.body));

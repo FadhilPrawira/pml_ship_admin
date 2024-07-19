@@ -211,7 +211,7 @@ class Discharge {
 class Document {
   final String? documentName;
   final String? documentType;
-  final dynamic maxInputDocumentAt;
+  final DateTime? maxInputDocumentAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -230,7 +230,9 @@ class Document {
   factory Document.fromMap(Map<String, dynamic> json) => Document(
         documentName: json["document_name"],
         documentType: json["document_type"],
-        maxInputDocumentAt: json["max_input_document_at"],
+        maxInputDocumentAt: json["max_input_document_at"] == null
+            ? null
+            : DateTime.parse(json["max_input_document_at"]),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -242,7 +244,7 @@ class Document {
   Map<String, dynamic> toMap() => {
         "document_name": documentName,
         "document_type": documentType,
-        "max_input_document_at": maxInputDocumentAt,
+        "max_input_document_at": maxInputDocumentAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
@@ -304,9 +306,9 @@ class PaymentElement {
   final int? paymentAmount;
   final String? paymentProofDocument;
   final int? installmentNumber;
-  final dynamic totalInstallments;
+  final int? totalInstallments;
   final String? paymentStatus;
-  final DateTime? approvedAt;
+  final dynamic approvedAt;
   final dynamic rejectedAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -342,9 +344,7 @@ class PaymentElement {
         installmentNumber: json["installment_number"],
         totalInstallments: json["total_installments"],
         paymentStatus: json["payment_status"],
-        approvedAt: json["approved_at"] == null
-            ? null
-            : DateTime.parse(json["approved_at"]),
+        approvedAt: json["approved_at"],
         rejectedAt: json["rejected_at"],
         createdAt: json["created_at"] == null
             ? null
@@ -363,7 +363,7 @@ class PaymentElement {
         "installment_number": installmentNumber,
         "total_installments": totalInstallments,
         "payment_status": paymentStatus,
-        "approved_at": approvedAt?.toIso8601String(),
+        "approved_at": approvedAt,
         "rejected_at": rejectedAt,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

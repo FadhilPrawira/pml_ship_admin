@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pml_ship_admin/presentation/profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 
 import '../../../core/core.dart';
 import '../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../auth/bloc/logout/logout_bloc.dart';
+import '../../auth/pages/sign_in_page.dart';
+import '../bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -121,12 +122,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           backgroundColor: Colors.green,
                         ),
                       );
-                      // Navigator.pushNamedAndRemoveUntil(
-                      //     context, '/sign-in', (route) => false);
-                      Navigator.pushNamedAndRemoveUntil(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        AppRoutes.signIn,
-                        (route) => route.settings.name == '/mainpage',
+                        MaterialPageRoute(
+                          builder: (context) => const SignInPage(),
+                        ),
+                        (route) => false,
                       );
                     },
                   );

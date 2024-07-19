@@ -1,74 +1,34 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:pml_ship_admin/core/core.dart';
 import 'package:pml_ship_admin/data/models/response/get_all_status_order_response_model.dart';
 
-import '../../../../core/core.dart';
 import '../../../../core/styles.dart';
+import '../../pages/document/document_list_page.dart';
 
 class OnProcessDocumentDataCard extends StatelessWidget {
   final GetAllStatusOrderResponseModel responseModel;
-  // final int documentType;
-  // 0 = Document Not Found (RED)
-  // 1 = Shipping Instruction
-  // 2 = Bill of Lading
-  // 3 = Cargo Manifest
-  // 4 = Timesheet
-  // 5 = Draught Survey
 
   const OnProcessDocumentDataCard({
     super.key,
-    // this.documentType = 0,
     required this.responseModel,
   });
 
   @override
   Widget build(BuildContext context) {
-    // String getDocumentTypeText(int documentType) {
-    //   switch (documentType) {
-    //     case 0:
-    //       return 'Document Not Found';
-    //     case 1:
-    //       return 'Shipping Instruction';
-    //     case 2:
-    //       return 'Bill of Lading';
-    //     case 3:
-    //       return 'Cargo Manifest';
-    //     case 4:
-    //       return 'Timesheet';
-    //     case 5:
-    //       return 'Draught Survey';
-    //     default:
-    //       return 'Unknown Document Type';
-    //   }
-    // }
-
-    // Color getDocumentTypeColor(int documentType) {
-    //   switch (documentType) {
-    //     case 0:
-    //       return Colors.red; // Document Not Found
-    //     case 1:
-    //       return secondaryColor; // Shipping Instruction  (using pre-defined color)
-    //     case 2:
-    //       return billOfLadingCard; // Bill of Lading (using pre-defined color)
-    //     case 3:
-    //       return cargoManifestCard; // Cargo Manifest (using pre-defined color)
-    //     case 4:
-    //       return timeSheetCard; // Timesheet (using pre-defined color)
-    //     default:
-    //       return Colors.grey; // Unknown document type
-    //   }
-    // }
-
     return ListView.builder(
-      itemCount: responseModel.data.length,
+      itemCount: responseModel.data?.length,
       itemBuilder: (context, index) {
-        final orderData = responseModel.data[index];
+        final orderData = responseModel.data?[index];
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(
+            Navigator.push(
               context,
-              AppRoutes.documentList,
-              arguments: orderData.transactionId,
+              MaterialPageRoute(
+                builder: (context) => DocumentListPage(
+                  transactionId: orderData.transactionId!,
+                ),
+              ),
             );
           },
           child: Container(
@@ -80,14 +40,14 @@ class OnProcessDocumentDataCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                // mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                          child: Text('Created at: ${orderData.createdAt}')),
+                          child: Text(
+                              'Created at: ${orderData!.createdAt?.toFormattedIndonesianShortDateAndUTC7Time()}')),
                       // Column(
                       //   children: [
                       //     Text(
@@ -118,14 +78,14 @@ class OnProcessDocumentDataCard extends StatelessWidget {
                       // ),
                       Flexible(
                         child: Text(
-                          orderData.transactionId,
+                          orderData.transactionId!,
                           style: primaryTextStyle,
                         ),
                       ),
                     ],
                   ),
                   Text(
-                    orderData.customerCompanyName,
+                    orderData.customerCompanyName!,
                     style: primaryTextStyle.copyWith(
                       fontWeight: semiBold,
                       fontSize: 16.0,
@@ -133,9 +93,9 @@ class OnProcessDocumentDataCard extends StatelessWidget {
                   ),
 
                   Text(
-                      '${orderData.loading.port} → ${orderData.discharge.port}'),
+                      '${orderData.loading?.port} → ${orderData.discharge?.port}'),
                   Text(
-                      '${orderData.loading.date} → ${orderData.discharge.date}'),
+                      '${orderData.loading?.date} → ${orderData.discharge?.date}'),
                   // Container(
                   //   width: double.infinity,
                   //   decoration: BoxDecoration(

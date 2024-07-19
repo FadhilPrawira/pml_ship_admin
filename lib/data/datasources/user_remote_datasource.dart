@@ -103,13 +103,13 @@ class UserRemoteDatasource {
       headers: headers,
     );
 
-    // Log the request
-    log('Request: $headers');
-    log('URL: $url');
+    // // Log the request
+    // log('Request: $headers');
+    // log('URL: $url');
 
-    // Log the response body
-    log('Request: ${response.body}');
-    log('Status code: ${response.statusCode}');
+    // // Log the response body
+    // log('Request: ${response.body}');
+    // log('Status code: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       return Right(GetAllStatusUserResponseModel.fromJson(response.body));

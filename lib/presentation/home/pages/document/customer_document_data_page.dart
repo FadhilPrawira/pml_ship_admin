@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/orderData/completedOrdersData/completed_orders_data_bloc.dart';
-import '../../bloc/orderData/onProcessOrdersData/on_process_orders_data_bloc.dart';
+import '../../bloc/order_data/order_data_bloc.dart';
 import '../../widgets/document_data_card/on_process_document_data_card.dart';
 
 class CustomerDocumentDataPage extends StatefulWidget {
@@ -16,12 +15,12 @@ class CustomerDocumentDataPage extends StatefulWidget {
 class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
   @override
   void initState() {
-    context.read<OnProcessOrdersDataBloc>().add(
-          const OnProcessOrdersDataEvent.getAllOnProcessOrders(),
+    context.read<OrderDataBloc>().add(
+          const OrderDataEvent.getAllOnProcessOrders(),
         );
 
-    context.read<CompletedOrdersDataBloc>().add(
-          const CompletedOrdersDataEvent.getAllCompletedOrders(),
+    context.read<OrderDataBloc>().add(
+          const OrderDataEvent.getAllCompletedOrders(),
         );
     super.initState();
   }
@@ -54,8 +53,7 @@ class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
                   //     customHintText: 'Search by ID Order/Type of Document',
                   //     customPadding: 10.0),
                   Expanded(
-                    child: BlocBuilder<OnProcessOrdersDataBloc,
-                        OnProcessOrdersDataState>(
+                    child: BlocBuilder<OrderDataBloc, OrderDataState>(
                       builder: (context, state) {
                         return state.maybeWhen(
                           orElse: () {
@@ -84,8 +82,7 @@ class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
                   //     customHintText: 'Search by ID Order/Type of Document',
                   //     customPadding: 10.0),
                   Expanded(
-                    child: BlocBuilder<CompletedOrdersDataBloc,
-                        CompletedOrdersDataState>(
+                    child: BlocBuilder<OrderDataBloc, OrderDataState>(
                       builder: (context, state) {
                         return state.maybeWhen(
                           orElse: () {
@@ -105,15 +102,8 @@ class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
                       },
                     ),
                   ),
-                  // Add multiple instances of ReceivedDocumentDataCard() here
-                  // ReceivedDocumentDataCard(documentType: 1),
-                  // ReceivedDocumentDataCard(documentType: 2),
-                  // ReceivedDocumentDataCard(documentType: 3),
-                  // Text('No data')
-                  // Add more ReceivedDocumentDataCard() widgets as needed
                 ],
               ),
-              // VerifiedTab
             ],
           ),
         ),
