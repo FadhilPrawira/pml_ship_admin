@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pml_ship_admin/core/core.dart';
 
-import '../../../../core/styles.dart';
 import '../../../../data/datasources/download_file.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
@@ -39,12 +38,14 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: backgroundColor1,
+          backgroundColor: AppColors.gray4,
           title: const Text(
             'Verify Payment Data',
           ),
-          titleTextStyle:
-              primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+          titleTextStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
         ),
         body: BlocBuilder<OrderDetailBloc, OrderDetailState>(
           builder: (context, state) {
@@ -116,7 +117,7 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -124,14 +125,14 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('payment approved successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
 
             Navigator.pop(context);
             context
                 .read<PaymentDataBloc>()
-                .add(PaymentDataEvent.getPendingPaymentData());
+                .add(const PaymentDataEvent.getPendingPaymentData());
           },
         );
       },
@@ -148,17 +149,17 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: verifyCheck,
+          backgroundColor: AppColors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Verify',
-          style: primaryTextStyle.copyWith(
-            fontWeight: medium,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
             fontSize: 16.0,
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -175,7 +176,7 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -183,7 +184,7 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Payment rejected successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -203,17 +204,17 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Reject',
-          style: primaryTextStyle.copyWith(
-            fontWeight: medium,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
             fontSize: 16.0,
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -228,8 +229,8 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
         children: [
           Text(
             label,
-            style: primaryTextStyle.copyWith(
-              fontWeight: medium,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
               fontSize: 12,
             ),
           ),
@@ -248,8 +249,8 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
             ),
             child: Text(
               value,
-              style: primaryTextStyle.copyWith(
-                fontWeight: medium,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
                 fontSize: 12.0,
               ),
             ),
@@ -266,8 +267,8 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
       ),
       child: Text(
         title,
-        style: primaryTextStyle.copyWith(
-          fontWeight: semiBold,
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
           fontSize: 22.0,
         ),
       ),

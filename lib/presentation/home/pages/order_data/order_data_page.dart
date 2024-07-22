@@ -186,7 +186,7 @@ class _OrderDataPageState extends State<OrderDataPage> {
   //         horizontal: 10,
   //       ),
   //       decoration: BoxDecoration(
-  //           border: Border.all(color: Colors.black),
+  //           border: Border.all(color: AppColors.black),
   //           borderRadius: BorderRadius.circular(5.0)),
   //       child: Column(
   //         crossAxisAlignment: CrossAxisAlignment.start,

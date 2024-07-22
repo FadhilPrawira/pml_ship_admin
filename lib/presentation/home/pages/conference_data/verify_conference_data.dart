@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/styles.dart';
+import '../../../../core/core.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/conference_response_model.dart';
@@ -35,12 +35,14 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: backgroundColor1,
+          backgroundColor: AppColors.gray4,
           title: const Text(
             'Verify Conference Data',
           ),
-          titleTextStyle:
-              primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+          titleTextStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
         ),
         body: BlocBuilder<DetailConferenceBloc, DetailConferenceState>(
           builder: (context, state) {
@@ -99,7 +101,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -108,7 +110,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               SnackBar(
                 content:
                     Text('Conference with $companyName approved successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
 
@@ -130,17 +132,17 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: verifyCheck,
+          backgroundColor: AppColors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Verify',
-          style: primaryTextStyle.copyWith(
-            fontWeight: medium,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
             fontSize: 16.0,
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -157,7 +159,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -166,7 +168,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               SnackBar(
                 content:
                     Text('Conference with $companyName rejected successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -187,17 +189,17 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Reject',
-          style: primaryTextStyle.copyWith(
-            fontWeight: medium,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
             fontSize: 16.0,
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -212,8 +214,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
         children: [
           Text(
             label,
-            style: primaryTextStyle.copyWith(
-              fontWeight: medium,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
               fontSize: 12,
             ),
           ),
@@ -232,8 +234,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
             ),
             child: Text(
               value,
-              style: primaryTextStyle.copyWith(
-                fontWeight: medium,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
                 fontSize: 12.0,
               ),
             ),
@@ -250,8 +252,8 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
       ),
       child: Text(
         title,
-        style: primaryTextStyle.copyWith(
-          fontWeight: semiBold,
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
           fontSize: 22.0,
         ),
       ),

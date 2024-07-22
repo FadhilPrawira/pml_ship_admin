@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/core.dart';
-import '../../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_status_conference_response_model.dart';
 
 import '../../bloc/conference_data/conference_data_bloc.dart';
@@ -149,7 +148,7 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
             horizontal: 10,
           ),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
+            border: Border.all(color: AppColors.black),
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: Column(
@@ -158,13 +157,13 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
             children: [
               Text(
                 conferenceData.createdAt.toIso8601String(),
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 12.0),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500, fontSize: 12.0),
               ),
               Text(
                 conferenceData.conference.companyName,
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 18.0),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500, fontSize: 18.0),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

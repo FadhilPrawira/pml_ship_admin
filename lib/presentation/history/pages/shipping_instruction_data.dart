@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/styles.dart';
+import '../../../core/core.dart';
 
 class ShippingInstructionDataPage extends StatelessWidget {
   const ShippingInstructionDataPage({super.key});
@@ -9,13 +8,15 @@ class ShippingInstructionDataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: AppColors.gray4,
         title: Container(
-          padding: EdgeInsets.all(defaultMargin),
-          child: Text(
+          padding: const EdgeInsets.all(30.0),
+          child: const Text(
             'Shipping Instruction Data',
-            style:
-                primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
           ),
         ),
       );
@@ -27,8 +28,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
         children: [
           Text(
             label,
-            style: primaryTextStyle.copyWith(
-              fontWeight: medium,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
               fontSize: 12,
             ),
           ),
@@ -49,8 +50,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
               ),
               child: Text(
                 value,
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontSize: 12.0,
                 ),
               ),
@@ -65,8 +66,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,8 +88,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,8 +129,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
               child: Center(
                 child: Text(
                   date,
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: medium,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
                     fontSize: 13.0,
                   ),
                 ),
@@ -146,14 +147,13 @@ class ShippingInstructionDataPage extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                color: transparentColor,
                 border: Border.all(),
               ),
               child: Center(
                 child: Text(
                   month,
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
                     fontSize: 13.0,
                   ),
                 ),
@@ -170,14 +170,13 @@ class ShippingInstructionDataPage extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                color: transparentColor,
                 border: Border.all(),
               ),
               child: Center(
                 child: Text(
                   year,
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
                     fontSize: 13.0,
                   ),
                 ),
@@ -193,8 +192,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,10 +206,10 @@ class ShippingInstructionDataPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Estimated Time Of Departure (Loading Date)',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),
                   ),
@@ -222,10 +221,10 @@ class ShippingInstructionDataPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Estimated Time Of Arrival (Discharge Date)',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),
                   ),
@@ -244,8 +243,8 @@ class ShippingInstructionDataPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,16 +266,16 @@ class ShippingInstructionDataPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Shipping Instruction',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontSize: 12,
                 ),
               ),
@@ -295,19 +294,19 @@ class ShippingInstructionDataPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.0),
                     border: Border.all(),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
                         child: Text(
                           'shipping_instruction_doc_Anugrah_Lautan_Luas.pdf',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: medium,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
                             fontSize: 12.0,
                           ),
                         ),
                       ),
-                      const Icon(Icons.download),
+                      Icon(Icons.download),
                     ],
                   ),
                 ),
@@ -320,15 +319,15 @@ class ShippingInstructionDataPage extends StatelessWidget {
 
     Widget sectionTitle(String text) {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 20.0,
-          left: defaultMargin,
-          right: defaultMargin,
+          left: 30.0,
+          right: 30.0,
         ),
         child: Text(
           text,
-          style: primaryTextStyle.copyWith(
-            fontWeight: semiBold,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
             fontSize: 22.0,
           ),
         ),
@@ -351,10 +350,12 @@ class ShippingInstructionDataPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Reject Order',
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 16.0, color: primaryColor),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: AppColors.primaryColor),
               ),
             ),
             TextButton(
@@ -362,15 +363,17 @@ class ShippingInstructionDataPage extends StatelessWidget {
                 //navigator
               },
               style: TextButton.styleFrom(
-                backgroundColor: verifyCheck,
+                backgroundColor: AppColors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Accept Order',
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 16.0, color: primaryColor),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: AppColors.primaryColor),
               ),
             ),
           ],

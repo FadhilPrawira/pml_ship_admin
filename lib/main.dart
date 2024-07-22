@@ -95,7 +95,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: AppColors.primaryColor,
           dividerTheme: const DividerThemeData(color: AppColors.divider),
           textTheme: GoogleFonts.interTextTheme(
             Theme.of(context).textTheme,
@@ -104,11 +104,11 @@ class MainApp extends StatelessWidget {
             color: AppColors.blue,
             elevation: 0,
             titleTextStyle: GoogleFonts.inter(
-              color: Colors.white,
+              color: AppColors.primaryColor,
               fontSize: 16.0,
               fontWeight: FontWeight.w500,
             ),
-            iconTheme: const IconThemeData(color: Colors.white),
+            iconTheme: const IconThemeData(color: AppColors.primaryColor),
           ),
         ),
         home: FutureBuilder<bool>(

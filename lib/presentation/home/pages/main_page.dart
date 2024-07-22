@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/styles.dart';
+import '../../../core/core.dart';
 import '../../history/pages/history_page.dart';
 import '../../profile/pages/profile_page.dart';
 import 'home_admin_page.dart';
@@ -31,10 +31,7 @@ class _MainPageState extends State<MainPage> {
             clipBehavior: Clip.antiAlias,
             child: BottomNavigationBar(
               iconSize: 30.0,
-              // selectedLabelStyle:
-              //     primaryTextStyle.copyWith(fontWeight: bold, fontSize: 16),
-              // unselectedLabelStyle: TextStyle(fontSize: 22),
-              backgroundColor: backgroundColor1,
+              backgroundColor: AppColors.gray4,
               currentIndex: currentIndex,
               onTap: (value) {
                 // print(value);
@@ -54,7 +51,8 @@ class _MainPageState extends State<MainPage> {
                     ),
                     child: Icon(
                       Icons.home_outlined,
-                      color: currentIndex == 0 ? secondaryColor : subtitleColor,
+                      color:
+                          currentIndex == 0 ? AppColors.blue : AppColors.gray3,
                     ),
                   ),
                   label: 'Home',
@@ -67,8 +65,9 @@ class _MainPageState extends State<MainPage> {
                       ),
                       child: Icon(
                         Icons.format_list_bulleted,
-                        color:
-                            currentIndex == 1 ? secondaryColor : subtitleColor,
+                        color: currentIndex == 1
+                            ? AppColors.blue
+                            : AppColors.gray3,
                       )),
                   label: 'History',
                 ),
@@ -80,7 +79,8 @@ class _MainPageState extends State<MainPage> {
                     ),
                     child: Icon(
                       Icons.person,
-                      color: currentIndex == 2 ? secondaryColor : subtitleColor,
+                      color:
+                          currentIndex == 2 ? AppColors.blue : AppColors.gray3,
                     ),
                   ),
                   label: 'Profile',

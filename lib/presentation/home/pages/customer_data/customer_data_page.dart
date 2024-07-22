@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_status_user_response_model.dart';
 import '../../bloc/customer_data/customer_data_bloc.dart';
 import 'verify_customer_data.dart';
@@ -134,7 +133,7 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
             horizontal: 10,
           ),
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
+              border: Border.all(color: AppColors.black),
               borderRadius: BorderRadius.circular(5.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,22 +148,22 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
                         : userData.status == 'rejected'
                             ? 'Rejected at : ${userData.rejectedAt!.toIso8601String()}'
                             : 'Created at : ${userData.createdAt.toIso8601String()}',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontSize: 12.0,
                 ),
               ),
               Text(
                 userData.user.name,
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontSize: 18.0,
                 ),
               ),
               Text(
                 userData.company.companyName,
-                style: primaryTextStyle.copyWith(
-                  fontWeight: bold,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
                   fontSize: 18.0,
                 ),
               ),

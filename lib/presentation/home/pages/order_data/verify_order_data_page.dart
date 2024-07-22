@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pml_ship_admin/data/models/request/complete_order_request_model.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/order_detail_response_model.dart';
@@ -41,13 +40,15 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: backgroundColor1,
+          backgroundColor: AppColors.gray4,
           title: Container(
-            padding: EdgeInsets.all(defaultMargin),
-            child: Text(
+            padding: const EdgeInsets.all(30.0),
+            child: const Text(
               'Verify Order Data',
-              style:
-                  primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -59,7 +60,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Error: ${e.message}'),
-                    backgroundColor: Colors.red,
+                    backgroundColor: AppColors.red,
                   ),
                 );
               },
@@ -134,7 +135,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(e.message),
-                        backgroundColor: Colors.red,
+                        backgroundColor: AppColors.red,
                       ),
                     );
                   },
@@ -142,7 +143,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Order complteed successfully'),
-                        backgroundColor: Colors.green,
+                        backgroundColor: AppColors.green,
                       ),
                     );
                     Navigator.pop(context);
@@ -202,7 +203,10 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
       margin: const EdgeInsets.only(top: 20.0),
       child: Text(
         title,
-        style: primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 22.0),
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 22.0,
+        ),
       ),
     );
   }
@@ -213,7 +217,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
       children: [
         Text(
           label,
-          style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 12),
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -228,7 +232,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             child: Text(
               value,
               style:
-                  primaryTextStyle.copyWith(fontWeight: medium, fontSize: 12.0),
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 12.0),
             ),
           ),
         ),
@@ -245,7 +249,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -254,7 +258,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               SnackBar(
                 content:
                     Text('Payment proof $transactionId rejected successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -276,15 +280,18 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Reject',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );
@@ -299,7 +306,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -307,7 +314,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Payment $transactionId approved successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -328,15 +335,18 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: verifyCheck,
+          backgroundColor: AppColors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Verify',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );
@@ -351,7 +361,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -359,7 +369,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Order $transactionId rejected successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -381,15 +391,18 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Reject',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );
@@ -404,7 +417,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -412,7 +425,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Order $transactionId approved successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -433,15 +446,18 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: verifyCheck,
+          backgroundColor: AppColors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Verify',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );

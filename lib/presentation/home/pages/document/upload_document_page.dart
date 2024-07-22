@@ -70,15 +70,16 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SpaceHeight(8),
                   if (selectedFile != null)
                     Text(
                       'Selected file: ${selectedFile!.path.split('/').last}',
-                      style: const TextStyle(fontSize: 16, color: Colors.black),
+                      style:
+                          const TextStyle(fontSize: 16, color: AppColors.black),
                     ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SpaceHeight(16),
               BlocConsumer<UploadDocumentBloc, UploadDocumentState>(
                 listener: (context, state) {
                   state.maybeWhen(
@@ -87,7 +88,7 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                         return ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Error: $message'),
-                            backgroundColor: Colors.red,
+                            backgroundColor: AppColors.red,
                           ),
                         );
                       },
@@ -96,7 +97,7 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                           const SnackBar(
                             content: Text(
                                 'Upload SUCCESS'), //menampilkan snackbar success
-                            backgroundColor: Colors.green,
+                            backgroundColor: AppColors.green,
                           ),
                         );
                       });
@@ -116,7 +117,7 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Please select a file'),
-                                backgroundColor: Colors.red,
+                                backgroundColor: AppColors.red,
                               ),
                             );
                           } else {
@@ -176,10 +177,10 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                 color: Color(0xFFFFFFFF),
                 size: 32,
               ),
-              const SizedBox(width: 16),
+              const SpaceWidth(16),
               Text(
                 label,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: AppColors.primaryColor),
               ),
             ],
           ),

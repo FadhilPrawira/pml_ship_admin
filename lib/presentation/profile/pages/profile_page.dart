@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/core.dart';
-import '../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../auth/bloc/logout/logout_bloc.dart';
 import '../../auth/pages/sign_in_page.dart';
@@ -31,11 +30,11 @@ class _ProfilePageState extends State<ProfilePage> {
         toolbarHeight: 124.0, //Didapat dari Figma
         titleSpacing:
             0, //Untuk menghilangkan padding dari leading (leading = biasanya berupa tombol back)
-        backgroundColor: backgroundColor1,
+        backgroundColor: AppColors.gray4,
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Container(
-          padding: EdgeInsets.all(defaultMargin),
+          padding: const EdgeInsets.all(30.0),
           child: Row(
             children: [
               CircleAvatar(
@@ -46,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 width: 16,
               ),
+              const SpaceWidth(16),
               Expanded(
                 child: BlocBuilder<GetAuthenticatedUserBloc,
                     GetAuthenticatedUserState>(
@@ -64,8 +64,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           '$name',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: semiBold,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),
                           softWrap: true,
@@ -73,8 +73,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Text(
                           '$email',
-                          style: subtitleTextStyle.copyWith(
-                            fontWeight: regular,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
                             fontSize: 16,
                           ),
                           softWrap: true,
@@ -96,8 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-          decoration: BoxDecoration(
-            color: primaryColor,
+          decoration: const BoxDecoration(
+            color: AppColors.primaryColor,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(e.message),
-                          backgroundColor: Colors.red,
+                          backgroundColor: AppColors.red,
                         ),
                       );
                     },
@@ -119,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Logout success'),
-                          backgroundColor: Colors.green,
+                          backgroundColor: AppColors.green,
                         ),
                       );
                       Navigator.pushAndRemoveUntil(

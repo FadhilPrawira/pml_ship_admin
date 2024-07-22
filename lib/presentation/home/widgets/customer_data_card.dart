@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/styles.dart';
+import '../../../core/core.dart';
 
 class CustomerDataCard extends StatelessWidget {
   const CustomerDataCard({super.key});
@@ -11,7 +11,7 @@ class CustomerDataCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: AppColors.black),
           borderRadius: BorderRadius.circular(5.0)),
       child: Column(
         mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
@@ -26,22 +26,22 @@ class CustomerDataCard extends StatelessWidget {
               ],
             ),
           ),
-          Row(
+          const Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Putri Ayu Tarra',
-                      style: primaryTextStyle.copyWith(
-                          fontWeight: medium, fontSize: 18.0),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 18.0),
                     ),
                     Text(
                       'Anugrah Lautan Luas, PT',
-                      style: primaryTextStyle.copyWith(
-                          fontWeight: bold, fontSize: 18.0),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 18.0),
                     ),
                   ],
                 ),
@@ -59,7 +59,7 @@ class CustomerDataCard extends StatelessWidget {
                       horizontal: 24.0,
                       vertical: 10.0,
                     ),
-                    backgroundColor: secondaryColor,
+                    backgroundColor: AppColors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         25.0,
@@ -69,12 +69,13 @@ class CustomerDataCard extends StatelessWidget {
                   onPressed: () {
                     // Navigator.pushNamed(context, '/verify-customer');
                   },
-                  child: Text(
+                  child: const Text(
                     'Customer Detail',
-                    style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
-                        fontSize: 16.0,
-                        color: primaryColor),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.0,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                 ),
               ],

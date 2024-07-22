@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/core.dart';
 import '../../bloc/documentData/document_data_bloc.dart';
 import 'upload_document_page.dart';
 
@@ -123,7 +124,7 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                         child: const Text(
                                           'Shipping instruction will be uploaded by customer',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: AppColors.primaryColor,
                                           ),
                                         ),
                                       ),
@@ -133,7 +134,7 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                     documentData.documentName ?? '',
                                     style: const TextStyle(
                                       fontSize: 14,
-                                      color: Colors.white,
+                                      color: AppColors.primaryColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -179,10 +180,10 @@ class _DocumentListPageState extends State<DocumentListPage> {
                 color: Color(0xFFFFFFFF),
                 size: 32,
               ),
-              const SizedBox(width: 16),
+              const SpaceWidth(16),
               Text(
                 label,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: AppColors.primaryColor),
               ),
             ],
           ),

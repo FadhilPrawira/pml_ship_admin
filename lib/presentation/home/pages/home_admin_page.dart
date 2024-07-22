@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/core.dart';
-import '../../../core/styles.dart';
 import '../../../data/models/response/auth_response_model.dart';
 import '../../profile/bloc/get_authenticated_user/get_authenticated_user_bloc.dart';
 import 'conference_data/conference_data_page.dart';
@@ -32,10 +31,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   Widget build(BuildContext context) {
     Widget header() {
       return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+        margin: const EdgeInsets.only(
+          top: 30.0,
+          left: 30.0,
+          right: 30.0,
         ),
         child: Row(
           children: [
@@ -44,17 +43,15 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                   AssetImage(Assets.image.imageProfileExample.path),
               radius: 30.0,
             ),
-            const SizedBox(
-              width: 15.0,
-            ),
+            const SpaceWidth(15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Welcome',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: regular,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
                       fontSize: 16,
                     ),
                   ),
@@ -70,8 +67,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                       );
                       return Text(
                         '$name',
-                        style: primaryTextStyle.copyWith(
-                          fontWeight: bold,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
                           fontSize: 24,
                         ),
                       );
@@ -87,15 +84,15 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
     Widget sectionTitle(String text) {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 20.0,
-          left: defaultMargin,
-          right: defaultMargin,
+          left: 30.0,
+          right: 30.0,
         ),
         child: Text(
           text,
-          style: primaryTextStyle.copyWith(
-            fontWeight: semiBold,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
             fontSize: 22.0,
           ),
         ),
@@ -104,8 +101,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
     Widget updatesCard() {
       return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 30.0,
         ),
         child: Container(
           margin: const EdgeInsets.only(top: 10),
@@ -115,25 +112,22 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
             borderRadius: BorderRadius.circular(5.0),
             color: const Color(0xffDBEFEF),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'PT PAMA Order Vessel jenis Mother Vessel dengan rute Taboneo - Samarinda ',
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: semiBold,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
                     fontSize: 16.0,
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                SpaceHeight(10),
                 Text(
                   '30 minutes ago',
-                  style: primaryTextStyle.copyWith(
-                      fontWeight: regular, fontSize: 12.0),
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12.0),
                 ),
               ],
             ),
@@ -144,8 +138,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
     Widget dashboardCard() {
       return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 30.0,
         ),
         child: Container(
           margin: const EdgeInsets.only(top: 10),
@@ -162,10 +156,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               children: [
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       'Sales',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
                         fontSize: 16.0,
                       ),
                     ),
@@ -173,24 +167,24 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                       height: 30.0,
                       width: 30.0,
                     ),
-                    Text(
+                    const Text(
                       '70 %',
-                      style: primaryTextStyle.copyWith(
-                          fontWeight: regular, fontSize: 12.0),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 12.0),
                     ),
                   ],
                 ),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       'Rp10.000.000.000,00',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: bold,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
                         fontSize: 16.0,
                       ),
                     ),
-                    const Text('Last 24 Hours'),
+                    Text('Last 24 Hours'),
                   ],
                 ),
               ],
@@ -202,7 +196,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
     Widget customData() {
       return Container(
-        padding: EdgeInsets.only(top: defaultMargin),
+        padding: const EdgeInsets.only(top: 30.0),
         // Contain all of this part into one row
         child: Column(
           children: [
@@ -215,7 +209,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CustomerDataPage()));
+                            builder: (context) => const CustomerDataPage()));
                   },
                   child: Column(
                     children: [
@@ -226,19 +220,17 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           shape: BoxShape.circle,
                           color: Color(0xff9DB6D4),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.person,
                           size: 30,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       const Text('Customer Data'),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
+                const SpaceHeight(30),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -257,10 +249,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           shape: BoxShape.circle,
                           color: Color(0xff9DB6D4),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.shopping_cart,
                           size: 30,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       const Text('Order Data'),
@@ -291,19 +283,17 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           shape: BoxShape.circle,
                           color: Color(0xff9DB6D4),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.description,
                           size: 30,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       const Text('Document'),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
+                const SpaceHeight(30),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -322,10 +312,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           shape: BoxShape.circle,
                           color: Color(0xff9DB6D4),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.account_balance_wallet,
                           size: 30,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       const Text('Payment'),
@@ -356,10 +346,10 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           shape: BoxShape.circle,
                           color: Color(0xff9DB6D4),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.group,
                           size: 30,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                       const Text('Conference'),
@@ -378,7 +368,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
         header(),
         // SearchBarWidget(
         //   customHintText: 'Search...',
-        //   customPadding: defaultMargin,
+        //   customPadding: 30.0,
         // ),
         // sectionTitle('Dashboard'),
         // dashboardCard(),
@@ -393,9 +383,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
         /// I dont know what to named this part [customData]
         customData(),
-        SizedBox(
-          height: defaultMargin,
-        )
+
+        const SpaceHeight(30),
       ],
     );
   }

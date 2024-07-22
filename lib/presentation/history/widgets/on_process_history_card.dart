@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/styles.dart';
+import '../../../core/core.dart';
 
 class OnProcessHistoryCard extends StatelessWidget {
   const OnProcessHistoryCard({super.key});
@@ -12,7 +12,7 @@ class OnProcessHistoryCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
+            border: Border.all(color: AppColors.black),
             borderRadius: BorderRadius.circular(5.0)),
         child: Column(
           mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
@@ -55,7 +55,7 @@ class OnProcessHistoryCard extends StatelessWidget {
                         horizontal: 24.0,
                         vertical: 10.0,
                       ),
-                      backgroundColor: secondaryColor,
+                      backgroundColor: AppColors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           25.0,
@@ -63,10 +63,10 @@ class OnProcessHistoryCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Order Detail',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
                         fontSize: 16.0,
                       ),
                     ),
@@ -77,7 +77,7 @@ class OnProcessHistoryCard extends StatelessWidget {
                         horizontal: 24.0,
                         vertical: 10.0,
                       ),
-                      backgroundColor: secondaryColor,
+                      backgroundColor: AppColors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           25.0,
@@ -85,10 +85,10 @@ class OnProcessHistoryCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Track Vessel',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
                         fontSize: 16.0,
                       ),
                     ),

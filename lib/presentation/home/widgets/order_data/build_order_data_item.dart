@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
 import '../../../../data/models/response/get_all_status_order_response_model.dart';
 import '../../pages/order_data/verify_order_data_page.dart';
 
@@ -30,7 +29,7 @@ class BuildOrderDataItem extends StatelessWidget {
             horizontal: 10,
           ),
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
+              border: Border.all(color: AppColors.black),
               borderRadius: BorderRadius.circular(5.0)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,8 +54,8 @@ class BuildOrderDataItem extends StatelessWidget {
                                                   'order_canceled'
                                               ? 'Canceled at:\n${orderData?.orderCanceledAt?.toFormattedInternationalShortDateAndUTC7Time()}'
                                               : 'Created at:\n${orderData?.createdAt?.toFormattedInternationalShortDateAndUTC7Time()}',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
                         fontSize: 12.0,
                       ),
                     ),
@@ -66,15 +65,17 @@ class BuildOrderDataItem extends StatelessWidget {
               ),
               Text(
                 '${orderData.shipper?.name} - ${orderData.consignee?.name}',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: medium,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontSize: 18.0,
                 ),
               ),
               Text(
                 '${orderData.loading?.port} → ${orderData.discharge?.port}',
-                style:
-                    primaryTextStyle.copyWith(fontWeight: bold, fontSize: 18.0),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18.0,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

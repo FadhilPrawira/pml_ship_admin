@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pml_ship_admin/core/components/components.dart';
 
 enum ButtonStyle { filled, outlined }
 
@@ -63,7 +64,7 @@ class Button extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   icon ?? const SizedBox.shrink(),
-                  if (icon != null) const SizedBox(width: 10.0),
+                  if (icon != null) const SpaceWidth(10),
                   Text(
                     label,
                     style: TextStyle(
@@ -88,7 +89,7 @@ class Button extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   icon ?? const SizedBox.shrink(),
-                  if (icon != null) const SizedBox(width: 10.0),
+                  if (icon != null) const SpaceWidth(10),
                   Text(
                     label,
                     style: TextStyle(

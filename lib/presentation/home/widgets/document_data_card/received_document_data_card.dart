@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/styles.dart';
+import '../../../../core/core.dart';
 
 class ReceivedDocumentDataCard extends StatelessWidget {
   final int documentType;
@@ -28,27 +28,12 @@ class ReceivedDocumentDataCard extends StatelessWidget {
       }
     }
 
-    Color getDocumentTypeColor(int documentType) {
-      switch (documentType) {
-        case 0:
-          return Colors.red; // Document Not Found
-        case 1:
-          return billOfLadingCard; // Bill of Lading (using pre-defined color)
-        case 2:
-          return cargoManifestCard; // Cargo Manifest (using pre-defined color)
-        case 3:
-          return timeSheetCard; // Timesheet (using pre-defined color)
-        default:
-          return Colors.grey; // Unknown document type
-      }
-    }
-
     return SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
+            border: Border.all(color: AppColors.black),
             borderRadius: BorderRadius.circular(5.0)),
         child: Column(
           mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
@@ -71,20 +56,20 @@ class ReceivedDocumentDataCard extends StatelessWidget {
               ),
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.all(10),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Putri Ayu Tarra',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: regular,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
                       fontSize: 14.0,
                     ),
                   ),
                   Text(
                     'Anugrah Lautan Luas, PT',
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: semiBold,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
                       fontSize: 16.0,
                     ),
                   ),
@@ -99,7 +84,6 @@ class ReceivedDocumentDataCard extends StatelessWidget {
                     horizontal: 12.0,
                     vertical: 10.0,
                   ),
-                  backgroundColor: getDocumentTypeColor(documentType),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
                       10.0,
@@ -113,25 +97,23 @@ class ReceivedDocumentDataCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.description,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SpaceWidth(10),
                         Text(
                           getDocumentTypeText(documentType),
-                          style: primaryTextStyle.copyWith(
-                              fontWeight: medium,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500,
                               fontSize: 16.0,
-                              color: primaryColor),
+                              color: AppColors.primaryColor),
                         ),
                       ],
                     ),
-                    Icon(
+                    const Icon(
                       Icons.download,
-                      color: primaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ],
                 ),

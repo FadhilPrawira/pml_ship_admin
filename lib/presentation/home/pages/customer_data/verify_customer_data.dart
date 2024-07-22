@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pml_ship_admin/data/datasources/download_file.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/user_response_model.dart';
@@ -41,13 +40,15 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: backgroundColor1,
+          backgroundColor: AppColors.gray4,
           title: Container(
-            padding: EdgeInsets.all(defaultMargin),
-            child: Text(
+            padding: const EdgeInsets.all(30.0),
+            child: const Text(
               'Verify Customer Data',
-              style:
-                  primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -59,7 +60,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Error: ${e.message}'),
-                    backgroundColor: Colors.red,
+                    backgroundColor: AppColors.red,
                   ),
                 );
               },
@@ -131,7 +132,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       margin: const EdgeInsets.only(top: 20.0),
       child: Text(
         title,
-        style: primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 22.0),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 22.0),
       ),
     );
   }
@@ -142,7 +143,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
       children: [
         Text(
           label,
-          style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 12),
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -157,7 +158,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             child: Text(
               value,
               style:
-                  primaryTextStyle.copyWith(fontWeight: medium, fontSize: 12.0),
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 12.0),
             ),
           ),
         ),
@@ -174,7 +175,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -182,7 +183,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('User $companyName rejected successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -203,15 +204,18 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Reject',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );
@@ -226,7 +230,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(e.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.red,
               ),
             );
           },
@@ -234,7 +238,7 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('User $companyName approved successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
               ),
             );
             Navigator.pop(context);
@@ -255,15 +259,18 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
               );
         },
         style: TextButton.styleFrom(
-          backgroundColor: verifyCheck,
+          backgroundColor: AppColors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Verify',
-          style: primaryTextStyle.copyWith(
-              fontWeight: medium, fontSize: 16.0, color: primaryColor),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16.0,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );

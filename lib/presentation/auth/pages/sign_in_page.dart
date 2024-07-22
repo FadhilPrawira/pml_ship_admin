@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/styles.dart';
 import '../../../data/datasources/auth_local_datasource.dart';
 import '../../home/pages/main_page.dart';
 import '../bloc/login/login_bloc.dart';
@@ -43,9 +42,9 @@ class _SignInPageState extends State<SignInPage> {
         },
         child: Container(
           padding: const EdgeInsets.only(top: 10),
-          child: Text(
+          child: const Text(
             'I forget my password',
-            style: primaryTextStyle.copyWith(
+            style: TextStyle(
               fontSize: 12.0,
             ),
           ),
@@ -182,32 +181,6 @@ class _SignInPageState extends State<SignInPage> {
                               );
                             },
                           ),
-                          // const SpaceHeight(16.0),
-                          // Center(
-                          //   child: Text.rich(
-                          //     TextSpan(
-                          //       text: 'Don\'t have account? ',
-                          //       style: const TextStyle(
-                          //         fontSize: 16.0,
-                          //         color: AppColors.gray3,
-                          //       ),
-                          //       children: [
-                          //         TextSpan(
-                          //           text: 'Sign Up',
-                          //           style: const TextStyle(
-                          //             color: AppColors.blue,
-                          //           ),
-                          //           recognizer: TapGestureRecognizer()
-                          //             ..onTap = () {
-                          //               // context.push(const RegisterPage());
-                          //               Navigator.pushNamed(
-                          //                   context, AppRoutes.signUp);
-                          //             },
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

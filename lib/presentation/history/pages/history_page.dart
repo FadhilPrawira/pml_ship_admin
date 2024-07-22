@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/styles.dart';
 import '../widgets/finished_history_card.dart';
 import '../widgets/on_process_history_card.dart';
 import '../widgets/rejected_history_card.dart';
@@ -14,14 +13,18 @@ class HistoryPage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
+          bottom: const TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            labelStyle:
-                primaryTextStyle.copyWith(fontSize: 16.0, fontWeight: semiBold),
-            unselectedLabelStyle:
-                subtitleTextStyle.copyWith(fontSize: 16.0, fontWeight: regular),
-            tabs: const [
+            labelStyle: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+            ),
+            unselectedLabelStyle: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w400,
+            ),
+            tabs: [
               Tab(
                 text: 'Waiting',
               ),

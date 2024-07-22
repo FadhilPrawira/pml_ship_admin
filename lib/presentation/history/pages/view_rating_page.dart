@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
-import '../../../core/styles.dart';
 
 class ViewRatingPage extends StatelessWidget {
   const ViewRatingPage({super.key});
@@ -10,13 +9,15 @@ class ViewRatingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     PreferredSizeWidget header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: AppColors.gray4,
         title: Container(
-          padding: EdgeInsets.all(defaultMargin),
-          child: Text(
+          padding: const EdgeInsets.all(30.0),
+          child: const Text(
             'Customer Payment Data',
-            style:
-                primaryTextStyle.copyWith(fontWeight: semiBold, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
           ),
         ),
       );
@@ -24,7 +25,7 @@ class ViewRatingPage extends StatelessWidget {
 
     Widget shipIdentity() {
       return Container(
-        padding: EdgeInsets.symmetric(vertical: defaultMargin),
+        padding: const EdgeInsets.symmetric(vertical: 30.0),
         height: 150,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,9 +42,7 @@ class ViewRatingPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              width: 20,
-            ),
+            const SpaceWidth(20),
             const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -64,27 +63,19 @@ class ViewRatingPage extends StatelessWidget {
           Assets.icon.iconStarColored.image(
             height: 40,
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SpaceWidth(10),
           Assets.icon.iconStarColored.image(
             height: 40,
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SpaceWidth(10),
           Assets.icon.iconStarColored.image(
             height: 40,
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SpaceWidth(10),
           Assets.icon.iconStarBlank.image(
             height: 40,
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SpaceWidth(10),
           Assets.icon.iconStarBlank.image(
             height: 40,
           ),
@@ -94,27 +85,25 @@ class ViewRatingPage extends StatelessWidget {
 
     Widget giveReview() {
       return Padding(
-        padding: EdgeInsets.all(defaultMargin),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Berikan ulasan untuk pesanan ini',
-              style: primaryTextStyle.copyWith(
-                fontWeight: medium,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
                 fontSize: 16,
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SpaceHeight(20),
             Container(
               height: 300.0,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: AppColors.black),
                 borderRadius: BorderRadius.circular(
                   5.0,
                 ),
@@ -122,15 +111,10 @@ class ViewRatingPage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(
-                  //   width: 16.0,
-                  // ),
                   Expanded(
                     child: TextFormField(
-                      style: primaryTextStyle,
-                      decoration: InputDecoration.collapsed(
+                      decoration: const InputDecoration.collapsed(
                         hintText: 'Tulis deskripsi Anda untuk pesanan ini',
-                        hintStyle: subtitleTextStyle,
                       ),
                     ),
                   ),
@@ -158,10 +142,12 @@ class ViewRatingPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Batal',
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 16.0, color: primaryColor),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: AppColors.primaryColor),
               ),
             ),
           ),
@@ -172,15 +158,17 @@ class ViewRatingPage extends StatelessWidget {
                 //navigator
               },
               style: TextButton.styleFrom(
-                backgroundColor: verifyCheck,
+                backgroundColor: AppColors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Kirim',
-                style: primaryTextStyle.copyWith(
-                    fontWeight: medium, fontSize: 16.0, color: primaryColor),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: AppColors.primaryColor),
               ),
             ),
           ),
