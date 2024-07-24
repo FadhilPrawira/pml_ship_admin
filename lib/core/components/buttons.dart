@@ -65,12 +65,14 @@ class Button extends StatelessWidget {
                 children: [
                   icon ?? const SizedBox.shrink(),
                   if (icon != null) const SpaceWidth(10),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
@@ -90,12 +92,14 @@ class Button extends StatelessWidget {
                 children: [
                   icon ?? const SizedBox.shrink(),
                   if (icon != null) const SpaceWidth(10),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

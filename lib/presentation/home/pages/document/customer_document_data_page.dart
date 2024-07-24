@@ -32,13 +32,26 @@ class _CustomerDocumentDataPageState extends State<CustomerDocumentDataPage> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
+            bottom: TabBar(
+              onTap: (index) {
+                if (index == 0) {
+                  context.read<OrderDataBloc>().add(
+                        const OrderDataEvent.getAllOnProcessOrders(),
+                      );
+                } else {
+                  context.read<OrderDataBloc>().add(
+                        const OrderDataEvent.getAllCompletedOrders(),
+                      );
+                }
+              },
+              tabAlignment: TabAlignment.start,
+              isScrollable: true,
+              tabs: const [
                 Tab(
-                  text: 'Order On Process',
+                  text: 'Document On Process',
                 ),
                 Tab(
-                  text: 'Order Finished',
+                  text: 'Document Finished',
                 ),
               ],
             ),

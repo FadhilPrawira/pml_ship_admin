@@ -7,10 +7,11 @@ import '../../../../data/models/request/approve_user_or_order_or_conference_requ
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/order_detail_response_model.dart';
 
+import '../../bloc/order_data/order_data_bloc.dart';
 import '../../bloc/order_detail/order_detail_bloc.dart';
 
 import '../../bloc/verify_order_data/verify_order_data_bloc.dart';
-import '../../bloc/verify_payment_data/verify_payment_data_bloc.dart';
+import '../document/document_list_page.dart';
 
 class VerifyOrderDataPage extends StatefulWidget {
   final String transactionId;
@@ -40,7 +41,6 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.gray4,
           title: Container(
             padding: const EdgeInsets.all(30.0),
             child: const Text(
@@ -114,11 +114,22 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           padding: const EdgeInsets.only(bottom: 30.0),
           child: Visibility(
             visible: isPending, // Show only if status is 'pending'
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Column(
               children: [
-                buildRejectButton('${order.data!.transactionId}'),
-                buildApproveButton('${order.data!.transactionId}'),
+                const Text(
+                  'Apakah tercapai kesepakatan dalam negosiasi? Negosiasi harus dilaksanakan sebelum menyetujui order.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    buildRejectButton('${order.data!.transactionId}'),
+                    buildApproveButton('${order.data!.transactionId}'),
+                  ],
+                ),
               ],
             ),
           ),
@@ -127,73 +138,67 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
           visible: isOnShipping,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 30.0),
-            child: BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
-              listener: (context, state) {
-                state.maybeMap(
-                  orElse: () {},
-                  error: (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.message),
-                        backgroundColor: AppColors.red,
-                      ),
-                    );
-                  },
-                  success: (value) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Order complteed successfully'),
-                        backgroundColor: AppColors.green,
-                      ),
-                    );
-                    Navigator.pop(context);
-                    widget.refreshData();
-                  },
-                );
-              },
-              child: Button.filled(
-                onPressed: () {
-                  final dataRequest = CompleteOrderRequestModel(
-                    completedAt: DateTime.now(),
-                  );
-                  context.read<VerifyOrderDataBloc>().add(
-                        VerifyOrderDataEvent.setOrderToCompleted(
-                          dataRequest,
-                          widget.transactionId,
+            child: Column(
+              children: [
+                Button.filled(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DocumentListPage(
+                          transactionId: order.data!.transactionId!,
                         ),
+                      ),
+                    );
+                  },
+                  label: 'Upload Document',
+                ),
+                const SpaceHeight(20),
+                BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
+                  listener: (context, state) {
+                    state.maybeMap(
+                      orElse: () {},
+                      error: (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(e.message),
+                            backgroundColor: AppColors.red,
+                          ),
+                        );
+                      },
+                      success: (value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Order completed successfully'),
+                            backgroundColor: AppColors.green,
+                          ),
+                        );
+                        Navigator.pop(context);
+                        context.read<OrderDataBloc>().add(
+                              const OrderDataEvent.getAllOnShippingOrders(),
+                            );
+                      },
+                    );
+                  },
+                  child: Button.filled(
+                    onPressed: () {
+                      final dataRequest = CompleteOrderRequestModel(
+                        completedAt: DateTime.now(),
                       );
-                },
-                label: 'Set to completed',
-              ),
+                      context.read<VerifyOrderDataBloc>().add(
+                            VerifyOrderDataEvent.setOrderToCompleted(
+                              dataRequest,
+                              widget.transactionId,
+                            ),
+                          );
+                    },
+                    label: 'Set to completed',
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        // Visibility(
-        //   visible: isPaymentPending, // Show only if status is not 'pending'
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Row(
-        //         children: [
-        //           const Icon(Icons.picture_as_pdf),
-        //           // TODO: FIX IT payment bug when not available
-        //           Flexible(
-        //             child: Text(
-        //               '${order.data!.payment!.payments!.first.paymentProofDocument} ',
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //           buildRejectPaymentButton('${order.data!.transactionId}'),
-        //           buildApprovePaymentButton('${order.data!.transactionId}'),
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ],
     );
   }
@@ -240,118 +245,6 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
     );
   }
 
-  Widget buildRejectPaymentButton(String transactionId) {
-    return BlocListener<VerifyPaymentDataBloc, VerifyPaymentDataState>(
-      listener: (context, state) {
-        state.maybeMap(
-          orElse: () {},
-          error: (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(e.message),
-                backgroundColor: AppColors.red,
-              ),
-            );
-          },
-          success: (value) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content:
-                    Text('Payment proof $transactionId rejected successfully'),
-                backgroundColor: AppColors.green,
-              ),
-            );
-            Navigator.pop(context);
-            widget.refreshData();
-          },
-        );
-      },
-      child: TextButton(
-        onPressed: () {
-          final dataRequest = RejectUserOrOrderOrConferenceRequestModel(
-            rejectedAt: DateTime.now(),
-          );
-
-          context.read<VerifyPaymentDataBloc>().add(
-                VerifyPaymentDataEvent.rejectPayment(
-                  dataRequest,
-                  widget.transactionId,
-                ),
-              );
-        },
-        style: TextButton.styleFrom(
-          backgroundColor: AppColors.red,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-        child: const Text(
-          'Reject',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-            color: AppColors.primaryColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildApprovePaymentButton(String transactionId) {
-    return BlocListener<VerifyPaymentDataBloc, VerifyPaymentDataState>(
-      listener: (context, state) {
-        state.maybeMap(
-          orElse: () {},
-          error: (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(e.message),
-                backgroundColor: AppColors.red,
-              ),
-            );
-          },
-          success: (value) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Payment $transactionId approved successfully'),
-                backgroundColor: AppColors.green,
-              ),
-            );
-            Navigator.pop(context);
-            widget.refreshData();
-          },
-        );
-      },
-      child: TextButton(
-        onPressed: () {
-          final dataRequest = ApproveUserOrOrderOrConferenceRequestModel(
-            approvedAt: DateTime.now(),
-          );
-          context.read<VerifyPaymentDataBloc>().add(
-                VerifyPaymentDataEvent.approvePayment(
-                  dataRequest,
-                  widget.transactionId,
-                ),
-              );
-        },
-        style: TextButton.styleFrom(
-          backgroundColor: AppColors.green,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-        child: const Text(
-          'Verify',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 16.0,
-            color: AppColors.primaryColor,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buildRejectButton(String transactionId) {
     return BlocListener<VerifyOrderDataBloc, VerifyOrderDataState>(
       listener: (context, state) {
@@ -365,7 +258,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               ),
             );
           },
-          success: (value) {
+          successReject: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Order $transactionId rejected successfully'),
@@ -373,7 +266,9 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               ),
             );
             Navigator.pop(context);
-            widget.refreshData();
+            context.read<OrderDataBloc>().add(
+                  const OrderDataEvent.getAllPendingOrders(),
+                );
           },
         );
       },
@@ -421,7 +316,7 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               ),
             );
           },
-          success: (value) {
+          successApprove: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Order $transactionId approved successfully'),
@@ -429,7 +324,9 @@ class _VerifyOrderDataPageState extends State<VerifyOrderDataPage> {
               ),
             );
             Navigator.pop(context);
-            widget.refreshData();
+            context.read<OrderDataBloc>().add(
+                  const OrderDataEvent.getAllPendingOrders(),
+                );
           },
         );
       },

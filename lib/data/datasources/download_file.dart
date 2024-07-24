@@ -48,13 +48,17 @@ class FileStorage {
     // Generate a timestamp for the filename
     String timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
 
-    // String fileName = '${timestamp}_.pdf'.replaceAll(':', '-');
+    String originalFileName = uriURL.pathSegments.last;
+// Extract the filename without the extension
+    String fileNameWithoutExtension = originalFileName.split('.').first;
 
-    String originalFileName = timestamp + uriURL.pathSegments.last;
+// Extract the file extension
+    String fileExtension = originalFileName.split('.').last;
+    // Construct the new filename with the timestamp
+    String newFileName =
+        '${fileNameWithoutExtension}_$timestamp.$fileExtension';
 
-    // Sanitize the filename (implementation not shown here)
-
-    String filePath = join(await _localPath, originalFileName);
+    String filePath = join(await _localPath, newFileName);
     File file = File(filePath);
 
     try {

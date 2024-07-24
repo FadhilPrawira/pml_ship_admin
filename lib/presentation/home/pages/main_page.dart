@@ -13,105 +13,55 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
+  int _selectedIndex = 0;
+  final _widgets = [
+    const HomeAdminPage(),
+    const HistoryPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    Widget customBottomNav() {
-      return SizedBox(
-        height: 100,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(30.0),
+    return Scaffold(
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgets,
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.stroke),
+        ),
+        child: Theme(
+          data: ThemeData(
+            splashColor: AppColors.primaryColor,
+            highlightColor: AppColors.primaryColor,
           ),
-          child: BottomAppBar(
-            padding: const EdgeInsets.only(),
-            shape: const CircularNotchedRectangle(),
-            notchMargin: 10,
-            clipBehavior: Clip.antiAlias,
-            child: BottomNavigationBar(
-              iconSize: 30.0,
-              backgroundColor: AppColors.gray4,
-              currentIndex: currentIndex,
-              onTap: (value) {
-                // print(value);
-                setState(
-                  () {
-                    currentIndex = value;
-                  },
-                );
-              },
-              type: BottomNavigationBarType.fixed,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Container(
-                    margin: const EdgeInsets.only(
-                      top: 20.0,
-                      bottom: 5.0,
-                    ),
-                    child: Icon(
-                      Icons.home_outlined,
-                      color:
-                          currentIndex == 0 ? AppColors.blue : AppColors.gray3,
-                    ),
-                  ),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Container(
-                      margin: const EdgeInsets.only(
-                        top: 20.0,
-                        bottom: 5.0,
-                      ),
-                      child: Icon(
-                        Icons.format_list_bulleted,
-                        color: currentIndex == 1
-                            ? AppColors.blue
-                            : AppColors.gray3,
-                      )),
-                  label: 'History',
-                ),
-                BottomNavigationBarItem(
-                  icon: Container(
-                    margin: const EdgeInsets.only(
-                      top: 20.0,
-                      bottom: 5.0,
-                    ),
-                    child: Icon(
-                      Icons.person,
-                      color:
-                          currentIndex == 2 ? AppColors.blue : AppColors.gray3,
-                    ),
-                  ),
-                  label: 'Profile',
-                ),
-              ],
-            ),
+          child: BottomNavigationBar(
+            backgroundColor: AppColors.primaryColor,
+            useLegacyColorScheme: false,
+            currentIndex: _selectedIndex,
+            onTap: (value) => setState(() => _selectedIndex = value),
+            type: BottomNavigationBarType.fixed,
+            selectedLabelStyle: const TextStyle(color: AppColors.gray1),
+            selectedIconTheme: const IconThemeData(color: AppColors.black),
+            elevation: 0,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.format_list_bulleted),
+                label: 'Pesanan',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
           ),
         ),
-      );
-    }
-
-    Widget body() {
-      switch (currentIndex) {
-        case 0:
-          return const HomeAdminPage();
-
-        case 1:
-          return const HistoryPage();
-
-        case 2:
-          return const ProfilePage();
-
-        default:
-          return const HomeAdminPage();
-      }
-    }
-
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: customBottomNav(),
-        body: body(),
       ),
     );
   }

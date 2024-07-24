@@ -142,12 +142,12 @@ class _CustomerDataPageState extends State<CustomerDataPage> {
               Text(
                 // Show the date based on the status. Display the createdAt date if the status is pending, approvedAt date if the status is approved, and rejectedAt date if the status is rejected. If the status is none of the above, display the createdAt date.
                 userData.status == 'pending'
-                    ? 'Created at : ${userData.createdAt.toIso8601String()}'
+                    ? 'Created at : ${userData.createdAt.toFormattedIndonesianShortDateAndUTC7Time()}'
                     : userData.status == 'approved'
-                        ? 'Approved at : ${userData.approvedAt!.toIso8601String()}'
+                        ? 'Approved at : ${userData.approvedAt!.toFormattedIndonesianShortDateAndUTC7Time()}'
                         : userData.status == 'rejected'
-                            ? 'Rejected at : ${userData.rejectedAt!.toIso8601String()}'
-                            : 'Created at : ${userData.createdAt.toIso8601String()}',
+                            ? 'Rejected at : ${userData.rejectedAt!.toFormattedIndonesianShortDateAndUTC7Time()}'
+                            : 'Created at : ${userData.createdAt.toFormattedIndonesianShortDateAndUTC7Time()}',
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 12.0,

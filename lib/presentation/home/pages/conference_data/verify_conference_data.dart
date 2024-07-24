@@ -5,16 +5,16 @@ import '../../../../core/core.dart';
 import '../../../../data/models/request/approve_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/request/reject_user_or_order_or_conference_request_model.dart';
 import '../../../../data/models/response/conference_response_model.dart';
+import '../../bloc/conference_data/conference_data_bloc.dart';
 import '../../bloc/detail_conference/detail_conference_bloc.dart';
 import '../../bloc/verify_conference_data/verify_conference_data_bloc.dart';
 
 class VerifyConferenceData extends StatefulWidget {
   final String transactionId;
-  final Function refreshData;
+
   const VerifyConferenceData({
     super.key,
     required this.transactionId,
-    required this.refreshData,
   });
 
   @override
@@ -35,7 +35,6 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.gray4,
           title: const Text(
             'Verify Conference Data',
           ),
@@ -71,9 +70,11 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
         buildInfoItem('Route',
             '${conference.data.order.loading.port} to ${conference.data.order.discharge.port}'),
         buildInfoItem('Date of Loading',
-            conference.data.order.loading.date.toIso8601String()),
-        buildInfoItem('Date of Discharge',
-            conference.data.order.discharge.date.toIso8601String()),
+            conference.data.order.loading.date.toFormattedIndonesianLongDate()),
+        buildInfoItem(
+            'Date of Discharge',
+            conference.data.order.discharge.date
+                .toFormattedIndonesianLongDate()),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 30.0),
           child: Visibility(
@@ -105,7 +106,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               ),
             );
           },
-          success: (value) {
+          successApprove: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content:
@@ -115,7 +116,9 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
             );
 
             Navigator.pop(context);
-            widget.refreshData();
+            context.read<ConferenceDataBloc>().add(
+                  const ConferenceDataEvent.getAllPendingConference(),
+                );
           },
         );
       },
@@ -163,7 +166,7 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               ),
             );
           },
-          success: (value) {
+          successReject: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content:
@@ -172,7 +175,9 @@ class _VerifyConferenceDataState extends State<VerifyConferenceData> {
               ),
             );
             Navigator.pop(context);
-            widget.refreshData();
+            context.read<ConferenceDataBloc>().add(
+                  const ConferenceDataEvent.getAllPendingConference(),
+                );
           },
         );
       },

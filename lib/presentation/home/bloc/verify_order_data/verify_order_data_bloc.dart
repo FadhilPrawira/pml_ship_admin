@@ -23,7 +23,7 @@ class VerifyOrderDataBloc
       );
       response.fold(
         (l) => emit(VerifyOrderDataState.error(l)),
-        (r) => emit(VerifyOrderDataState.success(r)),
+        (r) => emit(VerifyOrderDataState.successApprove(r)),
       );
     });
     on<_RejectOrder>((event, emit) async {
@@ -34,7 +34,7 @@ class VerifyOrderDataBloc
       );
       response.fold(
         (l) => emit(VerifyOrderDataState.error(l)),
-        (r) => emit(VerifyOrderDataState.success(r)),
+        (r) => emit(VerifyOrderDataState.successReject(r)),
       );
     });
     on<_SetOrderToCompleted>((event, emit) async {

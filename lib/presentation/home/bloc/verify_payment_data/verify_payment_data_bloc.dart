@@ -22,7 +22,7 @@ class VerifyPaymentDataBloc
       );
       response.fold(
         (l) => emit(VerifyPaymentDataState.error(l)),
-        (r) => emit(VerifyPaymentDataState.success(r)),
+        (r) => emit(VerifyPaymentDataState.successApprove(r)),
       );
     });
     on<_RejectPayment>((event, emit) async {
@@ -33,7 +33,7 @@ class VerifyPaymentDataBloc
       );
       response.fold(
         (l) => emit(VerifyPaymentDataState.error(l)),
-        (r) => emit(VerifyPaymentDataState.success(r)),
+        (r) => emit(VerifyPaymentDataState.successReject(r)),
       );
     });
   }

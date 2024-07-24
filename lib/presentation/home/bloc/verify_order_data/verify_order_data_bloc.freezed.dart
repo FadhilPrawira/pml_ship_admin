@@ -871,6 +871,12 @@ mixin _$VerifyOrderDataState {
     required TResult Function(String message) error,
     required TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
         success,
   }) =>
       throw _privateConstructorUsedError;
@@ -879,6 +885,12 @@ mixin _$VerifyOrderDataState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
     TResult? Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
@@ -891,6 +903,12 @@ mixin _$VerifyOrderDataState {
     TResult Function(String message)? error,
     TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
     required TResult orElse(),
   }) =>
@@ -900,6 +918,8 @@ mixin _$VerifyOrderDataState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
     required TResult Function(_Success value) success,
   }) =>
       throw _privateConstructorUsedError;
@@ -908,6 +928,8 @@ mixin _$VerifyOrderDataState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
     TResult? Function(_Success value)? success,
   }) =>
       throw _privateConstructorUsedError;
@@ -916,6 +938,8 @@ mixin _$VerifyOrderDataState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) =>
@@ -984,6 +1008,12 @@ class _$InitialImpl implements _Initial {
     required TResult Function(String message) error,
     required TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
         success,
   }) {
     return initial();
@@ -997,6 +1027,12 @@ class _$InitialImpl implements _Initial {
     TResult? Function(String message)? error,
     TResult? Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
   }) {
     return initial?.call();
@@ -1008,6 +1044,12 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
     TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
@@ -1025,6 +1067,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
     required TResult Function(_Success value) success,
   }) {
     return initial(this);
@@ -1036,6 +1080,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
     TResult? Function(_Success value)? success,
   }) {
     return initial?.call(this);
@@ -1047,6 +1093,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
@@ -1104,6 +1152,12 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(String message) error,
     required TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
         success,
   }) {
     return loading();
@@ -1117,6 +1171,12 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(String message)? error,
     TResult? Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
   }) {
     return loading?.call();
@@ -1128,6 +1188,12 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
     TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
@@ -1145,6 +1211,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
     required TResult Function(_Success value) success,
   }) {
     return loading(this);
@@ -1156,6 +1224,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
     TResult? Function(_Success value)? success,
   }) {
     return loading?.call(this);
@@ -1167,6 +1237,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
@@ -1250,6 +1322,12 @@ class _$ErrorImpl implements _Error {
     required TResult Function(String message) error,
     required TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
         success,
   }) {
     return error(message);
@@ -1263,6 +1341,12 @@ class _$ErrorImpl implements _Error {
     TResult? Function(String message)? error,
     TResult? Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
   }) {
     return error?.call(message);
@@ -1274,6 +1358,12 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
     TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
@@ -1291,6 +1381,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
     required TResult Function(_Success value) success,
   }) {
     return error(this);
@@ -1302,6 +1394,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
     TResult? Function(_Success value)? success,
   }) {
     return error?.call(this);
@@ -1313,6 +1407,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
@@ -1329,6 +1425,367 @@ abstract class _Error implements VerifyOrderDataState {
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessApproveImplCopyWith<$Res> {
+  factory _$$SuccessApproveImplCopyWith(_$SuccessApproveImpl value,
+          $Res Function(_$SuccessApproveImpl) then) =
+      __$$SuccessApproveImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateOrderStatusResponseModel updateOrderStatusResponseModel});
+}
+
+/// @nodoc
+class __$$SuccessApproveImplCopyWithImpl<$Res>
+    extends _$VerifyOrderDataStateCopyWithImpl<$Res, _$SuccessApproveImpl>
+    implements _$$SuccessApproveImplCopyWith<$Res> {
+  __$$SuccessApproveImplCopyWithImpl(
+      _$SuccessApproveImpl _value, $Res Function(_$SuccessApproveImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? updateOrderStatusResponseModel = null,
+  }) {
+    return _then(_$SuccessApproveImpl(
+      null == updateOrderStatusResponseModel
+          ? _value.updateOrderStatusResponseModel
+          : updateOrderStatusResponseModel // ignore: cast_nullable_to_non_nullable
+              as UpdateOrderStatusResponseModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessApproveImpl implements _SuccessApprove {
+  const _$SuccessApproveImpl(this.updateOrderStatusResponseModel);
+
+  @override
+  final UpdateOrderStatusResponseModel updateOrderStatusResponseModel;
+
+  @override
+  String toString() {
+    return 'VerifyOrderDataState.successApprove(updateOrderStatusResponseModel: $updateOrderStatusResponseModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessApproveImpl &&
+            (identical(other.updateOrderStatusResponseModel,
+                    updateOrderStatusResponseModel) ||
+                other.updateOrderStatusResponseModel ==
+                    updateOrderStatusResponseModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, updateOrderStatusResponseModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessApproveImplCopyWith<_$SuccessApproveImpl> get copyWith =>
+      __$$SuccessApproveImplCopyWithImpl<_$SuccessApproveImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String message) error,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        success,
+  }) {
+    return successApprove(updateOrderStatusResponseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? error,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        success,
+  }) {
+    return successApprove?.call(updateOrderStatusResponseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        success,
+    required TResult orElse(),
+  }) {
+    if (successApprove != null) {
+      return successApprove(updateOrderStatusResponseModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
+    required TResult Function(_Success value) success,
+  }) {
+    return successApprove(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
+    TResult? Function(_Success value)? success,
+  }) {
+    return successApprove?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
+    TResult Function(_Success value)? success,
+    required TResult orElse(),
+  }) {
+    if (successApprove != null) {
+      return successApprove(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessApprove implements VerifyOrderDataState {
+  const factory _SuccessApprove(
+          final UpdateOrderStatusResponseModel updateOrderStatusResponseModel) =
+      _$SuccessApproveImpl;
+
+  UpdateOrderStatusResponseModel get updateOrderStatusResponseModel;
+  @JsonKey(ignore: true)
+  _$$SuccessApproveImplCopyWith<_$SuccessApproveImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessRejectImplCopyWith<$Res> {
+  factory _$$SuccessRejectImplCopyWith(
+          _$SuccessRejectImpl value, $Res Function(_$SuccessRejectImpl) then) =
+      __$$SuccessRejectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateOrderStatusResponseModel updateOrderStatusResponseModel});
+}
+
+/// @nodoc
+class __$$SuccessRejectImplCopyWithImpl<$Res>
+    extends _$VerifyOrderDataStateCopyWithImpl<$Res, _$SuccessRejectImpl>
+    implements _$$SuccessRejectImplCopyWith<$Res> {
+  __$$SuccessRejectImplCopyWithImpl(
+      _$SuccessRejectImpl _value, $Res Function(_$SuccessRejectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? updateOrderStatusResponseModel = null,
+  }) {
+    return _then(_$SuccessRejectImpl(
+      null == updateOrderStatusResponseModel
+          ? _value.updateOrderStatusResponseModel
+          : updateOrderStatusResponseModel // ignore: cast_nullable_to_non_nullable
+              as UpdateOrderStatusResponseModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessRejectImpl implements _SuccessReject {
+  const _$SuccessRejectImpl(this.updateOrderStatusResponseModel);
+
+  @override
+  final UpdateOrderStatusResponseModel updateOrderStatusResponseModel;
+
+  @override
+  String toString() {
+    return 'VerifyOrderDataState.successReject(updateOrderStatusResponseModel: $updateOrderStatusResponseModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessRejectImpl &&
+            (identical(other.updateOrderStatusResponseModel,
+                    updateOrderStatusResponseModel) ||
+                other.updateOrderStatusResponseModel ==
+                    updateOrderStatusResponseModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, updateOrderStatusResponseModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessRejectImplCopyWith<_$SuccessRejectImpl> get copyWith =>
+      __$$SuccessRejectImplCopyWithImpl<_$SuccessRejectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String message) error,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        success,
+  }) {
+    return successReject(updateOrderStatusResponseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? error,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        success,
+  }) {
+    return successReject?.call(updateOrderStatusResponseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        success,
+    required TResult orElse(),
+  }) {
+    if (successReject != null) {
+      return successReject(updateOrderStatusResponseModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
+    required TResult Function(_Success value) success,
+  }) {
+    return successReject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
+    TResult? Function(_Success value)? success,
+  }) {
+    return successReject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
+    TResult Function(_Success value)? success,
+    required TResult orElse(),
+  }) {
+    if (successReject != null) {
+      return successReject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessReject implements VerifyOrderDataState {
+  const factory _SuccessReject(
+          final UpdateOrderStatusResponseModel updateOrderStatusResponseModel) =
+      _$SuccessRejectImpl;
+
+  UpdateOrderStatusResponseModel get updateOrderStatusResponseModel;
+  @JsonKey(ignore: true)
+  _$$SuccessRejectImplCopyWith<_$SuccessRejectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1404,6 +1861,12 @@ class _$SuccessImpl implements _Success {
     required TResult Function(String message) error,
     required TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successApprove,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
+        successReject,
+    required TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)
         success,
   }) {
     return success(updateOrderStatusResponseModel);
@@ -1417,6 +1880,12 @@ class _$SuccessImpl implements _Success {
     TResult? Function(String message)? error,
     TResult? Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
+    TResult? Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
   }) {
     return success?.call(updateOrderStatusResponseModel);
@@ -1428,6 +1897,12 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successApprove,
+    TResult Function(
+            UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
+        successReject,
     TResult Function(
             UpdateOrderStatusResponseModel updateOrderStatusResponseModel)?
         success,
@@ -1445,6 +1920,8 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
     required TResult Function(_Success value) success,
   }) {
     return success(this);
@@ -1456,6 +1933,8 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
     TResult? Function(_Success value)? success,
   }) {
     return success?.call(this);
@@ -1467,6 +1946,8 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {

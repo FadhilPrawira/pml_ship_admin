@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pml_ship_admin/presentation/home/pages/payment/payment_data_page.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/models/response/get_all_status_order_response_model.dart';
+import '../../../history/pages/track_vessel_page.dart';
 import '../../pages/order_data/verify_order_data_page.dart';
 
 class BuildOrderDataItem extends StatelessWidget {
@@ -78,26 +80,53 @@ class BuildOrderDataItem extends StatelessWidget {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Button.filled(
                     width: 170,
                     onPressed: () {
                       // To navigate to VerifyOrderDataPage
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VerifyOrderDataPage(
-                            transactionId: orderData.transactionId!,
-                            refreshData: refreshData,
+                      if (orderData.status == 'payment_pending') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PaymentDataPage(),
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VerifyOrderDataPage(
+                              transactionId: orderData.transactionId!,
+                              refreshData: refreshData,
+                            ),
+                          ),
+                        );
+                      }
                     },
                     label: 'Order Detail',
                     fontSize: 12.0,
                   ),
+                  Visibility(
+                    visible: response.data![index].status == 'on_shipping',
+                    child: Button.filled(
+                      width: 150,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TrackVesselPage(
+                              transactionId: response.data![index].transactionId
+                                  .toString(),
+                            ),
+                          ),
+                        );
+                      },
+                      label: 'Track Vessel',
+                    ),
+                  )
                 ],
               ),
             ],

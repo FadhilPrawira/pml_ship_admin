@@ -65,6 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           '$name',
                           style: const TextStyle(
+                            color: AppColors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),
@@ -74,6 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           '$email',
                           style: const TextStyle(
+                            color: AppColors.black,
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                           ),

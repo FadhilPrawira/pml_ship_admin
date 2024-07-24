@@ -35,23 +35,6 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget forgotPassword() {
-      return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/recover-password');
-        },
-        child: Container(
-          padding: const EdgeInsets.only(top: 10),
-          child: const Text(
-            'I forget my password',
-            style: TextStyle(
-              fontSize: 12.0,
-            ),
-          ),
-        ),
-      );
-    }
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
@@ -124,12 +107,6 @@ class _SignInPageState extends State<SignInPage> {
                               onPressed: toggleShowPassword,
                             ),
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   children: [
-                          //     forgotPassword(),
-                          //   ],
-                          // ),
                           const SpaceHeight(33.0),
                           BlocConsumer<LoginBloc, LoginState>(
                             listener: (context, state) {

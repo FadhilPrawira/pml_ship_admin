@@ -38,7 +38,6 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.gray4,
           title: const Text(
             'Verify Payment Data',
           ),
@@ -121,7 +120,7 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
               ),
             );
           },
-          success: (value) {
+          successApprove: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('payment approved successfully'),
@@ -180,7 +179,7 @@ class _VerifyPaymentDataPageState extends State<VerifyPaymentDataPage> {
               ),
             );
           },
-          success: (value) {
+          successReject: (value) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Payment rejected successfully'),

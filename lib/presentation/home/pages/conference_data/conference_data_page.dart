@@ -156,7 +156,8 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                conferenceData.createdAt.toIso8601String(),
+                conferenceData.createdAt
+                    .toFormattedIndonesianShortDateAndUTC7Time(),
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, fontSize: 12.0),
               ),
@@ -176,7 +177,6 @@ class _ConferenceDataPageState extends State<ConferenceDataPage> {
                         MaterialPageRoute(
                           builder: (context) => VerifyConferenceData(
                             transactionId: conferenceData.transactionId,
-                            refreshData: refreshData,
                           ),
                         ),
                       );

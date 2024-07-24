@@ -23,7 +23,7 @@ class VerifyConferenceDataBloc
       );
       response.fold(
         (l) => emit(VerifyConferenceDataState.error(l)),
-        (r) => emit(VerifyConferenceDataState.success(r)),
+        (r) => emit(VerifyConferenceDataState.successApprove(r)),
       );
     });
 
@@ -35,7 +35,7 @@ class VerifyConferenceDataBloc
       );
       response.fold(
         (l) => emit(VerifyConferenceDataState.error(l)),
-        (r) => emit(VerifyConferenceDataState.success(r)),
+        (r) => emit(VerifyConferenceDataState.successReject(r)),
       );
     });
   }

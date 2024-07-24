@@ -562,7 +562,9 @@ mixin _$VerifyPaymentDataState {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(UpdatePaymentStatusResponseModel responseModel)
-        success,
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -570,7 +572,10 @@ mixin _$VerifyPaymentDataState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -578,7 +583,10 @@ mixin _$VerifyPaymentDataState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -587,7 +595,8 @@ mixin _$VerifyPaymentDataState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -595,7 +604,8 @@ mixin _$VerifyPaymentDataState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -603,7 +613,8 @@ mixin _$VerifyPaymentDataState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -670,7 +681,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(UpdatePaymentStatusResponseModel responseModel)
-        success,
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
   }) {
     return initial();
   }
@@ -681,7 +694,10 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
   }) {
     return initial?.call();
   }
@@ -692,7 +708,10 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -707,7 +726,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
   }) {
     return initial(this);
   }
@@ -718,7 +738,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
   }) {
     return initial?.call(this);
   }
@@ -729,7 +750,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -785,7 +807,9 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(UpdatePaymentStatusResponseModel responseModel)
-        success,
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
   }) {
     return loading();
   }
@@ -796,7 +820,10 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
   }) {
     return loading?.call();
   }
@@ -807,7 +834,10 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -822,7 +852,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
   }) {
     return loading(this);
   }
@@ -833,7 +864,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
   }) {
     return loading?.call(this);
   }
@@ -844,7 +876,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -926,7 +959,9 @@ class _$ErrorImpl implements _Error {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(UpdatePaymentStatusResponseModel responseModel)
-        success,
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
   }) {
     return error(message);
   }
@@ -937,7 +972,10 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
   }) {
     return error?.call(message);
   }
@@ -948,7 +986,10 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -963,7 +1004,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
   }) {
     return error(this);
   }
@@ -974,7 +1016,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
   }) {
     return error?.call(this);
   }
@@ -985,7 +1028,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1005,20 +1049,20 @@ abstract class _Error implements VerifyPaymentDataState {
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$SuccessApproveImplCopyWith<$Res> {
+  factory _$$SuccessApproveImplCopyWith(_$SuccessApproveImpl value,
+          $Res Function(_$SuccessApproveImpl) then) =
+      __$$SuccessApproveImplCopyWithImpl<$Res>;
   @useResult
   $Res call({UpdatePaymentStatusResponseModel responseModel});
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$VerifyPaymentDataStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$SuccessApproveImplCopyWithImpl<$Res>
+    extends _$VerifyPaymentDataStateCopyWithImpl<$Res, _$SuccessApproveImpl>
+    implements _$$SuccessApproveImplCopyWith<$Res> {
+  __$$SuccessApproveImplCopyWithImpl(
+      _$SuccessApproveImpl _value, $Res Function(_$SuccessApproveImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1026,7 +1070,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? responseModel = null,
   }) {
-    return _then(_$SuccessImpl(
+    return _then(_$SuccessApproveImpl(
       null == responseModel
           ? _value.responseModel
           : responseModel // ignore: cast_nullable_to_non_nullable
@@ -1037,22 +1081,22 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.responseModel);
+class _$SuccessApproveImpl implements _SuccessApprove {
+  const _$SuccessApproveImpl(this.responseModel);
 
   @override
   final UpdatePaymentStatusResponseModel responseModel;
 
   @override
   String toString() {
-    return 'VerifyPaymentDataState.success(responseModel: $responseModel)';
+    return 'VerifyPaymentDataState.successApprove(responseModel: $responseModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
+            other is _$SuccessApproveImpl &&
             (identical(other.responseModel, responseModel) ||
                 other.responseModel == responseModel));
   }
@@ -1063,8 +1107,9 @@ class _$SuccessImpl implements _Success {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+  _$$SuccessApproveImplCopyWith<_$SuccessApproveImpl> get copyWith =>
+      __$$SuccessApproveImplCopyWithImpl<_$SuccessApproveImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1073,9 +1118,11 @@ class _$SuccessImpl implements _Success {
     required TResult Function() loading,
     required TResult Function(String message) error,
     required TResult Function(UpdatePaymentStatusResponseModel responseModel)
-        success,
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
   }) {
-    return success(responseModel);
+    return successApprove(responseModel);
   }
 
   @override
@@ -1084,9 +1131,12 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
   }) {
-    return success?.call(responseModel);
+    return successApprove?.call(responseModel);
   }
 
   @override
@@ -1095,11 +1145,14 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(UpdatePaymentStatusResponseModel responseModel)? success,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(responseModel);
+    if (successApprove != null) {
+      return successApprove(responseModel);
     }
     return orElse();
   }
@@ -1110,9 +1163,10 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
-    required TResult Function(_Success value) success,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
   }) {
-    return success(this);
+    return successApprove(this);
   }
 
   @override
@@ -1121,9 +1175,10 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Success value)? success,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
   }) {
-    return success?.call(this);
+    return successApprove?.call(this);
   }
 
   @override
@@ -1132,22 +1187,184 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
-    TResult Function(_Success value)? success,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(this);
+    if (successApprove != null) {
+      return successApprove(this);
     }
     return orElse();
   }
 }
 
-abstract class _Success implements VerifyPaymentDataState {
-  const factory _Success(final UpdatePaymentStatusResponseModel responseModel) =
-      _$SuccessImpl;
+abstract class _SuccessApprove implements VerifyPaymentDataState {
+  const factory _SuccessApprove(
+          final UpdatePaymentStatusResponseModel responseModel) =
+      _$SuccessApproveImpl;
 
   UpdatePaymentStatusResponseModel get responseModel;
   @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+  _$$SuccessApproveImplCopyWith<_$SuccessApproveImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessRejectImplCopyWith<$Res> {
+  factory _$$SuccessRejectImplCopyWith(
+          _$SuccessRejectImpl value, $Res Function(_$SuccessRejectImpl) then) =
+      __$$SuccessRejectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdatePaymentStatusResponseModel responseModel});
+}
+
+/// @nodoc
+class __$$SuccessRejectImplCopyWithImpl<$Res>
+    extends _$VerifyPaymentDataStateCopyWithImpl<$Res, _$SuccessRejectImpl>
+    implements _$$SuccessRejectImplCopyWith<$Res> {
+  __$$SuccessRejectImplCopyWithImpl(
+      _$SuccessRejectImpl _value, $Res Function(_$SuccessRejectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? responseModel = null,
+  }) {
+    return _then(_$SuccessRejectImpl(
+      null == responseModel
+          ? _value.responseModel
+          : responseModel // ignore: cast_nullable_to_non_nullable
+              as UpdatePaymentStatusResponseModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessRejectImpl implements _SuccessReject {
+  const _$SuccessRejectImpl(this.responseModel);
+
+  @override
+  final UpdatePaymentStatusResponseModel responseModel;
+
+  @override
+  String toString() {
+    return 'VerifyPaymentDataState.successReject(responseModel: $responseModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessRejectImpl &&
+            (identical(other.responseModel, responseModel) ||
+                other.responseModel == responseModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, responseModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessRejectImplCopyWith<_$SuccessRejectImpl> get copyWith =>
+      __$$SuccessRejectImplCopyWithImpl<_$SuccessRejectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String message) error,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successApprove,
+    required TResult Function(UpdatePaymentStatusResponseModel responseModel)
+        successReject,
+  }) {
+    return successReject(responseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? error,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult? Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
+  }) {
+    return successReject?.call(responseModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String message)? error,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successApprove,
+    TResult Function(UpdatePaymentStatusResponseModel responseModel)?
+        successReject,
+    required TResult orElse(),
+  }) {
+    if (successReject != null) {
+      return successReject(responseModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_SuccessApprove value) successApprove,
+    required TResult Function(_SuccessReject value) successReject,
+  }) {
+    return successReject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessApprove value)? successApprove,
+    TResult? Function(_SuccessReject value)? successReject,
+  }) {
+    return successReject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_SuccessApprove value)? successApprove,
+    TResult Function(_SuccessReject value)? successReject,
+    required TResult orElse(),
+  }) {
+    if (successReject != null) {
+      return successReject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessReject implements VerifyPaymentDataState {
+  const factory _SuccessReject(
+          final UpdatePaymentStatusResponseModel responseModel) =
+      _$SuccessRejectImpl;
+
+  UpdatePaymentStatusResponseModel get responseModel;
+  @JsonKey(ignore: true)
+  _$$SuccessRejectImplCopyWith<_$SuccessRejectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

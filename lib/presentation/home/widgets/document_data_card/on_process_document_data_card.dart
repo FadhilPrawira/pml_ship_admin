@@ -45,8 +45,9 @@ class OnProcessDocumentDataCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                          child: Text(
-                              'Created at: ${orderData!.createdAt?.toFormattedIndonesianShortDateAndUTC7Time()}')),
+                        child: Text(
+                            'Created at: ${orderData!.createdAt?.toFormattedIndonesianShortDateAndUTC7Time()}'),
+                      ),
                       Flexible(
                         child: Text(
                           orderData.transactionId!,
@@ -64,7 +65,7 @@ class OnProcessDocumentDataCard extends StatelessWidget {
                   Text(
                       '${orderData.loading?.port} → ${orderData.discharge?.port}'),
                   Text(
-                      '${orderData.loading?.date} → ${orderData.discharge?.date}'),
+                      '${orderData.loading?.date?.toFormattedIndonesianShortDate()} → ${orderData.discharge?.date?.toFormattedIndonesianShortDate()}'),
                 ],
               ),
             ),

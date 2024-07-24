@@ -40,7 +40,6 @@ class _VerifyCustomerDataPageState extends State<VerifyCustomerDataPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.gray4,
           title: Container(
             padding: const EdgeInsets.all(30.0),
             child: const Text(

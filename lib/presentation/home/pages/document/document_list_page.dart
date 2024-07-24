@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core.dart';
+import '../../../../data/datasources/download_file.dart';
 import '../../bloc/documentData/document_data_bloc.dart';
 import 'upload_document_page.dart';
 
@@ -68,7 +70,12 @@ class _DocumentListPageState extends State<DocumentListPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        'Document data for transaction ID: ${widget.transactionId}'),
+                      'Document data for transaction ID: ${widget.transactionId}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: response.data.length,
@@ -94,7 +101,7 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                         child: Column(
                                           children: [
                                             Text(documentData.documentType),
-                                            ElevatedButton(
+                                            Button.outlined(
                                                 onPressed: () {
                                                   Navigator.push(
                                                     context,
@@ -110,8 +117,8 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                                     ),
                                                   );
                                                 },
-                                                child: const Text(
-                                                    'No data. Please select to upload document')),
+                                                label:
+                                                    'No data. Please select to upload document'),
                                           ],
                                         ),
                                       )
@@ -130,14 +137,28 @@ class _DocumentListPageState extends State<DocumentListPage> {
                                       ),
                                 Visibility(
                                   visible: documentData.documentName != null,
-                                  child: Text(
-                                    documentData.documentName ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
+                                  child: Button.filled(
+                                    onPressed: () {
+                                      final String urlname =
+                                          '${Variables.documentURL}${documentData.documentName}';
+                                      log(urlname);
+                                      FileStorage.downloadAndSaveFile(urlname);
+                                    },
+                                    icon: const Icon(
+                                      Icons.download,
                                       color: AppColors.primaryColor,
-                                      fontWeight: FontWeight.bold,
                                     ),
+                                    label: '${documentData.documentName}',
                                   ),
+
+                                  // Text(
+                                  //   documentData.documentName ?? '',
+                                  //   style: const TextStyle(
+                                  //     fontSize: 14,
+                                  //     color: AppColors.primaryColor,
+                                  //     fontWeight: FontWeight.bold,
+                                  //   ),
+                                  // ),
                                 ),
                               ],
                             ),

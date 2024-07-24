@@ -83,24 +83,30 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
               BlocConsumer<UploadDocumentBloc, UploadDocumentState>(
                 listener: (context, state) {
                   state.maybeWhen(
-                      orElse: () {},
-                      error: (message) {
-                        return ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Error: $message'),
-                            backgroundColor: AppColors.red,
-                          ),
-                        );
-                      },
-                      success: (state) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'Upload SUCCESS'), //menampilkan snackbar success
-                            backgroundColor: AppColors.green,
-                          ),
-                        );
-                      });
+                    orElse: () {},
+                    error: (message) {
+                      return ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error: $message'),
+                          backgroundColor: AppColors.red,
+                        ),
+                      );
+                    },
+                    success: (state) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              'Upload SUCCESS'), //menampilkan snackbar success
+                          backgroundColor: AppColors.green,
+                        ),
+                      );
+                      Navigator.pop(context); //kembali ke halaman sebelumnya
+                      context.read<DocumentDataBloc>().add(
+                            DocumentDataEvent.getDocumentsData(
+                                widget.transactionId),
+                          );
+                    },
+                  );
                 },
                 builder: (context, state) {
                   return state.maybeWhen(
@@ -132,12 +138,6 @@ class _UploadDocumentPageState extends State<UploadDocumentPage> {
                                     widget.transactionId,
                                   ),
                                 );
-                            context.read<DocumentDataBloc>().add(
-                                  DocumentDataEvent.getDocumentsData(
-                                      widget.transactionId),
-                                );
-                            Navigator.pop(
-                                context); //kembali ke halaman sebelumnya
                           }
                         },
                       );
